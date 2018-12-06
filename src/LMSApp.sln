@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1E2A777B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Tests\Sandbox\Sandbox.csproj", "{F073138E-6676-4165-BA19-5FF85110AE94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSApp.Data.Common", "Data\LMSApp.Data.Common\LMSApp.Data.Common.csproj", "{FF3E996E-2B04-4E72-9935-CC3D76DD5C0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F073138E-6676-4165-BA19-5FF85110AE94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F073138E-6676-4165-BA19-5FF85110AE94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F073138E-6676-4165-BA19-5FF85110AE94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF3E996E-2B04-4E72-9935-CC3D76DD5C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF3E996E-2B04-4E72-9935-CC3D76DD5C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF3E996E-2B04-4E72-9935-CC3D76DD5C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF3E996E-2B04-4E72-9935-CC3D76DD5C0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{4973A0FF-63FB-4A1D-A96A-A6D554C6B377} = {38625E2B-E5AB-4CCC-BFC2-050A51ABEAF7}
 		{B12499C1-B4C1-40F5-AD17-10B8CF4C7B98} = {38625E2B-E5AB-4CCC-BFC2-050A51ABEAF7}
 		{F073138E-6676-4165-BA19-5FF85110AE94} = {1E2A777B-98A0-4767-A187-AD5693DD3C37}
+		{FF3E996E-2B04-4E72-9935-CC3D76DD5C0C} = {38625E2B-E5AB-4CCC-BFC2-050A51ABEAF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9F689E2-AC5A-4EFD-ACB7-7178941F8808}
