@@ -13,7 +13,7 @@ using LMSApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using LMSApp.Models;
-using LMSApp.Areas.Identity.Data;
+using LMSApp.Data.Models;
 
 namespace LMSApp
 {
@@ -40,7 +40,15 @@ namespace LMSApp
                     options.UseSqlServer(
                         this.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddDefaultIdentity<LMSAppUser>()
+                services.AddDefaultIdentity<LMSAppUser>(
+                    options =>
+                    {
+                        options.Password.RequiredLength = 6;
+                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequireUppercase = false;
+                        options.Password.RequireLowercase = false;
+                    }
+                    )
                     .AddEntityFrameworkStores<LMSAppContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

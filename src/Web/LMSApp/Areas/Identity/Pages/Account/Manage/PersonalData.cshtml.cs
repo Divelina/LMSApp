@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using LMSApp.Areas.Identity.Data;
+using LMSApp.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

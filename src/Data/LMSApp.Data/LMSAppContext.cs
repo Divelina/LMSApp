@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LMSApp.Areas.Identity.Data;
+using LMSApp.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LMSApp.Models
+namespace LMSApp.Data
 {
     public class LMSAppContext : IdentityDbContext<LMSAppUser>
     {

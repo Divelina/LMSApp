@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace LMSApp.Areas.Identity.Data
+namespace LMSApp.Data.Models
 {
     // Add profile data for application users by adding properties to the LMSAppUser class
     public class LMSAppUser : IdentityUser

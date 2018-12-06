@@ -1,4 +1,6 @@
-﻿@inject SignInManager<LMSAppUser> SignInManager
+﻿@using LMSApp.Data.Models
+
+@inject SignInManager<LMSAppUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
