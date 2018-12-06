@@ -40,18 +40,24 @@ namespace LMSApp
                     options.UseSqlServer(
                         this.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddDefaultIdentity<LMSAppUser>(
+                services.AddIdentity<LMSAppUser, IdentityRole>(
                     options =>
                     {
                         options.Password.RequiredLength = 6;
+                        options.Password.RequireDigit = false;
                         options.Password.RequireNonAlphanumeric = false;
                         options.Password.RequireUppercase = false;
                         options.Password.RequireLowercase = false;
+                        options.User.RequireUniqueEmail = true;
                     }
                     )
-                    .AddEntityFrameworkStores<LMSAppContext>();
+                    .AddEntityFrameworkStores<LMSAppContext>()
+                    .AddDefaultUI()
+                    .AddDefaultTokenProviders();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
