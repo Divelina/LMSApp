@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using LMSApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using LMSApp.Models;
+using LMSApp.Areas.Identity.Data;
 
 namespace LMSApp
 {
@@ -34,11 +36,12 @@ namespace LMSApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                services.AddDbContext<LMSAppContext>(options =>
+                    options.UseSqlServer(
+                        this.Configuration.GetConnectionString("DefaultConnection")));
+
+                services.AddDefaultIdentity<LMSAppUser>()
+                    .AddEntityFrameworkStores<LMSAppContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
