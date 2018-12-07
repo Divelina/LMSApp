@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\LMSApp.Data.Common\LMSApp.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\LMSApp.Data.Models\LMSApp.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\LMSApp.Data\LMSApp.Data.csproj" />
   </ItemGroup>
