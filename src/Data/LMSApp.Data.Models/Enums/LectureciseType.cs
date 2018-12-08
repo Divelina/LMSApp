@@ -1,14 +1,15 @@
-﻿
+﻿//System
+using System.ComponentModel;
+
 namespace LMSApp.Data.Models.Enums
 {
-    using System.ComponentModel;
 
     public enum LectureciseType
     {
-        [Description("Лекция")]
+        [Description("Lecture / Лекция")]
         Lecture,
 
-        [Description("Упражнение")]
+        [Description("Exercise / Упражнение")]
         Excercise
     }
 }

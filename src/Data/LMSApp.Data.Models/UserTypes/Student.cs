@@ -1,19 +1,26 @@
-﻿using LMSApp.Data.Common;
+﻿//App
+using LMSApp.Data.Common;
+using LMSApp.Data.Models.AssignmentRelated;
 using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Data.Models.Enums;
+using LMSApp.Data.Models.GradeAwards;
+//System
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LMSApp.Data.Models.UserTypes
 {
+    //Additional object to store additional properties
+    //Intended to have the Student Role
     public class Student : BaseModel<string>
     {
         public Student()
         {
             this.StudentCourses = new List<StudentCourse>();
             this.StudentLecturecises = new List<StudentLecturecise>();
-            this.StudentTasks = new List<StudentAssignment>();
+            this.StudentAssignments = new List<StudentAssignment>();
+            this.StudentEvents = new List<StudentEvent>();
             this.StudentBadges = new List<StudentBadge>();
         }
 
@@ -27,8 +34,8 @@ namespace LMSApp.Data.Models.UserTypes
         [Required]
         public Major Major { get; set; }
 
-        [Required]
-        public int GroupNumber { get; set; }
+        public string GroupId { get; set; }
+        public virtual Group Group { get; set; }
 
         public DateTime? LastSeen { get; set; }
 
@@ -36,7 +43,9 @@ namespace LMSApp.Data.Models.UserTypes
 
         public IList<StudentLecturecise> StudentLecturecises { get; set; }
 
-        public IList<StudentAssignment> StudentTasks { get; set; }
+        public IList<StudentAssignment> StudentAssignments { get; set; }
+        
+        public IList<StudentEvent> StudentEvents { get; set; }
 
         public IList<StudentBadge> StudentBadges { get; set; }
 

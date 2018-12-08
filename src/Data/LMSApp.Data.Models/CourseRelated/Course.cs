@@ -1,12 +1,15 @@
-﻿
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿//App
 using LMSApp.Data.Common;
 using LMSApp.Data.Models.Enums;
 using LMSApp.Data.Models.MaterialRelated;
+//System
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LMSApp.Data.Models.CourseRelated
 {
+    //Course is the subject
+    //Separate year/semester is separate course
     public class Course : BaseModel<string>
     {
         public Course()

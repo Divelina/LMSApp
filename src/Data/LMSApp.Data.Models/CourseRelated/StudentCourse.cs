@@ -1,8 +1,9 @@
-﻿
+﻿//App
 using LMSApp.Data.Models.UserTypes;
 
 namespace LMSApp.Data.Models.CourseRelated
 {
+    //Many to many Student Course
     public class StudentCourse
     {
         public string StudentId { get; set; }

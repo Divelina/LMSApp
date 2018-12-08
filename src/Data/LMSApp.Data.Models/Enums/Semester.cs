@@ -1,14 +1,15 @@
-﻿
+﻿//System
+using System.ComponentModel;
+
 namespace LMSApp.Data.Models.Enums
 {
-    using System.ComponentModel;
 
     public enum Semester
     {
-        [Description("Зимен")]
+        [Description("Winter / Зимен")]
         Winter,
 
-        [Description("Летен")]
+        [Description("Summer / Летен")]
         Summer
     }
 }

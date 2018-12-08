@@ -1,15 +1,14 @@
-﻿
+﻿//System
+using System.ComponentModel;
 namespace LMSApp.Data.Models.Enums
 {
-    using System.ComponentModel;
-
     public enum Major
     {
-        [Description("Молекулярна биология")]
+        [Description("Molecular Biology / Молекулярна биология")]
         MolecularBiology,
 
-        [Description("Биотехнологии")]
-        BioTechnology
+        [Description("Biotechnologies / Биотехнологии")]
+        Biotechnologies
 
     }
 }
