@@ -30,6 +30,8 @@ namespace LMSApp.Data.Models.CourseRelated
 
         public IList<Major> Majors { get; set; }
 
+        public IList<EducatorCourse> CourseEducators { get; set; }
+
         public IList<Lecturecise> Lecturecises { get; set; }
 
         public IList<StudentCourse> StudentsInCourse { get; set; }

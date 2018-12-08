@@ -4,6 +4,7 @@ using LMSApp.Data.Models.AssignmentRelated;
 using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Data.Models.UserTypes;
 //System
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,6 +26,8 @@ namespace LMSApp.Data.Models.MaterialRelated
 
         //TODO - Remake it according to Storage used
         public string UrlLink { get; set; }
+
+        public DateTime LastChangeDate { get; set; }
 
         [Required]
         public string EducatorId { get; set; }

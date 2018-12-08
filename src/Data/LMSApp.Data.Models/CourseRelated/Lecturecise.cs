@@ -16,6 +16,7 @@ namespace LMSApp.Data.Models.CourseRelated
         {
             this.LectureciseEducators = new List<EducatorLecturecise>();
             this.LectureciseStudents = new List<StudentLecturecise>();
+            this.WeekTimes = new List<WeekTime>();
             this.Events = new List<Event>();
             this.StudentTasks = new List<StudentAssignment>();
         }
@@ -23,8 +24,7 @@ namespace LMSApp.Data.Models.CourseRelated
         [Required]
         public LectureciseType Type { get; set; }
 
-        [Required]
-        public WeekTime WeekTime { get; set; }
+        public IList<WeekTime> WeekTimes { get; set; }
 
         public IList<EducatorLecturecise> LectureciseEducators { get; set; }
 

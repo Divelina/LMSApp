@@ -3,13 +3,13 @@ using LMSApp.Data.Models.UserTypes;
 
 namespace LMSApp.Data.Models.CourseRelated
 {
-    //Many to many Student Course
-    public class StudentCourse
+    //Many to many Student Event
+    public class StudentEvent
     {
         public string StudentId { get; set; }
         public virtual Student Student { get; set; }
 
-        public string CourseId { get; set; }
-        public virtual Course Course { get; set; }
+        public int EventId { get; set; }
+        public virtual Event Event { get; set; }
     }
 }

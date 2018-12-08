@@ -4,6 +4,7 @@ using LMSApp.Data.Models.AssignmentRelated;
 using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Data.Models.Enums;
 using LMSApp.Data.Models.GradeAwards;
+using LMSApp.Data.Models.MaterialRelated;
 //System
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace LMSApp.Data.Models.UserTypes
             this.StudentCourses = new List<StudentCourse>();
             this.StudentLecturecises = new List<StudentLecturecise>();
             this.StudentAssignments = new List<StudentAssignment>();
+            this.StudentMaterials = new List<StudentMaterial>();
             this.StudentEvents = new List<StudentEvent>();
             this.StudentBadges = new List<StudentBadge>();
         }
@@ -44,7 +46,9 @@ namespace LMSApp.Data.Models.UserTypes
         public IList<StudentLecturecise> StudentLecturecises { get; set; }
 
         public IList<StudentAssignment> StudentAssignments { get; set; }
-        
+
+        public IList<StudentMaterial> StudentMaterials { get; set; }
+
         public IList<StudentEvent> StudentEvents { get; set; }
 
         public IList<StudentBadge> StudentBadges { get; set; }

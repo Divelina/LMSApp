@@ -1,9 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+//App
+using LMSApp.Data.Configurations;
 using LMSApp.Data.Models;
-using Microsoft.AspNetCore.Identity;
+using LMSApp.Data.Models.AssignmentRelated;
+using LMSApp.Data.Models.CourseRelated;
+using LMSApp.Data.Models.Enums;
+using LMSApp.Data.Models.GradeAwards;
+using LMSApp.Data.Models.MaterialRelated;
+using LMSApp.Data.Models.UserTypes;
+//Microsoft packages
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,12 +21,50 @@ namespace LMSApp.Data
         {
         }
 
+        public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<StudentAssignment> StudentAssignments { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<EducatorCourse> EducatorCourses { get; set; }
+        public DbSet<EducatorEvent> EducatorEvents { get; set; }
+        public DbSet<EducatorLecturecise> LectureciseEducators { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Lecturecise> Lecturecises { get; set; }
+        public DbSet<StudentCourse> CourseStudents { get; set; }
+        public DbSet<StudentEvent> StudentEvents { get; set; }
+        public DbSet<StudentLecturecise> LectureciseStudents { get; set; }
+
+        public DbSet<Badge> Badges { get; set; }
+        public DbSet<StudentBadge> StudentBadges { get; set; }
+
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<StudentMaterial> StudentMaterials { get; set; }
+
+        public DbSet<Educator> Educator { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Student> Students { get; set; }
+
+        public DbSet<WeekTime> WeekTimes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+
+            //Custom configurations are made for:
+            //one to many relationships in many to many entities (to be sure),
+            //composite keys
+            //unmatching names in one to many relationship.
+
+            builder.ApplyConfiguration(new StudentAssignmentConfiguration());
+            builder.ApplyConfiguration(new EducatorCourseConfiguration());
+            builder.ApplyConfiguration(new EducatorEventConfiguration());
+            builder.ApplyConfiguration(new EducatorLectureciseConfiguration());
+            builder.ApplyConfiguration(new StudentCourseConfiguration());
+            builder.ApplyConfiguration(new StudentEventConfiguration());
+            builder.ApplyConfiguration(new StudentLectureciseConfiguration());
+            builder.ApplyConfiguration(new StudentBadgeConfiguration());
+            builder.ApplyConfiguration(new StudentMaterialConfiguration());
+
         }
     }
 }
