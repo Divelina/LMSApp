@@ -36,7 +36,8 @@ namespace LMSApp.Data.Migrations
                     b.Property<string>("LectureciseId")
                         .IsRequired();
 
-                    b.Property<decimal>("MaxGrade");
+                    b.Property<decimal>("MaxGrade")
+                        .HasColumnType("decimal(5, 2)");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -62,7 +63,8 @@ namespace LMSApp.Data.Migrations
 
                     b.Property<bool>("Expired");
 
-                    b.Property<decimal>("Grade");
+                    b.Property<decimal>("Grade")
+                        .HasColumnType("decimal(5, 2)");
 
                     b.Property<string>("GradeComment");
 
@@ -372,7 +374,12 @@ namespace LMSApp.Data.Migrations
 
                     b.Property<string>("PersonalPageLink");
 
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Educator");
                 });
@@ -410,13 +417,17 @@ namespace LMSApp.Data.Migrations
 
                     b.Property<int>("StudentUniId");
 
-                    b.Property<decimal>("TaskCompletionRating");
+                    b.Property<decimal>("TaskCompletionRating")
+                        .HasColumnType("decimal(5, 2)");
 
-                    b.Property<decimal>("TaskGradeRating");
+                    b.Property<decimal>("TaskGradeRating")
+                        .HasColumnType("decimal(5, 2)");
 
-                    b.Property<decimal>("TotalGradeExcercise");
+                    b.Property<decimal>("TotalGradeExcercise")
+                        .HasColumnType("decimal(5, 2)");
 
-                    b.Property<decimal>("TotalGradeLectures");
+                    b.Property<decimal>("TotalGradeLectures")
+                        .HasColumnType("decimal(5, 2)");
 
                     b.Property<string>("UserId")
                         .IsRequired();
@@ -579,7 +590,7 @@ namespace LMSApp.Data.Migrations
                     b.HasOne("LMSApp.Data.Models.AssignmentRelated.Assignment", "Assignment")
                         .WithMany("StudentsAssignedTo")
                         .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LMSApp.Data.Models.UserTypes.Educator", "Grader")
                         .WithMany("AssignmentsGraded")
@@ -592,7 +603,7 @@ namespace LMSApp.Data.Migrations
                     b.HasOne("LMSApp.Data.Models.UserTypes.Student", "Student")
                         .WithMany("StudentAssignments")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("LMSApp.Data.Models.CourseRelated.EducatorCourse", b =>
@@ -740,6 +751,14 @@ namespace LMSApp.Data.Migrations
                     b.HasOne("LMSApp.Data.Models.UserTypes.Student", "Student")
                         .WithMany("StudentMaterials")
                         .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("LMSApp.Data.Models.UserTypes.Educator", b =>
+                {
+                    b.HasOne("LMSApp.Data.Models.LMSAppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

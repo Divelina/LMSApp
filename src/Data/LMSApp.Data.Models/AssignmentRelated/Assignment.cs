@@ -10,6 +10,7 @@ using LMSApp.Data.Models.UserTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMSApp.Data.Models.AssignmentRelated
 {
@@ -31,6 +32,7 @@ namespace LMSApp.Data.Models.AssignmentRelated
 
         public AssignmentType AssignmentType { get; set; }
 
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal MaxGrade { get; set; }
 
         [Required]
@@ -40,6 +42,8 @@ namespace LMSApp.Data.Models.AssignmentRelated
         [Required]
         public string EducatorId { get; set; }
         public virtual Educator Educator { get; set; }
+
+        public string Test { get; set; }
 
         public IList<Material> Materials { get; set; }
 

@@ -6,6 +6,7 @@ using LMSApp.Data.Models.UserTypes;
 
 //System
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMSApp.Data.Models.AssignmentRelated
 {
@@ -31,6 +32,7 @@ namespace LMSApp.Data.Models.AssignmentRelated
         public string GraderId { get; set; }
         public virtual Educator Grader { get; set; }
 
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal Grade { get; set; }
 
         public string GradeComment { get; set; }

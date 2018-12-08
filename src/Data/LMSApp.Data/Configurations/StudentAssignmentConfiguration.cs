@@ -14,21 +14,14 @@ namespace LMSApp.Data.Configurations
 
             builder.HasOne(sa => sa.Assignment)
                 .WithMany(a => a.StudentsAssignedTo)
-                .HasForeignKey(sa => sa.AssignmentId);
+                .HasForeignKey(sa => sa.AssignmentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(sa => sa.Student)
                 .WithMany(s => s.StudentAssignments)
-                .HasForeignKey(sa => sa.StudentId);
+                .HasForeignKey(sa => sa.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //builder.HasOne(sa => sa.Grader)
-            //    .WithMany(g => g.AssignmentsGraded)
-            //    .HasForeignKey(sa => sa.GraderId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //builder.HasOne(sa => sa.Lecturecise)
-            //    .WithMany(l => l.StudentTasks)
-            //    .HasForeignKey(sa => sa.LectureciseId)
-            //    .OnDelete(DeleteBehavior.Restrict);
                 
         }
     }

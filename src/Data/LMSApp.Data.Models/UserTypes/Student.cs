@@ -9,6 +9,7 @@ using LMSApp.Data.Models.MaterialRelated;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMSApp.Data.Models.UserTypes
 {
@@ -55,14 +56,18 @@ namespace LMSApp.Data.Models.UserTypes
 
 
         //TODO - to make these to be calculated - how and when. In the constructor, cause I want them in Db.
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal TaskCompletionRating { get; set; }
 
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal TaskGradeRating { get; set; }
 
         //TODO - to make these to be calculated - not to go into database. Only with get is ok?
 
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal TotalGradeLectures { get; set; }
 
+        [Column(TypeName = "decimal(5, 2)")]
         public decimal TotalGradeExcercise { get; set; }
 
     }

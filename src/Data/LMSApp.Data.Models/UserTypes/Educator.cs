@@ -5,6 +5,7 @@ using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Data.Models.MaterialRelated;
 //System
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LMSApp.Data.Models.UserTypes
 {
@@ -21,6 +22,10 @@ namespace LMSApp.Data.Models.UserTypes
             this.AssignmentsGraded = new List<StudentAssignment>();
             this.MaterialsGiven = new List<Material>();
         }
+
+        [Required]
+        public string UserId { get; set; }
+        public virtual LMSAppUser User { get; set; }
 
         public string PersonalPageLink { get; set; }
 
