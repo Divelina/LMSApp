@@ -25,13 +25,13 @@ namespace LMSApp.Data.Models.CourseRelated
         [Required]
         public string Year { get; set; }
 
-        public List<Major> Majors { get; set; }
+        public IList<Major> Majors { get; set; }
 
-        public List<Lecturecise> Lecturecises { get; set; }
+        public IList<Lecturecise> Lecturecises { get; set; }
 
-        public List<StudentCourse> StudentsInCourse { get; set; }
+        public IList<StudentCourse> StudentsInCourse { get; set; }
 
-        public List<Material> Materials { get; set; }
+        public IList<Material> Materials { get; set; }
     }
 }
 

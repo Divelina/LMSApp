@@ -1,15 +1,15 @@
 ﻿
-using LMSApp.Data.Models.Users;
+using LMSApp.Data.Models.UserTypes;
 
 namespace LMSApp.Data.Models.CourseRelated
 {
     public class StudentCourse
     {
-        public int StudentId { get; set; }
+        public string StudentId { get; set; }
 
         public virtual Student Student { get; set; }
 
-        public int CourseId { get; set; }
+        public string CourseId { get; set; }
 
         public virtual Course Course { get; set; }
     }

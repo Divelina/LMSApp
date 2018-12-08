@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace LMSApp.Data.Models.Users
+namespace LMSApp.Data.Models.UserTypes
 {
     public class Student : BaseModel<string>
     {
@@ -13,7 +13,7 @@ namespace LMSApp.Data.Models.Users
         {
             this.StudentCourses = new List<StudentCourse>();
             this.StudentLecturecises = new List<StudentLecturecise>();
-            this.StudentTasks = new List<StudentTask>();
+            this.StudentTasks = new List<StudentAssignment>();
             this.StudentBadges = new List<StudentBadge>();
         }
 
@@ -32,13 +32,13 @@ namespace LMSApp.Data.Models.Users
 
         public DateTime? LastSeen { get; set; }
 
-        public List<StudentCourse> StudentCourses { get; set; }
+        public IList<StudentCourse> StudentCourses { get; set; }
 
-        public List<StudentLecturecise> StudentLecturecises { get; set; }
+        public IList<StudentLecturecise> StudentLecturecises { get; set; }
 
-        public List<StudentTask> StudentTasks { get; set; }
+        public IList<StudentAssignment> StudentTasks { get; set; }
 
-        public List<StudentBadge> StudentBadges { get; set; }
+        public IList<StudentBadge> StudentBadges { get; set; }
 
 
         //TODO - to make these to be calculated - how and when. In the constructor, cause I want them in Db.
