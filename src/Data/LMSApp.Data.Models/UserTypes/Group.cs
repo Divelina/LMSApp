@@ -18,13 +18,14 @@ namespace LMSApp.Data.Models.UserTypes
         {
             this.Students = new List<Student>();
             this.GroupEvents = new List<Event>();
-            this.Majors = new List<Major>();
         }
 
         [Required]
         public int Number { get; set; }
 
-        public List<Major> Majors { get; set; }
+        public string Description { get; set; }
+
+        public Major Major { get; set; }
 
         public IList<Student> Students { get; set; }
 

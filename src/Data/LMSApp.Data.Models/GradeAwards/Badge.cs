@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LMSApp.Data.Models.GradeAwards
 {
-    public class Badge : BaseModel<int>
+    public class Badge : BaseModel<string>
     {
         public Badge()
         {
@@ -19,7 +19,7 @@ namespace LMSApp.Data.Models.GradeAwards
 
         public string Description { get; set; }
 
-        public int AssignmentId { get; set; }
+        public string AssignmentId { get; set; }
         public virtual Assignment Assignment { get; set; }
 
         public IList<StudentBadge> StudentsAwarded { get; set; }

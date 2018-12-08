@@ -10,7 +10,7 @@ namespace LMSApp.Data.Models.CourseRelated
 {
     //Common object for lecture and exercise
     //General weekly classes
-    public class Lecturecise : BaseModel<int>
+    public class Lecturecise : BaseModel<string>
     {
         public Lecturecise()
         {

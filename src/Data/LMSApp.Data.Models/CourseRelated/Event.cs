@@ -10,7 +10,7 @@ namespace LMSApp.Data.Models.CourseRelated
 {
     //Events are separate classes
     //or irregular events - exams, etc.
-    public class Event : BaseModel<int>
+    public class Event : BaseModel<string>
     {
         public Event()
         {
@@ -24,7 +24,7 @@ namespace LMSApp.Data.Models.CourseRelated
 
         public DateTime? StartTime { get; set; }
 
-        public int LectureciseId { get; set; }
+        public string LectureciseId { get; set; }
         public virtual Lecturecise Lecturecise{ get; set; }
 
         public IList<StudentEvent> StudentEvents { get; set; }

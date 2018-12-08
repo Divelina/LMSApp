@@ -14,7 +14,6 @@ namespace LMSApp.Data.Models.CourseRelated
     {
         public Course()
         {
-            this.Majors = new List<Major>();
             this.Lecturecises = new List<Lecturecise>();
             this.StudentsInCourse = new List<StudentCourse>();
         }
@@ -28,7 +27,12 @@ namespace LMSApp.Data.Models.CourseRelated
         [Required]
         public string Year { get; set; }
 
-        public IList<Major> Majors { get; set; }
+        [Required]
+        public Major Major { get; set; }
+
+        public string MajorDescription { get; set; }
+
+        public string Description { get; set; }
 
         public IList<EducatorCourse> CourseEducators { get; set; }
 

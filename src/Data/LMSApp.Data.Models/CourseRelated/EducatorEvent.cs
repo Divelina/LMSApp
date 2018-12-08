@@ -11,7 +11,7 @@ namespace LMSApp.Data.Models.CourseRelated
         public string EducatorId { get; set; }
         public virtual Educator Educator { get; set; }
 
-        public int EventId { get; set; }
+        public string EventId { get; set; }
         public virtual Event Event { get; set; }
 
         public EventRole EventRole { get; set; }

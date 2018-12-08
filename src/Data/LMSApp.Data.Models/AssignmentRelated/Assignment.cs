@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LMSApp.Data.Models.AssignmentRelated
 {
-    public class Assignment : BaseModel<int>
+    public class Assignment : BaseModel<string>
     {
         public Assignment()
         {
@@ -34,11 +34,11 @@ namespace LMSApp.Data.Models.AssignmentRelated
         public decimal MaxGrade { get; set; }
 
         [Required]
-        public int LectureciseId { get; set; }
+        public string LectureciseId { get; set; }
         public virtual Lecturecise Lecturecise { get; set; }
 
         [Required]
-        public int EducatorId { get; set; }
+        public string EducatorId { get; set; }
         public virtual Educator Educator { get; set; }
 
         public IList<Material> Materials { get; set; }

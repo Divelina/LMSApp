@@ -9,7 +9,7 @@ namespace LMSApp.Data.Models.CourseRelated
         public string EducatorId { get; set; }
         public virtual Educator Educator { get; set; }
 
-        public int LectureciseId { get; set; }
+        public string LectureciseId { get; set; }
         public virtual Lecturecise Lecturecise { get; set; }
     }
 }

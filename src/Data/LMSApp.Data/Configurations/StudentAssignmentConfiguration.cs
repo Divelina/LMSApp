@@ -20,9 +20,16 @@ namespace LMSApp.Data.Configurations
                 .WithMany(s => s.StudentAssignments)
                 .HasForeignKey(sa => sa.StudentId);
 
-            builder.HasOne(sa => sa.Grader)
-                .WithMany(g => g.AssignmentsGraded)
-                .HasForeignKey(sa => sa.GraderId);
+            //builder.HasOne(sa => sa.Grader)
+            //    .WithMany(g => g.AssignmentsGraded)
+            //    .HasForeignKey(sa => sa.GraderId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //builder.HasOne(sa => sa.Lecturecise)
+            //    .WithMany(l => l.StudentTasks)
+            //    .HasForeignKey(sa => sa.LectureciseId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+                
         }
     }
 }

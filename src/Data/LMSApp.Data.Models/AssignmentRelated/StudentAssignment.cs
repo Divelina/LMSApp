@@ -16,10 +16,10 @@ namespace LMSApp.Data.Models.AssignmentRelated
         public string StudentId { get; set; }
         public virtual Student Student { get; set; }
 
-        public int AssignmentId { get; set; }
+        public string AssignmentId { get; set; }
         public virtual Assignment Assignment { get; set; }
 
-        public int LectureciseId { get; set; }
+        public string LectureciseId { get; set; }
         public virtual Lecturecise Lecturecise { get; set; }
 
         public DateTime? DueDate { get; set; }

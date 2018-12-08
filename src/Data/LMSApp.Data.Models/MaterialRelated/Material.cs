@@ -29,17 +29,16 @@ namespace LMSApp.Data.Models.MaterialRelated
 
         public DateTime LastChangeDate { get; set; }
 
-        [Required]
         public string EducatorId { get; set; }
         public virtual Educator Educator { get; set; }
 
         public string CourseId { get; set; }
         public virtual Course Course { get; set; }
 
-        public int AssignmentId { get; set; }
+        public string AssignmentId { get; set; }
         public virtual Assignment Assignment { get; set; }
 
-        public int EventId { get; set; }
+        public string EventId { get; set; }
         public virtual Event Event{ get; set; }
 
         public IList<StudentMaterial> StudentMaterials { get; set; }

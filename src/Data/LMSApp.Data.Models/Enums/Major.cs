@@ -8,7 +8,10 @@ namespace LMSApp.Data.Models.Enums
         MolecularBiology,
 
         [Description("Biotechnologies / Биотехнологии")]
-        Biotechnologies
+        Biotechnologies,
+
+        [Description("Mixed / Смесени")]
+        Mixed
 
     }
 }

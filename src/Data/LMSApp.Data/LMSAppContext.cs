@@ -64,6 +64,7 @@ namespace LMSApp.Data
             builder.ApplyConfiguration(new StudentLectureciseConfiguration());
             builder.ApplyConfiguration(new StudentBadgeConfiguration());
             builder.ApplyConfiguration(new StudentMaterialConfiguration());
+            builder.ApplyConfiguration(new MaterialsConfiguration());
 
         }
     }

@@ -9,7 +9,7 @@ namespace LMSApp.Data.Models.CourseRelated
         public string StudentId { get; set; }
         public virtual Student Student { get; set; }
 
-        public int EventId { get; set; }
+        public string EventId { get; set; }
         public virtual Event Event { get; set; }
     }
 }

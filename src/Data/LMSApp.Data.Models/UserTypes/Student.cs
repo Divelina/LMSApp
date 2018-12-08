@@ -27,7 +27,7 @@ namespace LMSApp.Data.Models.UserTypes
         }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public virtual LMSAppUser User { get; set; }
 
         [Required]
