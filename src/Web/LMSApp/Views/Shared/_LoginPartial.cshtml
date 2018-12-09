@@ -6,7 +6,15 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="form-inline">        
+        var currentUser = await UserManager.GetUserAsync(this.User);
+        if (await UserManager.IsInRoleAsync(currentUser, "Admin"))
+        {
+            <ul class="nav navbar-nav">
+                <li class="nav-item"><a asp-area="Identity" asp-page="/Account/Register" class="nav-link">Administration</a></li>
+            </ul>
+        }
+
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="form-inline">
         <ul class="nav navbar-nav">
             <li class="nav-item">
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="nav-link">Hello @UserManager.GetUserName(User)!</a>

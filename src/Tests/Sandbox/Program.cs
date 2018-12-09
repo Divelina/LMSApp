@@ -1,11 +1,15 @@
 ﻿using CommandLine;
 using LMSApp.Data;
 using LMSApp.Data.Common;
+using LMSApp.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sandbox
 {
@@ -42,13 +46,21 @@ namespace Sandbox
         //private static int SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
         private static int SandboxCode(IServiceProvider serviceProvider)
         {
-            //TODO write code here
+            //TODO write code here;
 
+            var context = serviceProvider.GetService<LMSAppContext>();
+            var rolemanager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+            var usermanager = serviceProvider.GetService<UserManager<LMSAppUser>>();
+
+            var roleSeeder = new RoleSeeder(context, usermanager, rolemanager);
+
+            roleSeeder.CreateRolesAsync().Wait();
 
             //var sw = Stopwatch.StartNew();
             //var settingsService = serviceProvider.GetService<ISettingsService>();
             //Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
             //Console.WriteLine(sw.Elapsed);
+
             return 0;
         }
 
@@ -62,6 +74,22 @@ namespace Sandbox
             services.AddDbContext<LMSAppContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<LMSAppUser, IdentityRole>(
+                  options =>
+                  {
+                      options.Password.RequiredLength = 6;
+                      options.Password.RequireDigit = false;
+                      options.Password.RequireNonAlphanumeric = false;
+                      options.Password.RequireUppercase = false;
+                      options.Password.RequireLowercase = false;
+                      options.User.RequireUniqueEmail = true;
+                  }
+                  )
+                  .AddEntityFrameworkStores<LMSAppContext>()
+                  .AddDefaultTokenProviders();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
 
