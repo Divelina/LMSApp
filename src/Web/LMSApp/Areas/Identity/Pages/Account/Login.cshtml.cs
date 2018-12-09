@@ -13,6 +13,7 @@ using LMSApp.Data.Models;
 
 namespace LMSApp.Areas.Identity.Pages.Account
 {
+    //TODO - fix the problem with Email and Username ambiguity
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
@@ -38,7 +39,6 @@ namespace LMSApp.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
             public string Email { get; set; }
 
             [Required]

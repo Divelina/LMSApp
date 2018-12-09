@@ -6,13 +6,63 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-        var currentUser = await UserManager.GetUserAsync(this.User);
-        if (await UserManager.IsInRoleAsync(currentUser, "Admin"))
-        {
-            <ul class="nav navbar-nav">
-                <li class="nav-item"><a asp-area="Identity" asp-page="/Account/Register" class="nav-link">Administration</a></li>
-            </ul>
-        }
+    var currentUser = await UserManager.GetUserAsync(this.User);
+    if (await UserManager.IsInRoleAsync(currentUser, "Admin"))
+    {
+
+        <ul class="nav navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" asp-area="Identity" asp-page="/Account/Register" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Administration
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Users</a>
+                    <a class="dropdown-item" href="#">Courses</a>
+                    <a class="dropdown-item" href="#">Events</a>
+                    <a class="dropdown-item" href="#">Materials</a>
+                </div>
+            </li>
+        </ul>
+    }
+
+    if (await UserManager.IsInRoleAsync(currentUser, "Educator"))
+    {
+        <ul class="nav navbar-nav">
+
+            <li class="nav-item"><a asp-area="Identity" asp-page="/Account/Register" class="nav-link">Schedule</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" asp-area="Identity" asp-page="/Account/Register" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Teaching
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Courses</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Events</a>
+                    <a class="dropdown-item" href="#">Materials</a>
+                </div>
+            </li>
+
+        </ul>
+    }
+    else if (await UserManager.IsInRoleAsync(currentUser, "Student"))
+    {
+        <ul class="nav navbar-nav">
+
+            <li class="nav-item"><a asp-area="Identity" asp-page="/Account/Register" class="nav-link">Schedule</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" asp-area="Identity" asp-page="/Account/Register" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Education
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Courses</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Events</a>
+                    <a class="dropdown-item" href="#">Materials</a>
+                </div>
+            </li>
+
+        </ul>
+    }
 
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="form-inline">
         <ul class="nav navbar-nav">

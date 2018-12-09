@@ -24,13 +24,25 @@ namespace LMSApp.Controllers
             this.roleManager = roleManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var currentUser = await this.userManager.GetUserAsync(this.User);
+
+            if (currentUser != null)
+            {
+
+                if (await userManager.IsInRoleAsync(currentUser, "Admin"))
+                {
+
+                    TempData["userId"] = currentUser.Id;
+
+                    return RedirectToAction("Index", "Home", new { Area = "Admin" });
+                }
+            }
+
             return View();
         }
 
-
-        //[Authorize(Roles = "Admin")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
