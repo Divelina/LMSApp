@@ -30,14 +30,21 @@ namespace LMSApp.Controllers
 
             if (currentUser != null)
             {
+                TempData["userId"] = currentUser.Id;
 
                 if (await userManager.IsInRoleAsync(currentUser, "Admin"))
                 {
-
-                    TempData["userId"] = currentUser.Id;
-
                     return RedirectToAction("Index", "Home", new { Area = "Admin" });
                 }
+                else if (await userManager.IsInRoleAsync(currentUser, "Educator"))
+                {
+                    return RedirectToAction("Index", "Home", new { Area = "Educator" });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home", new { Area = "Student" });
+                }
+                
             }
 
             return View();
@@ -52,10 +59,6 @@ namespace LMSApp.Controllers
 
         public async Task<IActionResult> Contact()
         {
-            //var currentUser = await this.userManager.GetUserAsync(this.User);
-            //await this.userManager.AddToRoleAsync(currentUser, "Admin");
-            //await this.roleManager.CreateAsync(new IdentityRole("Admin"));
-            //return this.Ok();
 
             ViewData["Message"] = "Your contact page.";
 
