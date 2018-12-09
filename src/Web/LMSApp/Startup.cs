@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using LMSApp.Models;
 using LMSApp.Data.Models;
 using LMSApp.Data.Common;
+using LMSApp.Services.Mapping;
 
 namespace LMSApp
 {
@@ -30,6 +29,11 @@ namespace LMSApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //AutoMapperConfig.RegisterMappings(
+            //    typeof(IndexViewModel).Assembly,
+            //    typeof(CreateJokeInputModel).Assembly
+            //);
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -60,12 +64,17 @@ namespace LMSApp
 
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            //TODO - to test if the automapper works without this. It should.
+            //services.AddAutomapper();
 
             //Application services
 
             //TODO - Make and register a logger service
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+
+            //TODO - Register the custom services that work with the entities
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

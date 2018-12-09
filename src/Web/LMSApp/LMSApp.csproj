@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" PrivateAssets="All" />
@@ -15,6 +16,7 @@
     <ProjectReference Include="..\..\Data\LMSApp.Data.Common\LMSApp.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\LMSApp.Data.Models\LMSApp.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\LMSApp.Data\LMSApp.Data.csproj" />
+    <ProjectReference Include="..\..\Services\ClassLibrary1\LMSApp.Services.Mapping.csproj" />
   </ItemGroup>
 
   <ItemGroup>
