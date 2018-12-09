@@ -30,7 +30,7 @@ namespace LMSApp.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
