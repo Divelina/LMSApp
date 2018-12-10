@@ -1,0 +1,45 @@
+
+div.container-custom {
+    padding: 30px;
+}
+
+/*Navbar*/
+.navbar-dark .navbar-nav .nav-link {
+    color: lightblue
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: aliceblue
+}
+
+.navbar-dark .navbar-brand {
+    color:lightblue;
+    font-size: larger
+}
+
+.navbar-inverse .navbar-brand {
+    color: lightblue;
+}
+
+.navbar-inverse .btn-link {
+    color: lightblue
+}
+
+/*Account Manage navigation*/
+
+#acc-manage-nav a {
+    color: aliceblue
+}
+
+#acc-manage-nav li.active {
+    background-color: lightblue;
+}
+
+#acc-manage-nav li.active > a{
+    color: #343a40
+}
+
+.btn-d-custom {
+    color: lightblue;
+    background-color: #212529;
+}

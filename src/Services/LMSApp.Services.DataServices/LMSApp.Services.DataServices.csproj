@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\LMSApp.Data.Common\LMSApp.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\LMSApp.Data.Models\LMSApp.Data.Models.csproj" />
+    <ProjectReference Include="..\LMSApp.Services.CommonInterfaces\LMSApp.Services.CommonInterfaces.csproj" />
+    <ProjectReference Include="..\LMSApp.Services.Models\LMSApp.Services.Models.csproj" />
+  </ItemGroup>
+
+</Project>

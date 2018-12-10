@@ -1,0 +1,53 @@
+﻿@using LMSApp.Services.Models.Courses
+@using LMSApp.Data.Models.Enums
+@model CourseCreateBindingModel
+
+@{
+    ViewData["Title"] = "Create Course";
+}
+
+
+<div class="row">
+
+    <div class="col-md-3">
+        <form asp-action="Create" method="post" id="create-course">
+            <h4>Create a new course. </h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Semester"></label>
+                <select asp-for="Semester" asp-items="Html.GetEnumSelectList<Semester>()" class="form-control"></select>
+                <span asp-validation-for="Semester" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year"></label>
+                <input asp-for="Year" class="form-control" placeholder="yyyy/yyyy" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Major"></label>
+                <select asp-for="Major" asp-items="Html.GetEnumSelectList<Major>()" class="form-control"></select>
+                <span asp-validation-for="Major" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MajorDescription"></label>
+                <input asp-for="MajorDescription" class="form-control" />
+                <span asp-validation-for="MajorDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <input type="submit" class="btn btn-dark btn-d-custom" value="Create course" />
+            <input type="reset" class="btn btn-danger" value="Cancel" />
+        </form>
+
+    </div>
+</div>
