@@ -14,6 +14,8 @@ using LMSApp.Models;
 using LMSApp.Data.Models;
 using LMSApp.Data.Common;
 using LMSApp.Services.Mapping;
+using LMSApp.Services.CommonInterfaces;
+using LMSApp.Services.DataServices;
 
 namespace LMSApp
 {
@@ -64,8 +66,9 @@ namespace LMSApp
 
             services.AddSession();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
+
             //TODO - to test if the automapper works without this. It should.
+            //This requires AutoMapper.Extensions.Microsoft.DependencyInjection which I am not going to use?
             //services.AddAutomapper();
 
             //Application services
@@ -73,6 +76,7 @@ namespace LMSApp
             //TODO - Make and register a logger service
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+            services.AddScoped<ICourseService, CourseService>();
 
             //TODO - Register the custom services that work with the entities
         }

@@ -17,6 +17,8 @@
     <ProjectReference Include="..\..\Data\LMSApp.Data.Models\LMSApp.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\LMSApp.Data\LMSApp.Data.csproj" />
     <ProjectReference Include="..\..\Services\ClassLibrary1\LMSApp.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\LMSApp.Services.CommonInterfaces\LMSApp.Services.CommonInterfaces.csproj" />
+    <ProjectReference Include="..\..\Services\LMSApp.Services.DataServices\LMSApp.Services.DataServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>
