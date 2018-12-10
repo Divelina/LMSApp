@@ -16,6 +16,7 @@ using LMSApp.Data.Common;
 using LMSApp.Services.Mapping;
 using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.DataServices;
+using LMSApp.Services.Models.Courses;
 
 namespace LMSApp
 {
@@ -31,10 +32,9 @@ namespace LMSApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //AutoMapperConfig.RegisterMappings(
-            //    typeof(IndexViewModel).Assembly,
-            //    typeof(CreateJokeInputModel).Assembly
-            //);
+            AutoMapperConfig.RegisterMappings(
+                typeof(CourseCreateBindingModel).Assembly
+            );
 
             services.Configure<CookiePolicyOptions>(options =>
             {
