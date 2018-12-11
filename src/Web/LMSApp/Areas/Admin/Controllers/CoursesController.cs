@@ -34,9 +34,18 @@ namespace LMSApp.Areas.Admin.Controllers
                 return this.View(course);
             }
 
-            //TODO - add services that checks for identical course - same name, semester, year and major?
+            if (this.courseService.AnyCourse(course.Name, course.Semester, course.Year, course.Major))
+            {
+
+                TempData["Error"] += 
+                    "Error: Course with the same name, semester, year and major already in database.";
+
+                return this.View(course);
+            }
+
            var couresId =  await this.courseService.CreateAsync(course);
 
+            //TODO - clear the form with JS?
             //TODO - redirect to details page
             return RedirectToAction("Index", "Home", new { Area = "Admin" });
             //return this.RedirectToAction("Details", new { id = id });

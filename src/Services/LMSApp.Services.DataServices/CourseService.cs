@@ -5,6 +5,8 @@ using LMSApp.Data.Common;
 using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.Models.Courses;
+using LMSApp.Data.Models.Enums;
+using System.Linq;
 
 namespace LMSApp.Services.DataServices
 {
@@ -26,6 +28,17 @@ namespace LMSApp.Services.DataServices
             await this.coursesRepository.SaveChangesAsync();
 
             return newCourse.Id;
+        }
+
+        public bool AnyCourse(string name, Semester semester, string year, Major major)
+        {
+            var isCourseFound = this.coursesRepository.All().Any(c => 
+                 c.Name == name &&
+                 c.Semester == semester &&
+                 c.Year == year &&
+                 c.Major == major);
+
+            return isCourseFound;
         }
     }
 }
