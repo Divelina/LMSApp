@@ -6,12 +6,12 @@ namespace LMSApp.Data.Models.Enums
     public enum TeachingRole
     {
         [Description("Lecturer / Лектор")]
-        Lecturer,
+        Lecturer = 0,
 
         [Description("Assistant / Асистент")]
-        Assistant,
+        Assistant = 1,
 
         [Description("Other / Друга")]
-        Other
+        Other = 2
     }
 }

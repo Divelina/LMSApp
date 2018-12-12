@@ -7,9 +7,9 @@ namespace LMSApp.Data.Models.Enums
     public enum LectureciseType
     {
         [Description("Lecture / Лекция")]
-        Lecture,
+        Lecture = 0,
 
         [Description("Exercise / Упражнение")]
-        Excercise
+        Excercise = 1
     }
 }

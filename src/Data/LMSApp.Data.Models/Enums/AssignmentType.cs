@@ -6,12 +6,12 @@ namespace LMSApp.Data.Models.Enums
     public enum AssignmentType
     {
         [Description("Current / Текуща")]
-        Current,
+        Current = 0,
 
         [Description("Final / Финална")]
-        Final,
+        Final = 1,
 
         [Description("Other / Друга")]
-        Other
+        Other = 2
     }
 }

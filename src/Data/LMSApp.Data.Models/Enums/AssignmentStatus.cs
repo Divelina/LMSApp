@@ -6,18 +6,18 @@ namespace LMSApp.Data.Models.Enums
     public enum AssignmentStatus
     {
         [Description("Unfinished / Незавършена")]
-        Unfinished,
+        Unfinished = 0,
 
         [Description("Under Revision / Проверява се")]
-        UnderRevision,
+        UnderRevision = 1,
 
         [Description("To Remake / За поправяне")]
-        ToRemake,
+        ToRemake = 2,
 
         [Description("Finished / Завършена")]
-        Finished,
+        Finished = 3,
 
         [Description("Other / Друго")]
-        Other
+        Other = 4
     }
 }

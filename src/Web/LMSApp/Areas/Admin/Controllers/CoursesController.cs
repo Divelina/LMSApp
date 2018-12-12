@@ -46,7 +46,7 @@ namespace LMSApp.Areas.Admin.Controllers
            var couresId =  await this.courseService.CreateAsync(course);
 
             //TODO - clear the form with JS?
-            //TODO - redirect to details page
+            //TODO - redirect to All course page - maybe I don't need the course Id in this case
             return RedirectToAction("Index", "Home", new { Area = "Admin" });
             //return this.RedirectToAction("Details", new { id = id });
         }

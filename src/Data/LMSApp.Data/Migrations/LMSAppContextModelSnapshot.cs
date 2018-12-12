@@ -42,6 +42,8 @@ namespace LMSApp.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<string>("Test");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EducatorId");

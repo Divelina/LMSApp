@@ -6,22 +6,22 @@ namespace LMSApp.Data.Models.Enums
     public enum EventRole
     {
         [Description("Instructor / Преподавател")]
-        Instructor,
+        Instructor = 0,
 
         [Description("Examiner / Изпитващ")]
-        Examiner,
+        Examiner = 1,
 
         [Description("Observer / Наблюдател или Квестор")]
-        Observer,
+        Observer = 2,
 
         [Description("Desicion Maker / Дискутиращ")]
-        DecisionMaker,
+        DecisionMaker = 3,
 
         [Description("Party Animal / Празнуващ")]
-        PartyAnimal,
+        PartyAnimal = 4,
 
         [Description("Other / Друго")]
-        Other
+        Other = 5
             
     }
 }

@@ -7,9 +7,9 @@ namespace LMSApp.Data.Models.Enums
     public enum Semester
     {
         [Description("Winter / Зимен")]
-        Winter,
+        Winter = 0,
 
         [Description("Summer / Летен")]
-        Summer
+        Summer = 1 
     }
 }
