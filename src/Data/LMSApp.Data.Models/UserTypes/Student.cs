@@ -37,6 +37,9 @@ namespace LMSApp.Data.Models.UserTypes
         [Required]
         public Major Major { get; set; }
 
+        [Required]
+        public FacultyOf FacultyName { get; set; }
+
         public string GroupId { get; set; }
         public virtual Group Group { get; set; }
 

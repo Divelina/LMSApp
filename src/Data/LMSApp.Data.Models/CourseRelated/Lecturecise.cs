@@ -34,5 +34,8 @@ namespace LMSApp.Data.Models.CourseRelated
 
         public IList<StudentAssignment> StudentTasks { get; set; }
 
+        public string CourseId { get; set; }
+        public virtual Course Course { get; set; }
+
     }
 }

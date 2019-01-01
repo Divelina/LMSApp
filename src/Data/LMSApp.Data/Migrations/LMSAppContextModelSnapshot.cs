@@ -372,6 +372,8 @@ namespace LMSApp.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("FacultyName");
+
                     b.Property<string>("Info");
 
                     b.Property<string>("PersonalPageLink");
@@ -410,6 +412,8 @@ namespace LMSApp.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("FacultyName");
 
                     b.Property<string>("GroupId");
 
@@ -660,7 +664,7 @@ namespace LMSApp.Data.Migrations
 
             modelBuilder.Entity("LMSApp.Data.Models.CourseRelated.Lecturecise", b =>
                 {
-                    b.HasOne("LMSApp.Data.Models.CourseRelated.Course")
+                    b.HasOne("LMSApp.Data.Models.CourseRelated.Course", "Course")
                         .WithMany("Lecturecises")
                         .HasForeignKey("CourseId");
                 });

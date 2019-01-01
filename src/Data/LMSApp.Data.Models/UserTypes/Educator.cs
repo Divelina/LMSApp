@@ -2,6 +2,7 @@
 using LMSApp.Data.Common;
 using LMSApp.Data.Models.AssignmentRelated;
 using LMSApp.Data.Models.CourseRelated;
+using LMSApp.Data.Models.Enums;
 using LMSApp.Data.Models.MaterialRelated;
 //System
 using System.Collections.Generic;
@@ -26,6 +27,9 @@ namespace LMSApp.Data.Models.UserTypes
         [Required]
         public string UserId { get; set; }
         public virtual LMSAppUser User { get; set; }
+
+        [Required]
+        public FacultyOf FacultyName { get; set; }
 
         public string PersonalPageLink { get; set; }
 
