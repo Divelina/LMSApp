@@ -21,7 +21,7 @@ namespace LMSApp.Services.DataServices
 
         public async Task<string> CreateAsync(CourseCreateBindingModel course)
         {
-
+            
             var newCourse = Mapper.Map<Course>(course);
 
             await this.coursesRepository.AddAsync(newCourse);

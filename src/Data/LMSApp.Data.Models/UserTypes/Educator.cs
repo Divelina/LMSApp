@@ -35,6 +35,8 @@ namespace LMSApp.Data.Models.UserTypes
 
         public string Info { get; set; }
 
+        public string Name => $"{this.User.FirstName} {this.User.FamilyName}";
+
         public IList<EducatorCourse> Courses { get; set; }
 
         public IList<EducatorLecturecise> Lecturecises { get; set; }
