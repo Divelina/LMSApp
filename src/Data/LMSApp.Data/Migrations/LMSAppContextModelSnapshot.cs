@@ -455,11 +455,12 @@ namespace LMSApp.Data.Migrations
 
                     b.Property<int>("DayOfWeek");
 
-                    b.Property<int>("EndHour");
+                    b.Property<string>("EndHour");
 
                     b.Property<string>("LectureciseId");
 
-                    b.Property<int>("StartHour");
+                    b.Property<string>("StartHour")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

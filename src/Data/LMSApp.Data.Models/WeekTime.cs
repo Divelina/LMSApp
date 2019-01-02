@@ -13,13 +13,20 @@ namespace LMSApp.Data.Models
         public DayOfWeek DayOfWeek { get; set; }
 
         [Required]
-        public int StartHour { get; set; }
+        public string StartHour { get; set; }
 
-        public int EndHour { get; set; }
+        public string EndHour { get; set; }
 
         public override string ToString()
         {
-            return $"{this.DayOfWeek} {this.StartHour}";
+            var weekTimeFormat = $"{this.DayOfWeek} {this.StartHour}";
+
+            if (this.EndHour != null)
+            {
+                weekTimeFormat += $" - { this.EndHour}";
+            }
+
+            return weekTimeFormat;
         }
     }
 }

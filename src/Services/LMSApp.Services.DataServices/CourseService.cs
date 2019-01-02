@@ -7,6 +7,8 @@ using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.Models.Courses;
 using LMSApp.Data.Models.Enums;
 using System.Linq;
+using System.Collections.Generic;
+using LMSApp.Services.Mapping;
 
 namespace LMSApp.Services.DataServices
 {
@@ -39,6 +41,14 @@ namespace LMSApp.Services.DataServices
                  c.Major == major);
 
             return isCourseFound;
+        }
+
+        public IEnumerable<CourseListViewModel> GetAll()
+        {
+            var courses = this.coursesRepository.All()
+                .To<CourseListViewModel>();
+
+            return courses;
         }
     }
 }

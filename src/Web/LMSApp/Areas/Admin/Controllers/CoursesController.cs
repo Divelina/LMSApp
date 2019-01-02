@@ -1,4 +1,5 @@
 ﻿using LMSApp.Data.Models;
+using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.Models.Courses;
 using Microsoft.AspNetCore.Identity;
@@ -49,6 +50,15 @@ namespace LMSApp.Areas.Admin.Controllers
             //TODO - redirect to All course page - maybe I don't need the course Id in this case
             return RedirectToAction("Index", "Home", new { Area = "Admin" });
             //return this.RedirectToAction("Details", new { id = id });
+        }
+
+        [HttpGet]
+        public IActionResult All()
+        {
+            var courses = this.courseService.GetAll().ToList()
+                .OrderByDescending(c => c.Year).ToList();
+
+            return View(courses);
         }
     }
 }
