@@ -17,6 +17,7 @@ using LMSApp.Services.Mapping;
 using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.DataServices;
 using LMSApp.Services.Models.Courses;
+using LMSApp.Services.Models.Users;
 
 namespace LMSApp
 {
@@ -33,7 +34,8 @@ namespace LMSApp
         public void ConfigureServices(IServiceCollection services)
         {
             AutoMapperConfig.RegisterMappings(
-                typeof(CourseCreateBindingModel).Assembly
+                typeof(CourseCreateBindingModel).Assembly,
+                typeof(EducatorIdAndNameViewModel).Assembly
             );
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -78,6 +80,7 @@ namespace LMSApp
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IEducatorService, EducatorService>();
+            services.AddScoped<ILectureciseService, LectureciseService>();
 
             //TODO - Register the custom services that work with the entities
         }

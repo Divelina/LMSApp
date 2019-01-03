@@ -100,6 +100,18 @@ namespace LMSApp.Services.DataServices
             }
         }
 
+        public async Task DeleteCourseById(string courseId)
+        {
+            var course = await this.coursesRepository.FindbyId(courseId);
+
+            if (course != null)
+            {
+                this.coursesRepository.Delete(course);
+
+                await this.coursesRepository.SaveChangesAsync();
+            }
+        }
+
         //Educator only services 
 
         public IEnumerable<CourseListViewModel> GetAllByEducator(string educatorId)

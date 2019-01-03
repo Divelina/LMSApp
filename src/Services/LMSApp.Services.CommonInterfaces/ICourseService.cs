@@ -18,6 +18,8 @@ namespace LMSApp.Services.CommonInterfaces
 
         Task EditCourseById(CourseDetailsViewModel courseModel);
 
+        Task DeleteCourseById(string courseId);
+
         IEnumerable<CourseListViewModel> GetAllByEducator(string educatorId);
     }
 }

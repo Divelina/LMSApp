@@ -85,5 +85,16 @@ namespace LMSApp.Areas.Admin.Controllers
 
             return RedirectToAction("Edit", new { courseId = courseModel.Id});
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string courseId)
+        {
+            //TODO return Error badrequest;
+            //if courseModel == null
+
+            await this.courseService.DeleteCourseById(courseId);
+
+            return RedirectToAction("All", "Courses", new { Area = "Admin" });
+        }
     }
 }
