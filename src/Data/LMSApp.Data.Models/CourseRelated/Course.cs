@@ -34,13 +34,13 @@ namespace LMSApp.Data.Models.CourseRelated
 
         public string Description { get; set; }
 
-        public IList<EducatorCourse> CourseEducators { get; set; }
+        public virtual IList<EducatorCourse> CourseEducators { get; set; }
 
-        public IList<Lecturecise> Lecturecises { get; set; }
+        public virtual IList<Lecturecise> Lecturecises { get; set; }
 
-        public IList<StudentCourse> StudentsInCourse { get; set; }
+        public virtual IList<StudentCourse> StudentsInCourse { get; set; }
 
-        public IList<Material> Materials { get; set; }
+        public virtual IList<Material> Materials { get; set; }
     }
 }
 

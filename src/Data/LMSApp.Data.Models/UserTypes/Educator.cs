@@ -35,16 +35,16 @@ namespace LMSApp.Data.Models.UserTypes
 
         public string Info { get; set; }
 
-        public IList<EducatorCourse> Courses { get; set; }
+        public virtual IList<EducatorCourse> Courses { get; set; }
 
-        public IList<EducatorLecturecise> Lecturecises { get; set; }
+        public virtual IList<EducatorLecturecise> Lecturecises { get; set; }
 
-        public IList<EducatorEvent> Events { get; set; }
+        public virtual IList<EducatorEvent> Events { get; set; }
 
-        public IList<Assignment> AssignmentsGiven { get; set; }
+        public virtual IList<Assignment> AssignmentsGiven { get; set; }
 
-        public IList<StudentAssignment> AssignmentsGraded { get; set; }
+        public virtual IList<StudentAssignment> AssignmentsGraded { get; set; }
 
-        public IList<Material> MaterialsGiven { get; set; }
+        public virtual IList<Material> MaterialsGiven { get; set; }
     }
 }

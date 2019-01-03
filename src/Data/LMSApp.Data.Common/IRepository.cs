@@ -9,6 +9,8 @@ namespace LMSApp.Data.Common
     {
         IQueryable<TEntity> All();
 
+        Task<TEntity> FindbyId(string id);
+
         Task AddAsync(TEntity entity);
 
         void Delete(TEntity entity);

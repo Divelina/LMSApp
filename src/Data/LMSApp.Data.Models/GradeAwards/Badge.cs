@@ -22,7 +22,7 @@ namespace LMSApp.Data.Models.GradeAwards
         public string AssignmentId { get; set; }
         public virtual Assignment Assignment { get; set; }
 
-        public IList<StudentBadge> StudentsAwarded { get; set; }
+        public virtual IList<StudentBadge> StudentsAwarded { get; set; }
 
         //TODO - badge image
     }

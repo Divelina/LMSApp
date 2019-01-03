@@ -41,7 +41,7 @@ namespace LMSApp.Data.Models.MaterialRelated
         public string EventId { get; set; }
         public virtual Event Event{ get; set; }
 
-        public IList<StudentMaterial> StudentMaterials { get; set; }
+        public virtual IList<StudentMaterial> StudentMaterials { get; set; }
 
     }
 }

@@ -24,15 +24,15 @@ namespace LMSApp.Data.Models.CourseRelated
         [Required]
         public LectureciseType Type { get; set; }
 
-        public IList<WeekTime> WeekTimes { get; set; }
+        public virtual IList<WeekTime> WeekTimes { get; set; }
 
-        public IList<EducatorLecturecise> LectureciseEducators { get; set; }
+        public virtual IList<EducatorLecturecise> LectureciseEducators { get; set; }
 
-        public IList<StudentLecturecise> LectureciseStudents { get; set; }
+        public virtual IList<StudentLecturecise> LectureciseStudents { get; set; }
 
-        public IList<Event> Events { get; set; }
+        public virtual IList<Event> Events { get; set; }
 
-        public IList<StudentAssignment> StudentTasks { get; set; }
+        public virtual IList<StudentAssignment> StudentTasks { get; set; }
 
         public string CourseId { get; set; }
         public virtual Course Course { get; set; }

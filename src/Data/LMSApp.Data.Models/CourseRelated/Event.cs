@@ -27,10 +27,10 @@ namespace LMSApp.Data.Models.CourseRelated
         public string LectureciseId { get; set; }
         public virtual Lecturecise Lecturecise{ get; set; }
 
-        public IList<StudentEvent> StudentEvents { get; set; }
+        public virtual IList<StudentEvent> StudentEvents { get; set; }
 
-        public IList<EducatorEvent> EducatorEvents { get; set; }
+        public virtual IList<EducatorEvent> EducatorEvents { get; set; }
 
-        public IList<Material> Materials { get; set; }
+        public virtual IList<Material> Materials { get; set; }
     }
 }

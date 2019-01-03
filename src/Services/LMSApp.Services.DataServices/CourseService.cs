@@ -50,5 +50,14 @@ namespace LMSApp.Services.DataServices
 
             return courses;
         }
+
+        public IEnumerable<CourseListViewModel> GetAllByEducator(string educatorId)
+        {
+            var courses = this.coursesRepository.All()
+                .Where(c => c.CourseEducators.Any(ce => ce.EducatorId == educatorId))
+                .To<CourseListViewModel>();
+
+            return courses;
+        }
     }
 }

@@ -45,17 +45,17 @@ namespace LMSApp.Data.Models.UserTypes
 
         public DateTime? LastSeen { get; set; }
 
-        public IList<StudentCourse> StudentCourses { get; set; }
+        public virtual IList<StudentCourse> StudentCourses { get; set; }
 
-        public IList<StudentLecturecise> StudentLecturecises { get; set; }
+        public virtual IList<StudentLecturecise> StudentLecturecises { get; set; }
 
-        public IList<StudentAssignment> StudentAssignments { get; set; }
+        public virtual IList<StudentAssignment> StudentAssignments { get; set; }
 
-        public IList<StudentMaterial> StudentMaterials { get; set; }
+        public virtual IList<StudentMaterial> StudentMaterials { get; set; }
 
-        public IList<StudentEvent> StudentEvents { get; set; }
+        public virtual IList<StudentEvent> StudentEvents { get; set; }
 
-        public IList<StudentBadge> StudentBadges { get; set; }
+        public virtual IList<StudentBadge> StudentBadges { get; set; }
 
 
         //TODO - to make these to be calculated - how and when. In the constructor, cause I want them in Db.

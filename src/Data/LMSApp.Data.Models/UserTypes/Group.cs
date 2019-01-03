@@ -27,8 +27,8 @@ namespace LMSApp.Data.Models.UserTypes
 
         public Major Major { get; set; }
 
-        public IList<Student> Students { get; set; }
+        public virtual IList<Student> Students { get; set; }
 
-        public IList<Event> GroupEvents { get; set; }
+        public virtual IList<Event> GroupEvents { get; set; }
     }
 }

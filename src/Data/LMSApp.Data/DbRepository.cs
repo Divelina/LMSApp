@@ -34,6 +34,11 @@ namespace LMSApp.Data
             this.dbSet.Remove(entity);
         }
 
+        public Task<TEntity> FindbyId(string id)
+        {
+            return this.dbSet.FindAsync(id);
+        }
+
         public void Dispose()
         {
             this.context.Dispose();

@@ -77,6 +77,7 @@ namespace LMSApp
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IEducatorService, EducatorService>();
 
             //TODO - Register the custom services that work with the entities
         }

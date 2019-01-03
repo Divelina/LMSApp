@@ -45,11 +45,11 @@ namespace LMSApp.Data.Models.AssignmentRelated
 
         public string Test { get; set; }
 
-        public IList<Material> Materials { get; set; }
+        public virtual IList<Material> Materials { get; set; }
 
-        public IList<StudentAssignment> StudentsAssignedTo { get; set; }
+        public virtual IList<StudentAssignment> StudentsAssignedTo { get; set; }
 
-        public IList<Group> GroupsAssignedTo { get; set; }
+        public virtual IList<Group> GroupsAssignedTo { get; set; }
 
     }
 }
