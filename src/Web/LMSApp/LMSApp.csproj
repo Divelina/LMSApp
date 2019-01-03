@@ -32,4 +32,16 @@
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\css\all.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\custom.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\css\site.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

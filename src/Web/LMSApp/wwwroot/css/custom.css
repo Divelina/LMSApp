@@ -25,21 +25,32 @@ div.container-custom {
     color: lightblue
 }
 
-/*Account Manage navigation*/
+/*Sidebar navigation*/
 
-#acc-manage-nav a {
-    color: aliceblue
+#acc-manage-nav a, #adm-course-nav a {
+    color: aliceblue;
 }
 
-#acc-manage-nav li.active {
+#acc-manage-nav li.active, #adm-course-nav li.active {
     background-color: lightblue;
 }
 
-#acc-manage-nav li.active > a{
-    color: #343a40
-}
+#acc-manage-nav li.active > a, #adm-course-nav li.active > a{
+        color: #343a40
+    }
 
 .btn-d-custom {
     color: lightblue;
     background-color: #212529;
+}
+
+/*Tables*/
+.table .thead-light th {
+    color: #343a40;
+    background-color: lightblue;
+    border-color: #343a40;
+}
+
+.table-bordered td {
+    border: 1px solid #343a40;
 }
