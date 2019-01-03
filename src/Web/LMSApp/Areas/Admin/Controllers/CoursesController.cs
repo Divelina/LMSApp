@@ -47,9 +47,7 @@ namespace LMSApp.Areas.Admin.Controllers
            var couresId =  await this.courseService.CreateAsync(course);
 
             //TODO - clear the form with JS?
-            //TODO - redirect to All course page - maybe I don't need the course Id in this case
-            return RedirectToAction("Index", "Home", new { Area = "Admin" });
-            //return this.RedirectToAction("Details", new { id = id });
+            return RedirectToAction("All", "Courses", new { Area = "Admin" });
         }
 
         [HttpGet]
@@ -59,6 +57,33 @@ namespace LMSApp.Areas.Admin.Controllers
                 .OrderByDescending(c => c.Year).ToList();
 
             return View(courses);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string courseId)
+        {
+
+            var courseModel = await this.courseService.GetCourseById(courseId);
+
+            //TODO return Error badrequest;
+            //if courseModel == null
+
+            return View(courseModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CourseDetailsViewModel courseModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return View(courseModel);
+            }
+
+            courseModel.Id = TempData["courseId"].ToString();
+
+            await this.courseService.EditCourseById(courseModel);
+
+            return RedirectToAction("Edit", new { courseId = courseModel.Id});
         }
     }
 }

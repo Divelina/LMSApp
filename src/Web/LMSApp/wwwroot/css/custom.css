@@ -3,6 +3,14 @@ div.container-custom {
     padding: 30px;
 }
 
+/*Line*/
+.hr-custom-dark {
+    border-color: #343a40;
+    border-top-width: 3px;
+    border-radius: 2px;
+}
+
+
 /*Navbar*/
 .navbar-dark .navbar-nav .nav-link {
     color: lightblue

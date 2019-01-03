@@ -13,6 +13,8 @@ namespace LMSApp.Data.Common
 
         Task AddAsync(TEntity entity);
 
+        void Edit(TEntity entity);
+
         void Delete(TEntity entity);
 
         Task<int> SaveChangesAsync();

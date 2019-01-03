@@ -14,6 +14,10 @@ namespace LMSApp.Services.CommonInterfaces
 
         IEnumerable<CourseListViewModel> GetAll();
 
+        Task<CourseDetailsViewModel> GetCourseById(string courseId);
+
+        Task EditCourseById(CourseDetailsViewModel courseModel);
+
         IEnumerable<CourseListViewModel> GetAllByEducator(string educatorId);
     }
 }

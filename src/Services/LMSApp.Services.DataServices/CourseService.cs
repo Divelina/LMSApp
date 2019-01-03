@@ -9,6 +9,7 @@ using LMSApp.Data.Models.Enums;
 using System.Linq;
 using System.Collections.Generic;
 using LMSApp.Services.Mapping;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMSApp.Services.DataServices
 {
@@ -23,7 +24,7 @@ namespace LMSApp.Services.DataServices
 
         public async Task<string> CreateAsync(CourseCreateBindingModel course)
         {
-            
+
             var newCourse = Mapper.Map<Course>(course);
 
             await this.coursesRepository.AddAsync(newCourse);
@@ -34,11 +35,19 @@ namespace LMSApp.Services.DataServices
 
         public bool AnyCourse(string name, Semester semester, string year, Major major)
         {
-            var isCourseFound = this.coursesRepository.All().Any(c => 
+            var isCourseFound = this.coursesRepository.All().Any(c =>
                  c.Name == name &&
                  c.Semester == semester &&
                  c.Year == year &&
                  c.Major == major);
+
+            return isCourseFound;
+        }
+
+        public bool AnyCourse(string id)
+        {
+            var isCourseFound = this.coursesRepository.All().Any(c =>
+                 c.Id == id);
 
             return isCourseFound;
         }
@@ -50,6 +59,48 @@ namespace LMSApp.Services.DataServices
 
             return courses;
         }
+
+        //public async Task<CourseDetailsViewModel> GetCourseById(string courseId)
+        //{
+        //    var course = await this.coursesRepository.FindbyId(courseId);
+
+        //    var courseModel = Mapper.Map<CourseDetailsViewModel>(course);
+
+        //    return courseModel;
+        //}
+
+        public async Task<CourseDetailsViewModel> GetCourseById(string courseId)
+        {
+            var course = await this.coursesRepository.FindbyId(courseId);
+
+            if (course != null)
+            {
+                var courseModel = this.coursesRepository.All()
+                    .Where(c => c.Id == courseId)
+                    .To<CourseDetailsViewModel>()
+                    .FirstOrDefault();
+
+                return courseModel;
+            }
+
+            return null;
+        }
+
+        public async Task EditCourseById(CourseDetailsViewModel courseModel)
+        {
+            var isCourseFound = this.AnyCourse(courseModel.Id);
+
+            if (isCourseFound)
+            {
+                var newCourse = Mapper.Map<Course>(courseModel);
+
+                this.coursesRepository.Edit(newCourse);
+
+                await this.coursesRepository.SaveChangesAsync();
+            }
+        }
+
+        //Educator only services 
 
         public IEnumerable<CourseListViewModel> GetAllByEducator(string educatorId)
         {

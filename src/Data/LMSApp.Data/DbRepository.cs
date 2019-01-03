@@ -29,14 +29,20 @@ namespace LMSApp.Data
             return this.dbSet;
         }
 
+        public void Edit(TEntity entity)
+        {
+            dbSet.Attach(entity);
+            context.Entry(entity).State = EntityState.Modified;
+        }
+
         public void Delete(TEntity entity)
         {
             this.dbSet.Remove(entity);
         }
 
-        public Task<TEntity> FindbyId(string id)
+        public async Task<TEntity> FindbyId(string id)
         {
-            return this.dbSet.FindAsync(id);
+            return await this.dbSet.FindAsync(id);
         }
 
         public void Dispose()
