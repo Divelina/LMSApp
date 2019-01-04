@@ -1,0 +1,60 @@
+﻿
+@using LMSApp.Services.Models.Courses
+@using LMSApp.Services.CommonInterfaces
+@using LMSApp.Data.Models.Enums
+
+@model IList<LectureciseShortViewModel>
+
+
+<div class="d-flex flex-row justify-content-between pb-lg-2">
+    <h4 id="Lecturecises">Lecturecises in Course</h4>
+    <a class="btn btn-d-custom" asp-area="Educator" asp-controller="Lecturecises" asp-action="Create" asp-route-courseId="@ViewData["courseId"]">Add Lecturecise</a>
+</div>
+
+@if (Model.Count() != 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Type</th>
+                <th scope="col" class="text-center">Time</th>
+                <th scope="col" class="text-center">Educators</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lecturecise in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        @lecturecise.Type
+                    </td>
+                    <td class="text-center">
+                        @lecturecise.WeekTimes
+                    </td>
+                    <td class="align-content-center">
+                        @lecturecise.EducatorNames
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex flex-row  justify-content-center align-items-center">
+
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <a class="btn btn-primary btn-sm"
+                                   asp-area="Educator" asp-controller="Lecturecises" asp-action="Edit" asp-route-lectureciseId="@lecturecise.Id">
+                                    Edit
+                                </a>
+                            </div>
+                            <div class="p-md-2">
+                                <a class="btn btn-danger btn-sm"
+                                   asp-area="Educator" asp-controller="Lecturecises" asp-action="Delete" asp-route-lectureciseId="@lecturecise.Id"
+                                   onclick="return confirm('Are you sure you wish to remove this Lecturecise?'">
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        }

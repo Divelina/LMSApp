@@ -1,0 +1,12 @@
+﻿@using LMSApp.Data.Models
+@using LMSApp.Areas.Identity.Pages.Account.Manage
+
+@inject SignInManager<LMSAppUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+@*<ul class="nav nav-pills nav-stacked">*@
+    <ul class="nav nav-pills flex-column bg-dark" id="adm-course-nav">
+        <li class="nav-item @CourseNavPages.AllNavClass(ViewContext)"><a class="nav-link act"  asp-controller="Courses" asp-action="All">All Courses</a></li>
+        <li class="nav-item @CourseNavPages.CreateNavClass(ViewContext)"><a class="nav-link" id="create-course" asp-controller="Courses" asp-action="Create">Create Course</a></li>
+    </ul>

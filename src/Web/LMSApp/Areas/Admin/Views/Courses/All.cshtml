@@ -1,0 +1,89 @@
+﻿
+@using LMSApp.Services.Models.Courses
+
+@model IList<CourseListViewModel>
+
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<div class="table-responsive-sm">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col" class="text-center">Held</th>
+                <th scope="col" class="text-center">Name</th>
+                <th scope="col" class="text-center">Major</th>
+                <th scope="col" class="text-center">Lecturecises</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td class="text-center">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <div>@course.Year</div>
+                            <div>@course.Semester</div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex flex-column justify-content-between align-items-center">
+                            <div><h6>@course.Name</h6></div>
+                            <div class="d-flex flex-row justify-content-between">
+                                <div><a class="btn btn-primary btn-sm m-sm-1" asp-controller="Courses" asp-action="Edit" asp-route-courseId="@course.Id">Edit</a></div>
+                                <div>
+                                    <a class="btn btn-danger btn-sm m-sm-1"
+                                       asp-controller="Courses" asp-action="Delete" asp-route-courseId="@course.Id"
+                                        onclick = "return confirm('Are you sure you wish to remove this Course?');">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="align-content-center">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <div>@course.Major</div>
+                            @if (!string.IsNullOrWhiteSpace(course.MajorDescription))
+                            {
+                                <div>(@course.MajorDescription)</div>
+                            }
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex flex-column  justify-content-between align-items-center">
+
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                @foreach (var lecturecise in course.Lecturecises)
+                                {
+                                    <div>
+                                        <a asp-controller="Lecturecises" asp-action="Details" asp-route-id="@lecturecise.Id">
+                                            <h6>@lecturecise.Type</h6>
+                                        </a>
+                                        (@lecturecise.EducatorNames ; @lecturecise.WeekTimes)
+                                    </div>
+                                }
+                            </div>
+                            <div class="p-md-2">
+                                @if (course.Lecturecises.Count() == 0)
+                                {
+                                    <a class="btn btn-primary btn-sm" asp-controller="Courses" asp-action="Edit" asp-route-courseId="@course.Id" asp-fragment="Lecturecises">
+                                        Add
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-primary btn-sm" asp-controller="Courses" asp-action="Edit" asp-route-courseId="@course.Id" asp-fragment="Lecturecises">
+                                        Edit
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
