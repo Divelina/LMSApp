@@ -64,7 +64,14 @@
         </form>
         <hr class="hr-custom-dark" />
 
-            <partial name="_LectureciseList" for="@Model.Lecturecises"/>
-        
+        <div class="d-flex flex-row justify-content-between pb-lg-2">
+            <h4 id="Lecturecises">Lecturecises in Course</h4>
+            <a class="btn btn-d-custom" 
+            asp-area="Admin" asp-controller="Courses" asp-action="AddLecturecise" asp-route-courseId="@ViewData["courseId"]" asp-fragment="add-lecturecise">
+            Add Lecturecise</a>
+        </div>
+
+        <partial name="_LectureciseList" for="@Model.Lecturecises" />
+
     </div>
 </div>

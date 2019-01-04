@@ -59,6 +59,12 @@ div.container-custom {
     border-color: #343a40;
 }
 
-.table-bordered td {
+ .table-bordered td {
     border: 1px solid #343a40;
+}
+
+/*Locked input field*/
+.form-control:disabled, .form-control[readonly]{
+    background: none;
+    border: none;
 }

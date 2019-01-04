@@ -29,6 +29,15 @@ namespace LMSApp.Services.DataServices
             return educator;             
         }
 
+        //public Educator GetById(string educatorId)
+        //{
+        //    var educator = this.educatorRepository.All()
+        //        .Where(e => e.Id == educatorId)
+        //        .FirstOrDefault();
+
+        //    return educator;
+        //}
+
         public IEnumerable<EducatorIdAndNameViewModel> GetAll()
         {
             var courses = this.educatorRepository.All()

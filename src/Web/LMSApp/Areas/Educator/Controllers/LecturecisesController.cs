@@ -1,4 +1,7 @@
-﻿using LMSApp.Services.CommonInterfaces;
+﻿using AutoMapper;
+using LMSApp.Data.Models.CourseRelated;
+using LMSApp.Services.CommonInterfaces;
+using LMSApp.Services.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -32,5 +35,24 @@ namespace LMSApp.Areas.Educator.Controllers
             //TODO return some error instead
             return RedirectToAction("All", "Courses", new { Area = "Admin" });
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddEducator(EducatorLectureciseBindingModel model)
+        //{
+        //    var lecturecise = await this.lectureciseService.GetById(model.LectureciseId);
+
+        //    if (!this.ModelState.IsValid)
+        //    {
+        //        return RedirectToAction("AddLecturecise", "Courses", new { Area = "Admin", courseId = lecturecise.CourseId });
+        //    }
+
+        //    var educatorLecturecise = Mapper.Map<EducatorLecturecise>(model);
+
+        //    lecturecise.LectureciseEducators.Add(educatorLecturecise);
+
+        //   await this.lectureciseService.EditLecturecise(lecturecise);
+
+        //    return RedirectToAction("AddLecturecise", "Courses", new { Area = "Admin", courseId = lecturecise.CourseId });
+        //}
     }
 }

@@ -1,4 +1,5 @@
-﻿using LMSApp.Data.Models;
+﻿using AutoMapper;
+using LMSApp.Data.Models;
 using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.Models.Courses;
@@ -14,10 +15,12 @@ namespace LMSApp.Areas.Admin.Controllers
     public class CoursesController : AdminBaseController
     {
         private readonly ICourseService courseService;
+        private readonly ILectureciseService lectureciseService;
 
-        public CoursesController(ICourseService courseService)
+        public CoursesController(ICourseService courseService, ILectureciseService lectureciseService)
         {
             this.courseService = courseService;
+            this.lectureciseService = lectureciseService;
         }
 
         [HttpGet]
@@ -96,6 +99,76 @@ namespace LMSApp.Areas.Admin.Controllers
             await this.courseService.DeleteCourseById(courseId);
 
             return RedirectToAction("All", "Courses", new { Area = "Admin" });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddLecturecise(string courseId)
+        {
+            var courseModel = await this.courseService.GetCourseById(courseId);
+
+            //TODO return Error badrequest;
+            //if courseModel == null
+
+            ViewBag.Course = courseModel;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddLecturecise(LectureciseCreateBindingModel lectureciseModel)
+        {
+
+            if (!this.ModelState.IsValid)
+            {
+                this.View(lectureciseModel);
+            }
+
+            var newLectureciseId = await this.lectureciseService.CreateAsync(lectureciseModel);
+
+            if(lectureciseModel.EducatorIds != null|| lectureciseModel.Day1 != null || lectureciseModel.Day2 != null)
+            {
+                var lecturecise = this.lectureciseService.GetByOriginal(newLectureciseId);
+
+                if (lectureciseModel.EducatorIds != null)
+                {
+                    foreach (var educatorId in lectureciseModel.EducatorIds)
+                    {
+                        lecturecise.LectureciseEducators.Add(new EducatorLecturecise() { EducatorId = educatorId, LectureciseId = lecturecise.Id });
+                    }
+                }
+
+                if (lectureciseModel.Day1 != null && lectureciseModel.StartTime1 != null)
+                {
+                    var weekTime1 = new WeekTime()
+                    { DayOfWeek = lectureciseModel.Day1.Value, StartHour = lectureciseModel.StartTime1.Value.TimeOfDay.ToString() };
+
+                    if (lectureciseModel.EndTime1 != null)
+                    {
+                        weekTime1.EndHour = lectureciseModel.EndTime1.Value.TimeOfDay.ToString();
+                    }
+
+                    lecturecise.WeekTimes.Add(weekTime1);
+                }
+
+                if (lectureciseModel.Day2 != null && lectureciseModel.StartTime2 != null)
+                {
+                    var weekTime2 = new WeekTime()
+                    { DayOfWeek = lectureciseModel.Day2.Value, StartHour = lectureciseModel.StartTime2.Value.TimeOfDay.ToString() };
+
+                    if (lectureciseModel.EndTime2 != null)
+                    {
+                        weekTime2.EndHour = lectureciseModel.EndTime1.Value.TimeOfDay.ToString();
+                    }
+
+                    lecturecise.WeekTimes.Add(weekTime2);
+                }
+
+                await this.lectureciseService.SaveLecturecises();
+
+                //await this.lectureciseService.EditLecturecise(lecturecise);
+            }
+
+            return RedirectToAction("AddLecturecise", new { courseId = lectureciseModel.CourseId });
         }
     }
 }
