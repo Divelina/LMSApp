@@ -72,6 +72,21 @@ namespace LMSApp.Services.DataServices
         //    return courseModel;
         //}
 
+        public Course GetByIdOriginal(string courseId)
+        {
+            var course = this.coursesRepository.All()
+                .Include(c => c.CourseEducators)
+                .Where(c => c.Id == courseId && c.IsDeleted == false)
+                .FirstOrDefault();
+
+            if (course != null && course.IsDeleted == false)
+            {
+                return course;
+            }
+
+            return null;
+        }
+
         public async Task<CourseDetailsViewModel> GetCourseById(string courseId)
         {
             var course = await this.coursesRepository.FindbyId(courseId);
@@ -118,6 +133,11 @@ namespace LMSApp.Services.DataServices
 
                 await this.coursesRepository.SaveChangesAsync();
             }
+        }
+
+        public async Task SaveCoursesDb()
+        {
+           await this.coursesRepository.SaveChangesAsync();
         }
 
         //Educator only services 

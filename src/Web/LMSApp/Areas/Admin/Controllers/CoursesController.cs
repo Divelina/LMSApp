@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LMSApp.Data.Models;
+using LMSApp.Data.Models.Enums;
 using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.Models.Courses;
@@ -41,13 +42,13 @@ namespace LMSApp.Areas.Admin.Controllers
             if (this.courseService.AnyCourse(course.Name, course.Semester, course.Year, course.Major))
             {
 
-                TempData["Error"] += 
+                TempData["Error"] +=
                     "Error: Course with the same name, semester, year and major already in database.";
 
                 return this.View(course);
             }
 
-           var couresId =  await this.courseService.CreateAsync(course);
+            var couresId = await this.courseService.CreateAsync(course);
 
             //TODO - clear the form with JS?
             return RedirectToAction("All", "Courses", new { Area = "Admin" });
@@ -86,7 +87,7 @@ namespace LMSApp.Areas.Admin.Controllers
 
             await this.courseService.EditCourseById(courseModel);
 
-            return RedirectToAction("Edit", new { courseId = courseModel.Id});
+            return RedirectToAction("Edit", new { courseId = courseModel.Id });
         }
 
         //Only flags it as deleted
@@ -125,15 +126,28 @@ namespace LMSApp.Areas.Admin.Controllers
 
             var newLectureciseId = await this.lectureciseService.CreateAsync(lectureciseModel);
 
-            if(lectureciseModel.EducatorIds != null|| lectureciseModel.Day1 != null || lectureciseModel.Day2 != null)
+            if (lectureciseModel.EducatorIds != null || lectureciseModel.Day1 != null || lectureciseModel.Day2 != null)
             {
                 var lecturecise = this.lectureciseService.GetByOriginal(newLectureciseId);
 
                 if (lectureciseModel.EducatorIds != null)
                 {
+                    var course = this.courseService.GetByIdOriginal(lectureciseModel.CourseId);
+
                     foreach (var educatorId in lectureciseModel.EducatorIds)
                     {
                         lecturecise.LectureciseEducators.Add(new EducatorLecturecise() { EducatorId = educatorId, LectureciseId = lecturecise.Id });
+
+                        //Add the Educators to the course if not added previously.
+                        if (course != null && !course.CourseEducators.Any(ce => ce.EducatorId == educatorId))
+                        {
+                            course.CourseEducators.Add(new EducatorCourse()
+                            {
+                                EducatorId = educatorId,
+                                CourseId = course.Id,
+                                TeachingRole = lectureciseModel.Type == LectureciseType.Lecture ? TeachingRole.Lecturer : TeachingRole.Assistant
+                            });
+                        }
                     }
                 }
 

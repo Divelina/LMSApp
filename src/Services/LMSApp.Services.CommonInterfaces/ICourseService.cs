@@ -1,4 +1,5 @@
 ﻿
+using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Data.Models.Enums;
 using LMSApp.Services.Models.Courses;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace LMSApp.Services.CommonInterfaces
         bool AnyCourse(string name, Semester semester, string year, Major major);
 
         IEnumerable<CourseListViewModel> GetAll();
+
+        Course GetByIdOriginal(string courseId);
 
         Task<CourseDetailsViewModel> GetCourseById(string courseId);
 

@@ -81,6 +81,7 @@ namespace LMSApp
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IEducatorService, EducatorService>();
             services.AddScoped<ILectureciseService, LectureciseService>();
+            services.AddScoped<IUserService, UserService>();
 
             //TODO - Register the custom services that work with the entities
         }
