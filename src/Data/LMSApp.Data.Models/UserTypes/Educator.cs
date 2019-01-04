@@ -12,7 +12,7 @@ namespace LMSApp.Data.Models.UserTypes
 {
     //Additional object to store additional properties
     //Intended to have the Educator Role
-    public class Educator : BaseModel<string>
+    public class Educator : BaseDeletableModel<string>
     {
         public Educator()
         {

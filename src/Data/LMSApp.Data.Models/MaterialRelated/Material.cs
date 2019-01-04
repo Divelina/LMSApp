@@ -12,7 +12,7 @@ namespace LMSApp.Data.Models.MaterialRelated
 {
     //Object for materials uploaded by educators
     //TODO revise for materials stored in servers
-    public class Material : BaseModel<string>
+    public class Material : BaseDeletableModel<string>
     {
         public Material()
         {

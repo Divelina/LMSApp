@@ -10,6 +10,7 @@ using System.Linq;
 using System.Collections.Generic;
 using LMSApp.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace LMSApp.Services.DataServices
 {
@@ -39,7 +40,8 @@ namespace LMSApp.Services.DataServices
                  c.Name == name &&
                  c.Semester == semester &&
                  c.Year == year &&
-                 c.Major == major);
+                 c.Major == major &&
+                 c.IsDeleted == false);
 
             return isCourseFound;
         }
@@ -47,7 +49,7 @@ namespace LMSApp.Services.DataServices
         public bool AnyCourse(string id)
         {
             var isCourseFound = this.coursesRepository.All().Any(c =>
-                 c.Id == id);
+                 c.Id == id && c.IsDeleted == false);
 
             return isCourseFound;
         }
@@ -55,6 +57,7 @@ namespace LMSApp.Services.DataServices
         public IEnumerable<CourseListViewModel> GetAll()
         {
             var courses = this.coursesRepository.All()
+                .Where(c => c.IsDeleted == false)
                 .To<CourseListViewModel>();
 
             return courses;
@@ -73,7 +76,7 @@ namespace LMSApp.Services.DataServices
         {
             var course = await this.coursesRepository.FindbyId(courseId);
 
-            if (course != null)
+            if (course != null && course.IsDeleted == false)
             {
                 var courseModel = this.coursesRepository.All()
                     .Where(c => c.Id == courseId)
@@ -104,9 +107,14 @@ namespace LMSApp.Services.DataServices
         {
             var course = await this.coursesRepository.FindbyId(courseId);
 
-            if (course != null)
+            if (course != null && course.IsDeleted == false)
             {
-                this.coursesRepository.Delete(course);
+                //this.coursesRepository.Delete(course);
+
+                course.IsDeleted = true;
+                course.DeletedOn = DateTime.UtcNow;
+
+                this.coursesRepository.Edit(course);
 
                 await this.coursesRepository.SaveChangesAsync();
             }
@@ -117,7 +125,8 @@ namespace LMSApp.Services.DataServices
         public IEnumerable<CourseListViewModel> GetAllByEducator(string educatorId)
         {
             var courses = this.coursesRepository.All()
-                .Where(c => c.CourseEducators.Any(ce => ce.EducatorId == educatorId))
+                .Where(c => c.CourseEducators.Any(ce => ce.EducatorId == educatorId
+                        && c.IsDeleted == false))
                 .To<CourseListViewModel>();
 
             return courses;

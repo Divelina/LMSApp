@@ -12,8 +12,8 @@ namespace LMSApp.Data.Models.UserTypes
     //Added for better sorting
     //Does not store many things like common assignments, etc.
     //Mind that students can go to events not with their group...
-    public class Group : BaseModel<string>
-    {
+    public class Group : BaseDeletableModel<string>
+    { 
         public Group()
         {
             this.Students = new List<Student>();

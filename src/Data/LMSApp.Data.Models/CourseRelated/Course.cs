@@ -10,7 +10,7 @@ namespace LMSApp.Data.Models.CourseRelated
 {
     //Course is the subject
     //Separate year/semester is separate course
-    public class Course : BaseModel<string>
+    public class Course : BaseDeletableModel<string>
     {
         public Course()
         {

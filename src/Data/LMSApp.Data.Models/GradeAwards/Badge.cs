@@ -7,8 +7,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LMSApp.Data.Models.GradeAwards
 {
-    public class Badge : BaseModel<string>
-    {
+    public class Badge : BaseDeletableModel<string>
+    { 
         public Badge()
         {
             this.StudentsAwarded = new List<StudentBadge>();

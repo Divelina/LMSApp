@@ -30,8 +30,12 @@ namespace LMSApp.Data.Migrations
 
                     b.Property<DateTime?>("DateCreated");
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("EducatorId")
                         .IsRequired();
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LectureciseId")
                         .IsRequired();
@@ -90,7 +94,11 @@ namespace LMSApp.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<int>("Major");
 
@@ -157,7 +165,11 @@ namespace LMSApp.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("GroupId");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LectureciseId");
 
@@ -181,6 +193,10 @@ namespace LMSApp.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CourseId");
+
+                    b.Property<DateTime?>("DeletedOn");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<int>("Type");
 
@@ -237,7 +253,11 @@ namespace LMSApp.Data.Migrations
 
                     b.Property<string>("AssignmentId");
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -330,9 +350,13 @@ namespace LMSApp.Data.Migrations
 
                     b.Property<string>("CourseId");
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("EducatorId");
 
                     b.Property<string>("EventId");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime>("LastChangeDate");
 
@@ -372,9 +396,13 @@ namespace LMSApp.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<int>("FacultyName");
 
                     b.Property<string>("Info");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("PersonalPageLink");
 
@@ -395,7 +423,11 @@ namespace LMSApp.Data.Migrations
 
                     b.Property<string>("AssignmentId");
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<int>("Major");
 
@@ -413,9 +445,13 @@ namespace LMSApp.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<int>("FacultyName");
 
                     b.Property<string>("GroupId");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("LastSeen");
 
@@ -455,7 +491,11 @@ namespace LMSApp.Data.Migrations
 
                     b.Property<int>("DayOfWeek");
 
+                    b.Property<DateTime?>("DeletedOn");
+
                     b.Property<string>("EndHour");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("LectureciseId");
 

@@ -15,7 +15,7 @@ namespace LMSApp.Data.Models.UserTypes
 {
     //Additional object to store additional properties
     //Intended to have the Student Role
-    public class Student : BaseModel<string>
+    public class Student : BaseDeletableModel<string>
     {
         public Student()
         {

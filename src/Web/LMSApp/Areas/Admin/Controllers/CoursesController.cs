@@ -86,6 +86,7 @@ namespace LMSApp.Areas.Admin.Controllers
             return RedirectToAction("Edit", new { courseId = courseModel.Id});
         }
 
+        //Only flags it as deleted
         [HttpGet]
         public async Task<IActionResult> Delete(string courseId)
         {

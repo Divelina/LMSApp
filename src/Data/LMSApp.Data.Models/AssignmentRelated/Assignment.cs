@@ -14,7 +14,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMSApp.Data.Models.AssignmentRelated
 {
-    public class Assignment : BaseModel<string>
+    public class Assignment : BaseDeletableModel<string>
     {
         public Assignment()
         {

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace LMSApp.Data.Models
 {
     //To store lecture and excercises scheduled times
-    public class WeekTime : BaseModel<int>
+    public class WeekTime : BaseDeletableModel<int>
     {
         [Required]
         public DayOfWeek DayOfWeek { get; set; }

@@ -10,7 +10,7 @@ namespace LMSApp.Data.Models.CourseRelated
 {
     //Events are separate classes
     //or irregular events - exams, etc.
-    public class Event : BaseModel<string>
+    public class Event : BaseDeletableModel<string>
     {
         public Event()
         {
