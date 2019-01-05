@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace LMSApp.Areas.Identity.Pages.Account.Manage
+namespace LMSApp.Areas.Educator.Views.Courses
 {
     public static class CourseNavPages
     {
         public static string All => "All";
 
-        public static string Create => "Create";
-
+        public static string CurrentYearLecturecises => "CurrentYearLecturecises";
+        
         public static string AllNavClass(ViewContext viewContext) => PageNavClass(viewContext, All);
 
-        public static string CreateNavClass(ViewContext viewContext) => PageNavClass(viewContext, Create);
-
+        public static string CurrentYearLecturecisesNavClass(ViewContext viewContext) => PageNavClass(viewContext, CurrentYearLecturecises);
+    
         public static string PageNavClass(ViewContext viewContext, string page)
         {
             //var activePage = viewContext.ViewData["ActivePage"] as string

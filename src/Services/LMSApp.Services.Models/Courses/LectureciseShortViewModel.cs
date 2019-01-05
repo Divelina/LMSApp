@@ -19,7 +19,11 @@ namespace LMSApp.Services.Models.Courses
 
         public string WeekTimes { get; set; }
 
+        public string Held { get; set; }
+
         public string EducatorNames { get; set; }
+
+        public int? StudentNumber { get; set; }
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
@@ -30,7 +34,9 @@ namespace LMSApp.Services.Models.Courses
                                               c.WeekTimes.Where(wk => wk.IsDeleted == false).OrderBy(wt => wt.DayOfWeek).Select(wt => wt.ToString()))))
                 .ForMember(x => x.EducatorNames,
                             m => m.MapFrom(c => string.Join(", ", c.LectureciseEducators.Where(le => le.Educator.IsDeleted == false)
-                                        .Select(le => $"{le.Educator.User.FirstName} {le.Educator.User.FamilyName}").ToList())));
+                                        .Select(le => $"{le.Educator.User.FirstName} {le.Educator.User.FamilyName}").ToList())))
+                .ForMember(x => x.StudentNumber, m => m.MapFrom(src => src.LectureciseStudents.Count()))
+                .ForMember(x => x.Held, m => m.MapFrom(src => $"{src.Course.Year} ({src.Course.Semester})"));
         }
     }
 }

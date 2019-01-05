@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using LMSApp.Data.Models;
 using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.Models.Users;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,10 +16,34 @@ namespace LMSApp.Areas.Educator.Controllers
     public class LecturecisesController : EducatorBaseController
     {
         private readonly ILectureciseService lectureciseService;
+        private readonly ICourseService courseService;
+        private UserManager<LMSAppUser> userManager;
 
-        public LecturecisesController(ILectureciseService lectureciseService)
+        public LecturecisesController(ILectureciseService lectureciseService, UserManager<LMSAppUser> userManager, ICourseService courseService)
         {
             this.lectureciseService = lectureciseService;
+            this.courseService = courseService;
+            this.userManager = userManager;
+        }
+
+        //For Educator's own courses in the current year
+        [HttpGet]
+        public async Task<IActionResult> CurrentYearLecturecises()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var coursesIdThisYear = this.courseService.GetAll()
+                .Where(c => c.Year.Contains(DateTime.Now.Year.ToString()))
+                .Select(c => c.Id)
+                .ToList();
+
+            var lecturecises = this.lectureciseService.GetAll()
+                .Where(l => l.EducatorNames.ToLower().Contains(user.FamilyName.ToLower()) &&
+                    l.EducatorNames.ToLower().Contains(user.FirstName.ToLower()) &&
+                    coursesIdThisYear.Any(ci => ci == l.CourseId))
+                .ToList();
+
+            return View(lecturecises);
         }
 
         //Only flags it as deleted
