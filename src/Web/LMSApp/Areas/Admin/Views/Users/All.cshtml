@@ -1,0 +1,64 @@
+﻿
+@using LMSApp.Services.Models.Users
+
+@model IEnumerable<UserListViewModel>
+
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<div class="table-responsive-sm">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col" class="text-center">Name & Username</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Lock Out / Unlock</th>
+                <th scope="col" class="text-center">Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+            <tr>
+                <td class="align-content-center">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <div>
+                            @user.FirstName @user.FamilyName (@user.UserName)
+                        </div>
+                        <div><a class="btn btn-primary btn-sm m-sm-1" asp-action="Edit" asp-route-userId="@user.Id">Edit</a></div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    @user.Email
+                </td>
+                <td class="text-center">
+                    <div>
+                        @{var btnText = user.IsLockedOut == true ? "Unlock" : "Lock Out";}
+                        <a class="m-sm-1" asp-action="ChangeLockOut" asp-route-userId="@user.Id">
+                            @btnText
+                        </a>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <div class="d-flex flex-column justify-content-center align-items-around">
+                        @{var adminText = user.IsAdmin == true ? "Admin" : "";}
+                        <div class="font-weight-bold" style="color: red">@adminText</div>
+                        @{var educatorBtn = user.IsEducator == true ? "Remove as Educator" : "Make Educator";}
+                        <a class="m-sm-1" asp-action="ChangeEducator" asp-route-userId="@user.Id">
+                            @educatorBtn
+                        </a>
+                        @{var studentBtn = user.IsStudent == true ? "Remove as Student" : "Make Student";}
+                        <a class="m-sm-1" asp-action="ChangeStudent" asp-route-userId="@user.Id">
+                            @studentBtn
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+

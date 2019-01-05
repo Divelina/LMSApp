@@ -1,0 +1,96 @@
+﻿@using LMSApp.Services.Models.Courses
+@using LMSApp.Data.Models.Enums
+@using LMSApp.Services.CommonInterfaces
+
+@model LectureciseCreateBindingModel
+
+@inject IEducatorService educatorService
+
+@{ var educators = educatorService.GetAll().Select(e => new SelectListItem() { Text = e.FullName, Value = e.Id }).ToList();}
+
+@{
+    ViewData["Title"] = ViewBag.Course.Name;
+    TempData["courseId"] = ViewBag.Course.Id;
+}
+
+
+<div><h4>@ViewData["Title"]</h4></div>
+
+<div class="d-flex flex-row justify-content-start">
+    <div class="mx-md-2"><h6>Year: @ViewBag.Course.Year</h6></div>
+    <div class="mx-md-2"><h6>Semester: @ViewBag.Course.Semester.ToString()</h6></div>
+    <div class="mx-md-2"><h6>Major: @ViewBag.Course.Major.ToString()</h6></div>
+</div>
+
+
+<hr class="hr-custom-dark" />
+
+<div>
+    <h4>Add lecturecise</h4>
+    <hr />
+    <form asp-action="AddLecturecise" method="post" id="add-lecturecise">
+        @{
+            if (TempData.ContainsKey("Error"))
+            {
+                <div class="text-danger">
+                    @TempData["Error"];
+                </div>
+            }
+        }
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-row">
+            <div class="form-group col-md-3 ml-2">
+                @*<label  class="mx-md-2" asp-for="CourseId"></label>*@
+                <input asp-for="CourseId" class="form-control mx-md-2" id="readolny-courseId" value="@TempData["courseId"]" readonly hidden />
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+                <label class="mx-md-2 font-weight-bold" asp-for="Type"></label>
+                <select class="form-control mx-md-2" asp-for="Type" asp-items="Html.GetEnumSelectList<LectureciseType>()"></select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3 ml-2">
+                <label class="mx-md-2 font-weight-bold" asp-for="EducatorIds">Add Educators</label>
+                <select class="form-control mx-md-2" asp-for="EducatorIds" asp-items="@educators"></select>
+                <span asp-validation-for="EducatorIds" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-5 ml-2">
+                <h6>Add Times - day/start/end</h6>
+                <div class="form-row my-md-1">
+                    <div class="col-md-4">
+                        <select class="form-control mx-md-2" asp-for="Day1" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
+                        <span asp-validation-for="Day1" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="StartTime1" class="form-control mx-md-2" type="time" />
+                        <span asp-validation-for="StartTime1" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="EndTime1" class="form-control mx-md-2" type="time" />
+                        <span asp-validation-for="EndTime1" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-row my-md-1">
+                    <div class="col-md-4">
+                        <select class="form-control mx-md-2" asp-for="Day2" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
+                        <span asp-validation-for="Day2" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="StartTime2" class="form-control mx-md-2" type="time" />
+                        <span asp-validation-for="StartTime2" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="EndTime2" class="form-control mx-md-2" type="time" />
+                        <span asp-validation-for="EndTime2" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-dark btn-d-custom btn-sm mx-md-2" value="Add to Course" />
+    </form>
+    <hr class="hr-custom-dark" />
+</div>
+
+@{var lecturecises = ViewBag.Course.Lecturecises; }
+
+<partial name="_LectureciseList" for="@lecturecises" />

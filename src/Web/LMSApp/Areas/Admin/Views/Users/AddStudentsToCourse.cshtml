@@ -1,0 +1,159 @@
+﻿@using LMSApp.Services.CommonInterfaces
+@using LMSApp.Services.Models.Users
+@using LMSApp.Data.Models.Enums
+
+@model StudentsAddToCourseModel
+
+
+@{
+    ViewData["Title"] = "Add Students to Course";
+}
+
+@inject ICourseService courseService
+
+@{ var courses = courseService.GetAll().Select(c => new SelectListItem() { Text = $"{c.Year}({c.Semester}) {c.Name}", Value = c.Id }).ToList();}
+
+<h4>@ViewData["Title"]</h4>
+<h6 class="text-danger">@TempData["AddedMessage"]</h6>
+<hr class="hr-custom-dark" />
+
+<h5>Filter Students</h5>
+    @{var filters = new StudentsFilterModel();
+        filters.ForAction = "AddStudentsToCourse";
+        }
+
+    <partial name="_StudentFilter" for="@filters" />
+
+<hr class="hr-custom-dark" />
+<div class="row">
+
+    <div class="col-md-8">
+        <form asp-action="AddStudentsToCourse" method="post" id="add-to-course">
+
+            @{
+                if (TempData.ContainsKey("Error"))
+                {
+                    <div class="text-danger">
+                        @TempData["Error"];
+                    </div>
+                }
+            }
+
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-row justify-content-start">
+                <div class="form-group col-md-5 ml-2">
+                    <label class="mx-md-2 font-weight-bold" asp-for="CourseId">Select course</label>
+                    <select class="form-control mx-md-2" asp-for="CourseId" asp-items="@courses">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                    <span asp-validation-for="CourseId" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-5 ml-2">
+                    <label class="mx-md-2 font-weight-bold" asp-for="LectureciseId">Select lecturecise</label>
+                    <select class="form-control mx-md-2" asp-for="LectureciseId">
+                        <option disabled selected>--- SELECT ---</option>
+                    </select>
+                    <span asp-validation-for="LectureciseId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-dark btn-d-custom my-md-2" value="Add to course" />
+
+            <div class="table-responsive-sm">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="text-center">Uni Id</th>
+                            <th scope="col" class="text-center">Major</th>
+                            <th scope="col" class="text-center">Group</th>
+                            <th scope="col" class="text-center">Faculty name</th>
+                            <th scope="col" class="text-center">Name & Username</th>
+                            <th scope="col" class="text-center">Email</th>
+                            <th scope="col" class="text-center">Last seen</th>
+                            <th scope="col" class="text-center">Roles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.StudentsInfo.Count(); i++)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @Model.StudentsInfo[i].StudentUniId
+                                    <div class="form-group col-md-6 ml-2">
+                                        @*<label  class="mx-md-2" asp-for="CourseId"></label>*@
+                                        <input asp-for="@Model.StudentsInfo[i].Id" class="form-control mx-md-2" id="readolny-courseId"
+                                               value="@Model.StudentsInfo[i].Id" readonly hidden />
+                                        <span asp-validation-for="@Model.StudentsInfo[i].Id" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    @Model.StudentsInfo[i].Major
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        @Model.StudentsInfo[i].GroupNumber (id: @Model.StudentsInfo[i].GroupId)
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        @Model.StudentsInfo[i].FacultyName
+                                    </div>
+                                </td>
+                                <td class="align-content-center">
+                                    <div class="d-flex flex-column justify-content-center align-items-center">
+                                        <div>
+                                            @Model.StudentsInfo[i].UserInfo.FirstName @Model.StudentsInfo[i].UserInfo.FamilyName (@Model.StudentsInfo[i].UserInfo.UserName)
+                                        </div>
+                                        <div><a class="btn btn-primary btn-sm m-sm-1" asp-action="Edit" asp-route-userId="@Model.StudentsInfo[i].Id">Edit</a></div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    @Model.StudentsInfo[i].UserInfo.Email
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        @Model.StudentsInfo[i].LastSeen
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex flex-column justify-content-center align-items-around">
+                                        <a class="m-sm-1" asp-action="ChangeStudent" asp-route-userId="@Model.StudentsInfo[i].UserId">
+                                            Remove as Student
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#CourseId").change(function () {
+            var url = '@Url.Content("~/")' + "Admin/Courses/GetLectureciseByCourse";
+            var dllsource = "#CourseId";
+            $.getJSON(url, { CourseId: $(dllsource).val() }, function (data) {
+                var items = '<option disabled selected>--- SELECT ---</option>';
+                $("#LectureciseId").empty();
+                $.each(data, function (i, ls) {
+                    items += "<option value='" + ls.value + "'>" + ls.text + +"</option>";
+                });
+                $("#LectureciseId").html(items);
+            });
+        });
+
+    });
+    </script>
+
+}
+
+

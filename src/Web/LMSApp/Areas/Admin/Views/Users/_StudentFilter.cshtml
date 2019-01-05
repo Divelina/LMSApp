@@ -1,0 +1,56 @@
+﻿@using LMSApp.Services.Models.Users
+@using LMSApp.Data.Models.Enums
+
+@model StudentsFilterModel
+
+<form asp-action="@Model.ForAction" method="get">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-col">
+        <div class="form-row justify-content-start">
+            <div class="form-group col-md-3 mr-md-2">
+                <label class="mx-md-2 font-weight-bold" asp-for="@Model.Major"></label>
+                <select class="form-control mx-md-2" asp-for="@Model.Major" asp-items="Html.GetEnumSelectList<Major>()">
+                    <option selected value="">--- SELECT ---</option>
+                </select>
+                <span asp-validation-for="@Model.Major" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="mx-md-2 font-weight-bold" asp-for="@Model.GroupNumber"></label>
+                <input class="form-control mx-md-2" asp-for="@Model.GroupNumber">
+                <span asp-validation-for="@Model.GroupNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3">
+                <label class="mx-md-2 font-weight-bold" asp-for="@Model.FacultyName"></label>
+                <select class="form-control mx-md-2" asp-for="@Model.FacultyName" asp-items="Html.GetEnumSelectList<FacultyOf>()">
+                    <option selected value="">--- SELECT ---</option>
+                </select>
+                <span asp-validation-for="@Model.FacultyName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-row my-md-1">
+            <div class="form-group col-md-2">
+                <label class="mx-md-2 font-weight-bold" asp-for="@Model.UniIdMin"></label>
+                <input class="form-control mx-md-2" asp-for="@Model.UniIdMin">
+                <span asp-validation-for="@Model.UniIdMin" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="mx-md-2 font-weight-bold" asp-for="@Model.UniIdMax"></label>
+                <input class="form-control mx-md-2" asp-for="@Model.UniIdMax">
+                <span asp-validation-for="@Model.UniIdMax" class="text-danger"></span>
+            </div>
+            <div class=" form-group col-md-4">
+                <label class="font-weight-bold" asp-for="@Model.NameStr"></label>
+                <input class="form-control mx-md-2" asp-for="@Model.NameStr">
+                <span asp-validation-for="@Model.NameStr" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="font-weight-bold" asp-for="@Model.EmailStr"></label>
+                <input class="form-control mx-md-2" asp-for="@Model.EmailStr">
+                <span asp-validation-for="@Model.EmailStr" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-dark btn-d-custom btn-sm mx-md-2" value="Filter" />
+    <input type="reset" class="btn btn-danger" value="Reset" />
+</form>

@@ -1,0 +1,29 @@
+﻿@using LMSApp.Services.Models.Users
+@using LMSApp.Services.CommonInterfaces
+
+@model EducatorLectureciseBindingModel
+
+@inject IEducatorService educatorService
+
+@{ var educators = educatorService.GetAll().Select(e => new SelectListItem() { Text = e.FullName, Value = e.Id}).ToList();}
+
+<form asp-area="Educator" asp-controller="Lecturecises" asp-action="AddEducator" method="post" id="add-educator">
+    @{
+        if(TempData.ContainsKey("Error"))
+        {
+            <div class="text-danger">
+                @TempData["Error"];
+            </div>
+        }
+    }
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-inline align-items-center">
+        @*<label class="mx-md-2" asp-for="LectureciseId"></label>*@
+        <input asp-for="LectureciseId" class="form-control mx-md-2 col-3" id="readolny-courseId" value="@ViewData["lectureciseId"]" readonly hidden />
+        <span asp-validation-for="LectureciseId" class="text-danger"></span>
+        @*<label class="mx-md-2" asp-for="EducatorId"></label>*@
+        <select class="form-control mx-md-2" asp-for="EducatorId" asp-items="@educators"></select>
+        <span asp-validation-for="EducatorId" class="text-danger"></span>
+        <input type="submit" class="btn btn-dark btn-d-custom btn-sm mx-md-2" value="Add" />
+    </div>
+</form>
