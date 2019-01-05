@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace LMSApp.Services.Models.Courses
 {
-    public class LectureciseShortViewModel : IMapFrom<Lecturecise>, IHaveCustomMappings
+    public class LectureciseShortViewModel : IMapFrom<Lecturecise>, IMapTo<Lecturecise>, IHaveCustomMappings
     {
      
         public string Id { get; set; }

@@ -66,15 +66,13 @@
                                 }
                             </div>
                             <div class="p-md-2">
-                                @if (course.Lecturecises.Count() == 0)
-                                {
                                     <a class="btn btn-primary btn-sm" asp-controller="Courses" asp-action="AddLecturecise" asp-route-courseId="@course.Id" asp-fragment="add-lecturecise">
                                         Add
                                     </a>
-                                }
-                                else
+
+                                @if (course.Lecturecises.Count() > 0)
                                 {
-                                    <a class="btn btn-primary btn-sm" asp-controller="Courses" asp-action="Edit" asp-route-courseId="@course.Id" asp-fragment="Lecturecises">
+                                    <a class="btn btn-primary btn-sm" asp-controller="Courses" asp-action="AddLecturecise" asp-route-courseId="@course.Id" asp-fragment="lecturecise-list">
                                         Edit
                                     </a>
                                 }

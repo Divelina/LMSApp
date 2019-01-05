@@ -13,6 +13,8 @@ namespace LMSApp.Services.CommonInterfaces
 
         bool AnyCourse(string name, Semester semester, string year, Major major);
 
+        bool AnyCourse(string id);
+
         IEnumerable<CourseListViewModel> GetAll();
 
         Course GetByIdOriginal(string courseId);
@@ -24,5 +26,7 @@ namespace LMSApp.Services.CommonInterfaces
         Task DeleteCourseById(string courseId);
 
         IEnumerable<CourseListViewModel> GetAllByEducator(string educatorId);
+
+        Task SaveCoursesDb();
     }
 }

@@ -34,10 +34,17 @@ namespace LMSApp.Services.Models.Courses
 
         public IList<LectureciseShortViewModel> Lecturecises { get; set; }
 
+        public IList<StudentCourse> StudentsInCourse { get; set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Course, CourseDetailsViewModel>()
-                .ForMember(x => x.Lecturecises, m => m.MapFrom(c => c.Lecturecises.Where(l => l.IsDeleted == false)));
+                .ForMember(x => x.Lecturecises, m => m.MapFrom(c => c.Lecturecises.Where(l => l.IsDeleted == false)))
+                .ForMember(x => x.StudentsInCourse, m => m.MapFrom(c => c.StudentsInCourse.Where(st => st.Student.IsDeleted == false)));
+
+            configuration.CreateMap<CourseDetailsViewModel, Course>()
+                .ForMember(x => x.Lecturecises, m => m.MapFrom(c => c.Lecturecises))
+                .ForMember(x => x.StudentsInCourse, m => m.MapFrom(c => c.StudentsInCourse));
         }
     }
 

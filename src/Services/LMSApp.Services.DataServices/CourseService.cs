@@ -76,6 +76,7 @@ namespace LMSApp.Services.DataServices
         {
             var course = this.coursesRepository.All()
                 .Include(c => c.CourseEducators)
+                .Include(c => c.StudentsInCourse)
                 .Where(c => c.Id == courseId && c.IsDeleted == false)
                 .FirstOrDefault();
 

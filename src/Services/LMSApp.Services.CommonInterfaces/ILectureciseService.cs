@@ -1,6 +1,7 @@
 ﻿
 using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Services.Models.Courses;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LMSApp.Services.CommonInterfaces
@@ -9,11 +10,15 @@ namespace LMSApp.Services.CommonInterfaces
     {
         bool Any(string id);
 
+        IEnumerable<LectureciseShortViewModel> GetAll();
+
         Task SaveLecturecises();
 
         Task<LectureciseDetailsViewModel> GetById(string lectureciseId);
 
         Lecturecise GetByOriginal(string lectureciseId);
+
+        IEnumerable<LectureciseShortViewModel> GetByCourseId(string courseId);
 
         Task EditLecturecise(LectureciseDetailsViewModel lectureciseModel);
 

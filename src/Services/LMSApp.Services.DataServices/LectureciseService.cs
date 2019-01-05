@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -29,6 +30,25 @@ namespace LMSApp.Services.DataServices
             return isFound;
         }
 
+        public IEnumerable<LectureciseShortViewModel> GetAll()
+        {
+            var lecturecises = this.lectureciseRepository.All()
+                .Where(l => l.IsDeleted == false)
+                .To<LectureciseShortViewModel>();
+
+            return lecturecises;
+        }
+
+        public IEnumerable<LectureciseShortViewModel> GetByCourseId(string courseId)
+        {
+            var lecturecises = this.lectureciseRepository.All()
+                .Where(l => l.CourseId == courseId && l.IsDeleted == false)
+                .To<LectureciseShortViewModel>();
+
+            return lecturecises;
+        }
+
+
         public async Task<LectureciseDetailsViewModel> GetById(string lectureciseId)
         {
             var lecturecise = await this.lectureciseRepository.FindbyId(lectureciseId);
@@ -49,6 +69,7 @@ namespace LMSApp.Services.DataServices
         public Lecturecise GetByOriginal(string lectureciseId)
         {
             var lecturecise = this.lectureciseRepository.All()
+                .Include(l => l.LectureciseStudents)
                 .Where(l => l.Id == lectureciseId)
                 .FirstOrDefault();
 
@@ -59,6 +80,7 @@ namespace LMSApp.Services.DataServices
 
             return null;
         }
+
 
         public async Task EditLecturecise(LectureciseDetailsViewModel lectureciseModel)
         {

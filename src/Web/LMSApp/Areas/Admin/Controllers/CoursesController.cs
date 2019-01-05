@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LMSApp.Areas.Admin.Controllers
 {
@@ -184,5 +185,13 @@ namespace LMSApp.Areas.Admin.Controllers
 
             return RedirectToAction("AddLecturecise", new { courseId = lectureciseModel.CourseId });
         }
-    }
+
+        public JsonResult GetLectureciseByCourse(string courseId)
+        {
+            var lecturecises = this.lectureciseService.GetByCourseId(courseId)
+                .Select(l => new { l.Id, Name = $"{l.EducatorNames}; {l.WeekTimes}"});
+
+            return Json(new SelectList(lecturecises, "Id", "Name"));
+        }
+}
 }
