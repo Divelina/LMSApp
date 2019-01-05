@@ -5,6 +5,7 @@ using LMSApp.Data.Models.AssignmentRelated;
 using LMSApp.Data.Models.CourseRelated;
 using LMSApp.Data.Models.Enums;
 using LMSApp.Services.Mapping;
+using LMSApp.Services.Models.Users;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

@@ -7,9 +7,13 @@ namespace LMSApp.Areas.Educator.Views.Courses
     {
         public static string All => "All";
 
+        public static string AllLecturecises => "AllLecturecises";
+
         public static string CurrentYearLecturecises => "CurrentYearLecturecises";
         
         public static string AllNavClass(ViewContext viewContext) => PageNavClass(viewContext, All);
+
+        public static string AllLecturecisesNavClass(ViewContext viewContext) => PageNavClass(viewContext, AllLecturecises);
 
         public static string CurrentYearLecturecisesNavClass(ViewContext viewContext) => PageNavClass(viewContext, CurrentYearLecturecises);
     

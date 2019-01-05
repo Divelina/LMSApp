@@ -70,6 +70,12 @@ namespace LMSApp.Services.DataServices
         {
             var lecturecise = this.lectureciseRepository.All()
                 .Include(l => l.LectureciseStudents)
+                .ThenInclude(e => e.Student)
+                .ThenInclude(s => s.User)
+                .Include(l => l.LectureciseEducators)
+                .ThenInclude(e => e.Educator)
+                .ThenInclude(ed => ed.User)
+                .Include(l => l.WeekTimes)
                 .Where(l => l.Id == lectureciseId)
                 .FirstOrDefault();
 
