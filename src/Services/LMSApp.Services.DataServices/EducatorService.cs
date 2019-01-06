@@ -8,6 +8,7 @@ using System.Linq;
 using System.Collections.Generic;
 using LMSApp.Services.Models.Users;
 using LMSApp.Services.Mapping;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMSApp.Services.DataServices
 {
@@ -23,6 +24,7 @@ namespace LMSApp.Services.DataServices
         public Educator GetByUserId(string userId)
         {
             var educator = this.educatorRepository.All()
+                .Include(e => e.User)
                 .Where(e => e.UserId == userId)
                 .FirstOrDefault();
 

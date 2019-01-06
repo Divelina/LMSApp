@@ -18,6 +18,7 @@ using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.DataServices;
 using LMSApp.Services.Models.Courses;
 using LMSApp.Services.Models.Users;
+using LMSApp.Services.Models.Assignments;
 
 namespace LMSApp
 {
@@ -35,7 +36,8 @@ namespace LMSApp
         {
             AutoMapperConfig.RegisterMappings(
                 typeof(CourseCreateBindingModel).Assembly,
-                typeof(EducatorIdAndNameViewModel).Assembly
+                typeof(EducatorIdAndNameViewModel).Assembly,
+                typeof(StudentAssignmentEditViewModel).Assembly
             );
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -85,6 +87,7 @@ namespace LMSApp
             services.AddScoped<IWeekTimeService, WeekTimeService>();
             services.AddScoped<IEducatorLectureciseService, EducatorLectureciseService>();
             services.AddScoped<IAssignmentService, AssignmentService>();
+            services.AddScoped<IStudentAssignmentService, StudentAssignmentService>();
 
             //TODO - Register the custom services that work with the entities
         }
