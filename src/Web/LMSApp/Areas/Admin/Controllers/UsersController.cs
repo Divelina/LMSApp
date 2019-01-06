@@ -66,48 +66,6 @@ namespace LMSApp.Areas.Admin.Controllers
             return View(addToCourseModel);
         }
 
-        private IList<StudentListViewModel> ApplyFilters(StudentsFilterModel filters, IList<StudentListViewModel> students)
-        {
-            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.Major))
-            {
-                students = students.Where(st => (int)st.Major == int.Parse(filters.Major)).ToList();
-            }
-
-            if(students.Count > 0 && filters.GroupNumber > 0)
-            {
-                students = students.Where(st => st.GroupNumber == filters.GroupNumber).ToList();
-            }
-
-            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.FacultyName))
-            {
-                students = students.Where(st => (int)st.FacultyName == int.Parse(filters.FacultyName)).ToList();
-            }
-
-            if(students.Count > 0 && filters.UniIdMin > 0)
-            {
-                students = students.Where(st => st.StudentUniId >= filters.UniIdMin).ToList();
-            }
-
-            if (students.Count > 0 && filters.UniIdMax < int.MaxValue)
-            {
-                students = students.Where(st => st.StudentUniId <= filters.UniIdMax).ToList();
-            }
-
-            if(students.Count > 0 && !string.IsNullOrWhiteSpace(filters.NameStr))
-            {
-                students = students.Where(st => st.UserInfo.FirstName.ToLower().Contains(filters.NameStr.ToLower()) 
-                                                || st.UserInfo.FamilyName.ToLower().Contains(filters.NameStr.ToLower())).ToList();
-            }
-
-            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.EmailStr))
-            {
-                students = students.Where(st => st.UserInfo.Email.ToLower().Contains(filters.EmailStr.ToLower()))
-                    .ToList();
-            }
-
-            return students;
-        }
-
         [HttpPost]
         public async Task<IActionResult> AddStudentsToCourse(StudentsAddToCourseModel model)
         {
@@ -153,6 +111,48 @@ namespace LMSApp.Areas.Admin.Controllers
 
 
             return RedirectToAction("AddStudentsToCourse");
+        }
+
+        private IList<StudentListViewModel> ApplyFilters(StudentsFilterModel filters, IList<StudentListViewModel> students)
+        {
+            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.Major))
+            {
+                students = students.Where(st => (int)st.Major == int.Parse(filters.Major)).ToList();
+            }
+
+            if (students.Count > 0 && filters.GroupNumber > 0)
+            {
+                students = students.Where(st => st.GroupNumber == filters.GroupNumber).ToList();
+            }
+
+            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.FacultyName))
+            {
+                students = students.Where(st => (int)st.FacultyName == int.Parse(filters.FacultyName)).ToList();
+            }
+
+            if (students.Count > 0 && filters.UniIdMin > 0)
+            {
+                students = students.Where(st => st.StudentUniId >= filters.UniIdMin).ToList();
+            }
+
+            if (students.Count > 0 && filters.UniIdMax < int.MaxValue)
+            {
+                students = students.Where(st => st.StudentUniId <= filters.UniIdMax).ToList();
+            }
+
+            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.NameStr))
+            {
+                students = students.Where(st => st.UserInfo.FirstName.ToLower().Contains(filters.NameStr.ToLower())
+                                                || st.UserInfo.FamilyName.ToLower().Contains(filters.NameStr.ToLower())).ToList();
+            }
+
+            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.EmailStr))
+            {
+                students = students.Where(st => st.UserInfo.Email.ToLower().Contains(filters.EmailStr.ToLower()))
+                    .ToList();
+            }
+
+            return students;
         }
     }
 }

@@ -27,5 +27,11 @@ namespace LMSApp.Services.Models.Users
         public string EmailStr { get; set; }
 
         public string ForAction { get; set; }
+
+        public string ForController { get; set; }
+
+        public string ForArea { get; set; }
+
+        public string ParamId { get; set; }
     }
 }

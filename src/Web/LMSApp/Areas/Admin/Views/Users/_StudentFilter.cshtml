@@ -3,7 +3,12 @@
 
 @model StudentsFilterModel
 
-<form asp-action="@Model.ForAction" method="get">
+<form asp-action="@Model.ForAction" asp-controller="@Model.ForController" asp-area="@Model.ForArea" method="get">
+
+    <div class="form-group">
+        <input asp-for="ParamId" class="form-control mx-md-2" id="readolny-courseId" value="@Model.ParamId" readonly hidden />
+        <span asp-validation-for="ParamId" class="text-danger"></span>
+    </div>
 
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-col">

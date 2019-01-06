@@ -57,7 +57,7 @@
                                 @foreach (var lecturecise in course.Lecturecises)
                                 {
                                     <div>
-                                        <a asp-controller="Lecturecises" asp-action="Details" asp-route-id="@lecturecise.Id">
+                                        <a asp-area="Educator" asp-controller="Lecturecises" asp-action="Edit" asp-route-lectureciseId="@lecturecise.Id">
                                             <h6>@lecturecise.Type</h6>
                                         </a>
                                         <div>@lecturecise.EducatorNames </div> 

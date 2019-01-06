@@ -22,6 +22,7 @@ namespace LMSApp.Areas.Educator.Controllers
         private readonly IEducatorService educatorService;
         private readonly IEducatorLectureciseService educatorLectureciseService;
         private readonly IWeekTimeService weekTimeService;
+        private readonly IUserService userService;
         private UserManager<LMSAppUser> userManager;
 
         public LecturecisesController(
@@ -29,7 +30,8 @@ namespace LMSApp.Areas.Educator.Controllers
             IEducatorService educatorService,
             ICourseService courseService,
             IEducatorLectureciseService educatorLectureciseService,
-            IWeekTimeService weekTimeService, 
+            IWeekTimeService weekTimeService,
+            IUserService userService,
             UserManager<LMSAppUser> userManager)
         {
             this.lectureciseService = lectureciseService;
@@ -37,6 +39,7 @@ namespace LMSApp.Areas.Educator.Controllers
             this.educatorService = educatorService;
             this.educatorLectureciseService = educatorLectureciseService;
             this.weekTimeService = weekTimeService;
+            this.userService = userService;
             this.userManager = userManager;
         }
 
@@ -176,7 +179,7 @@ namespace LMSApp.Areas.Educator.Controllers
 
                 await this.lectureciseService.SaveLecturecises();
                 await this.courseService.SaveCoursesDb();
-                
+
             }
 
             return RedirectToAction("AllLecturecises");
@@ -192,12 +195,11 @@ namespace LMSApp.Areas.Educator.Controllers
             foreach (var weekTime in weekTimes)
             {
                 this.weekTimeService.DeleteById(weekTime.Id);
-                lecturecise.WeekTimes.Remove(weekTime);               
             }
 
             this.lectureciseService.SaveLecturecises();
 
-            return RedirectToAction("Edit", new { lectureciseId = lectureciseId});
+            return RedirectToAction("Edit", new { lectureciseId = lectureciseId });
         }
 
         [HttpGet]
@@ -205,16 +207,73 @@ namespace LMSApp.Areas.Educator.Controllers
         {
             var lecturecise = this.lectureciseService.GetByOriginal(lectureciseId);
 
-            var educatorLecturecises = lecturecise.LectureciseEducators;
-
-            foreach (var educatorLecturecise in educatorLecturecises)
-            {
-                this.educatorLectureciseService.DeleteById(lectureciseId);
-            }
+            this.educatorLectureciseService.DeleteById(lectureciseId);
 
             this.lectureciseService.SaveLecturecises();
 
+            //TODO - Clear educators from course if in none of the lecturecises
             return RedirectToAction("Edit", new { lectureciseId = lectureciseId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddStudentsToLecturecise(StudentsFilterModel filters, string lectureciseId)
+        {
+            if(lectureciseId == null)
+            {
+                lectureciseId = filters.ParamId;
+            }
+
+            var lecturecise = await this.lectureciseService.GetById(lectureciseId);
+
+            var students = await this.userService.GetAllStudentsByCourse(lecturecise.CourseId);
+
+            var alreadyAddedStudents = await this.userService.GetAllStudentsByLecturecise(lecturecise.CourseId);
+
+            students = students.Where(st => !alreadyAddedStudents.Any(aas => aas.Id == st.Id)).ToList();
+
+            //Applying filters
+
+            var filteredStudents = ApplyFilters(filters, students);
+
+            filteredStudents = filteredStudents.OrderBy(s => s.StudentUniId).ToList();
+
+            var addToCourseModel = new StudentsAddToCourseModel()
+            {
+                CourseId = lecturecise.CourseId,
+                LectureciseId = lecturecise.Id,
+                StudentsInfo = filteredStudents
+            };
+
+            return View(addToCourseModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddStudentsToLecturecise(StudentsAddToCourseModel model)
+        {
+            var lectureciceId = model.LectureciseId;
+
+            if (model.StudentsInfo.Count() > 0 && lectureciceId != null && this.lectureciseService.Any(lectureciceId))
+            {
+                var lecturecise = this.lectureciseService.GetByOriginal(lectureciceId);
+
+                var studentIds = model.StudentsInfo.Select(si => si.Id).ToList();
+
+                var addedCounter = 0;
+
+                foreach (var studentId in studentIds)
+                {
+                    if (!lecturecise.LectureciseStudents.Any(st => st.StudentId == studentId))
+                    {
+                        lecturecise.LectureciseStudents.Add(new StudentLecturecise() { StudentId = studentId, LectureciseId = lectureciceId });
+
+                        addedCounter++;
+                    }
+                }
+
+                await this.lectureciseService.SaveLecturecises();
+            }
+
+            return RedirectToAction("CurrentYearLecturecises");
         }
 
         //Only flags it as deleted
@@ -233,23 +292,48 @@ namespace LMSApp.Areas.Educator.Controllers
             return RedirectToAction("All", "Courses", new { Area = "Admin" });
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddEducator(EducatorLectureciseBindingModel model)
-        //{
-        //    var lecturecise = await this.lectureciseService.GetById(model.LectureciseId);
 
-        //    if (!this.ModelState.IsValid)
-        //    {
-        //        return RedirectToAction("AddLecturecise", "Courses", new { Area = "Admin", courseId = lecturecise.CourseId });
-        //    }
+        //Method is added here in case I want to make new filters
+        private IList<StudentListViewModel> ApplyFilters(StudentsFilterModel filters, IList<StudentListViewModel> students)
+        {
+            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.Major))
+            {
+                students = students.Where(st => (int)st.Major == int.Parse(filters.Major)).ToList();
+            }
 
-        //    var educatorLecturecise = Mapper.Map<EducatorLecturecise>(model);
+            if (students.Count > 0 && filters.GroupNumber > 0)
+            {
+                students = students.Where(st => st.GroupNumber == filters.GroupNumber).ToList();
+            }
 
-        //    lecturecise.LectureciseEducators.Add(educatorLecturecise);
+            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.FacultyName))
+            {
+                students = students.Where(st => (int)st.FacultyName == int.Parse(filters.FacultyName)).ToList();
+            }
 
-        //   await this.lectureciseService.EditLecturecise(lecturecise);
+            if (students.Count > 0 && filters.UniIdMin > 0)
+            {
+                students = students.Where(st => st.StudentUniId >= filters.UniIdMin).ToList();
+            }
 
-        //    return RedirectToAction("AddLecturecise", "Courses", new { Area = "Admin", courseId = lecturecise.CourseId });
-        //}
+            if (students.Count > 0 && filters.UniIdMax < int.MaxValue)
+            {
+                students = students.Where(st => st.StudentUniId <= filters.UniIdMax).ToList();
+            }
+
+            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.NameStr))
+            {
+                students = students.Where(st => st.UserInfo.FirstName.ToLower().Contains(filters.NameStr.ToLower())
+                                                || st.UserInfo.FamilyName.ToLower().Contains(filters.NameStr.ToLower())).ToList();
+            }
+
+            if (students.Count > 0 && !string.IsNullOrWhiteSpace(filters.EmailStr))
+            {
+                students = students.Where(st => st.UserInfo.Email.ToLower().Contains(filters.EmailStr.ToLower()))
+                    .ToList();
+            }
+
+            return students;
+        }
     }
 }

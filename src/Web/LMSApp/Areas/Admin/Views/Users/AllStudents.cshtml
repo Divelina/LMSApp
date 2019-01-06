@@ -10,7 +10,9 @@
 
 <h5>Filter Students</h5>
 @{var filters = new StudentsFilterModel();
-    filters.ForAction = "AllStudents";}
+    filters.ForAction = "AllStudents";
+    filters.ForController = "Users";
+    filters.ForArea = "Admin";}
 
 <partial name="_StudentFilter" for="@filters" />
 

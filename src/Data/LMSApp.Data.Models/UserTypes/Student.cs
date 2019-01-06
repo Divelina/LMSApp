@@ -25,6 +25,11 @@ namespace LMSApp.Data.Models.UserTypes
             this.StudentMaterials = new List<StudentMaterial>();
             this.StudentEvents = new List<StudentEvent>();
             this.StudentBadges = new List<StudentBadge>();
+
+            this.TaskCompletionRating = 0m;
+            this.TaskGradeRating = 0m;
+            this.TotalGradeExcercise = 0m;
+            this.TotalGradeLectures = 0m;
         }
 
         [Required]

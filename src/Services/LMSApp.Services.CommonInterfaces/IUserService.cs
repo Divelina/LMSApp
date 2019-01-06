@@ -10,5 +10,9 @@ namespace LMSApp.Services.CommonInterfaces
         Task<IList<UserListViewModel>> GetAll();
 
         Task<IList<StudentListViewModel>> GetAllStudents();
+
+        Task<IList<StudentListViewModel>> GetAllStudentsByCourse(string courseId);
+
+        Task<IList<StudentListViewModel>> GetAllStudentsByLecturecise(string lectureciseId);
     }
 }

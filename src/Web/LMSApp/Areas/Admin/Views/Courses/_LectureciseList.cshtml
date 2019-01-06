@@ -49,17 +49,22 @@
                 </td>
                 <td class="text-center">
                     <div class="d-flex flex-row  justify-content-center align-items-center">
-
                         <div class="d-flex flex-column justify-content-center align-items-center">
-                            <a class="btn btn-primary btn-sm"
+                            <a class="btn btn-d-custom btn-sm mx-sm-1"
+                               asp-area="Educator" asp-controller="Lecturecises" asp-action="AddStudentsToLecturecise" asp-route-lectureciseId="@lecturecise.Id">
+                                Add Students
+                            </a>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <a class="btn btn-primary btn-sm mx-sm-1"
                                asp-area="Educator" asp-controller="Lecturecises" asp-action="Edit" asp-route-lectureciseId="@lecturecise.Id">
                                 Edit
                             </a>
                         </div>
                         <div class="p-md-2">
-                            <a class="btn btn-danger btn-sm"
+                            <a class="btn btn-danger btn-sm mx-sm-1"
                                asp-area="Educator" asp-controller="Lecturecises" asp-action="Delete" asp-route-lectureciseId="@lecturecise.Id"
-                               onclick="return confirm('Are you sure you wish to remove this Lecturecise?'">
+                               onclick="return confirm('Are you sure you wish to remove this Lecturecise?');">
                                 Delete
                             </a>
                         </div>

@@ -67,5 +67,33 @@ namespace LMSApp.Services.DataServices
 
             return students;
         }
+
+        public async Task<IList<StudentListViewModel>> GetAllStudentsByCourse(string courseId)
+        {
+            var studentUsers = await this.userManager.GetUsersInRoleAsync("Student");
+
+            var students = this.studentRepository.All()
+                .Where(st => st.IsDeleted == false && st.StudentCourses.Any(c => c.CourseId == courseId))
+                .To<StudentListViewModel>()
+                 .ToList();
+
+            students.ForEach(st => st.UserInfo = Mapper.Map<UserListViewModel>(studentUsers.FirstOrDefault(su => su.Id == st.UserId)));
+
+            return students;
+        }
+
+        public async Task<IList<StudentListViewModel>> GetAllStudentsByLecturecise(string lectureciseId)
+        {
+            var studentUsers = await this.userManager.GetUsersInRoleAsync("Student");
+
+            var students = this.studentRepository.All()
+                .Where(st => st.IsDeleted == false && st.StudentLecturecises.Any(l => l.LectureciseId == lectureciseId))
+                .To<StudentListViewModel>()
+                 .ToList();
+
+            students.ForEach(st => st.UserInfo = Mapper.Map<UserListViewModel>(studentUsers.FirstOrDefault(su => su.Id == st.UserId)));
+
+            return students;
+        }
     }
 }
