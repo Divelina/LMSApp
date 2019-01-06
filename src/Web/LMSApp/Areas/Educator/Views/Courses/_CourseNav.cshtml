@@ -11,6 +11,9 @@
     <li class="nav-item @CourseNavPages.CurrentYearLecturecisesNavClass(ViewContext)">
         <a class="nav-link" id="current-lecturecise" asp-controller="Lecturecises" asp-action="CurrentYearLecturecises">Current Lecturecises</a>
     </li>
+    <li class="nav-item @CourseNavPages.AssignmentsInCoursesNavClass(ViewContext)">
+        <a class="nav-link" id="current-assignments" asp-controller="Assignments" asp-action="AssignmentsInCourses">Assignments</a>
+    </li>
     <li class="nav-item @CourseNavPages.CreateAssignmentNavClass(ViewContext)">
         <a class="nav-link" id="create-assignment" asp-controller="Assignments" asp-action="Create">Create Assignment</a>
     </li>
