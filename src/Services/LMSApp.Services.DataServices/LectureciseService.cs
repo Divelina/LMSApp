@@ -107,6 +107,17 @@ namespace LMSApp.Services.DataServices
            await this.lectureciseRepository.SaveChangesAsync();
         }
 
+        //Educator service 
+        public IEnumerable<LectureciseShortViewModel> GetAllByEducator(string educatorId)
+        {
+            var lecturecises = this.lectureciseRepository.All()
+                .Where(l => l.LectureciseEducators.Any(ce => ce.EducatorId == educatorId
+                        && l.IsDeleted == false))
+                .To<LectureciseShortViewModel>();
+
+            return lecturecises;
+        }
+
         //Admin only, Accessible from CourseController since Lecturecises are always added to a course
         public async Task<string> CreateAsync(LectureciseCreateBindingModel lecturecise)
         {

@@ -10,9 +10,13 @@ namespace LMSApp.Areas.Identity.Pages.Account.Manage
     {
         public static string All => "All";
 
+        public static string AllLecturecises => "AllLecturecises";
+
         public static string Create => "Create";
 
         public static string AllNavClass(ViewContext viewContext) => PageNavClass(viewContext, All);
+
+        public static string AllLecturecisesNavClass(ViewContext viewContext) => PageNavClass(viewContext, AllLecturecises);
 
         public static string CreateNavClass(ViewContext viewContext) => PageNavClass(viewContext, Create);
 

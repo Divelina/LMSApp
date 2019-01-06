@@ -10,13 +10,17 @@ namespace LMSApp.Areas.Educator.Views.Courses
         public static string AllLecturecises => "AllLecturecises";
 
         public static string CurrentYearLecturecises => "CurrentYearLecturecises";
-        
+
+        public static string CreateAssignment => "Create";
+
         public static string AllNavClass(ViewContext viewContext) => PageNavClass(viewContext, All);
 
         public static string AllLecturecisesNavClass(ViewContext viewContext) => PageNavClass(viewContext, AllLecturecises);
 
         public static string CurrentYearLecturecisesNavClass(ViewContext viewContext) => PageNavClass(viewContext, CurrentYearLecturecises);
-    
+
+        public static string CreateAssignmentNavClass(ViewContext viewContext) => PageNavClass(viewContext, CreateAssignment);
+
         public static string PageNavClass(ViewContext viewContext, string page)
         {
             //var activePage = viewContext.ViewData["ActivePage"] as string

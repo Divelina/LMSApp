@@ -8,6 +8,7 @@ using LMSApp.Services.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,11 +49,6 @@ namespace LMSApp.Areas.Educator.Controllers
         public async Task<IActionResult> AllLecturecises()
         {
             var user = await this.userManager.GetUserAsync(this.User);
-
-            if (await this.userManager.IsInRoleAsync(user, "Admin"))
-            {
-                return View(this.lectureciseService.GetAll().ToList());
-            }
 
             var lecturecises = this.lectureciseService.GetAll()
                 .Where(l => l.EducatorNames.ToLower().Contains(user.FamilyName.ToLower()) &&
@@ -276,22 +272,17 @@ namespace LMSApp.Areas.Educator.Controllers
             return RedirectToAction("CurrentYearLecturecises");
         }
 
-        //Only flags it as deleted
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Delete(string lectureciseId)
+
+        //For populating dropdown with students by lecturecises
+        public async Task<JsonResult> GetStudentsByLecturecise(string lectureciseId)
         {
-            var courseId = await this.lectureciseService.DeleteLectureciseById(lectureciseId);
+            var students = await this.userService.GetAllStudentsByLecturecise(lectureciseId);
 
-            if (courseId != null)
-            {
-                return RedirectToAction("Edit", "Courses", new { Area = "Admin", courseId = courseId });
-            }
+            var studentList = students
+                .Select(s => new { s.Id, Name = $"{s.StudentUniId}: {s.UserInfo.FirstName} {s.UserInfo.FamilyName}" });
 
-            //TODO return some error instead
-            return RedirectToAction("All", "Courses", new { Area = "Admin" });
+            return Json(new SelectList(studentList, "Id", "Name"));
         }
-
 
         //Method is added here in case I want to make new filters
         private IList<StudentListViewModel> ApplyFilters(StudentsFilterModel filters, IList<StudentListViewModel> students)

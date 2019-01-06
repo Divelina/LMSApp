@@ -20,6 +20,8 @@ namespace LMSApp.Services.CommonInterfaces
 
         IEnumerable<LectureciseShortViewModel> GetByCourseId(string courseId);
 
+        IEnumerable<LectureciseShortViewModel> GetAllByEducator(string educatorId);
+
         Task EditLecturecise(LectureciseDetailsViewModel lectureciseModel);
 
         Task<string> CreateAsync(LectureciseCreateBindingModel lecturecise);

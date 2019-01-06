@@ -7,11 +7,15 @@
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
 @*<ul class="nav nav-pills nav-stacked">*@
-<ul class="nav nav-pills flex-column bg-dark" id="adm-course-nav">
-    <li class="nav-item @CourseNavPages.AllNavClass(ViewContext)"><a class="nav-link act" asp-controller="Courses" asp-action="All">All Courses</a></li>
-    <li class="nav-item @CourseNavPages.AllLecturecisesNavClass(ViewContext)">
-        <a class="nav-link act" asp-controller="Lecturecises" asp-action="AllLecturecises">All Lecturecises</a></li>
+<ul class="nav nav-pills flex-column bg-dark mb-lg-2" id="adm-course-nav">
     <li class="nav-item @CourseNavPages.CurrentYearLecturecisesNavClass(ViewContext)">
-        <a class="nav-link" id="create-course" asp-controller="Lecturecises" asp-action="CurrentYearLecturecises">Current Lecturecises</a>
+        <a class="nav-link" id="current-lecturecise" asp-controller="Lecturecises" asp-action="CurrentYearLecturecises">Current Lecturecises</a>
     </li>
+    <li class="nav-item @CourseNavPages.CreateAssignmentNavClass(ViewContext)">
+        <a class="nav-link" id="create-assignment" asp-controller="Assignments" asp-action="Create">Create Assignment</a>
+    </li>
+    <li class="nav-item @CourseNavPages.AllLecturecisesNavClass(ViewContext)">
+        <a class="nav-link act" asp-controller="Lecturecises" asp-action="AllLecturecises">All Lecturecises</a>
+    </li>
+    <li class="nav-item @CourseNavPages.AllNavClass(ViewContext)"><a class="nav-link act" asp-controller="Courses" asp-action="All">All Courses</a></li>
 </ul>

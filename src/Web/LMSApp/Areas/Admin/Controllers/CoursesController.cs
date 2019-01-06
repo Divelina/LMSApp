@@ -186,6 +186,7 @@ namespace LMSApp.Areas.Admin.Controllers
             return RedirectToAction("AddLecturecise", new { courseId = lectureciseModel.CourseId });
         }
 
+        //For populating dropdown with lecturecises by course
         public JsonResult GetLectureciseByCourse(string courseId)
         {
             var lecturecises = this.lectureciseService.GetByCourseId(courseId)
