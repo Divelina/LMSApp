@@ -2,6 +2,7 @@
 using AutoMapper;
 using LMSApp.Data.Common;
 using LMSApp.Data.Models;
+using LMSApp.Data.Models.Enums;
 using LMSApp.Data.Models.UserTypes;
 using LMSApp.Services.CommonInterfaces;
 using LMSApp.Services.Mapping;
@@ -52,6 +53,26 @@ namespace LMSApp.Services.DataServices
             }
 
             return users;
+        }
+
+        public bool AnyStudent(int uniId, FacultyOf faculty)
+        {
+            var isCourseFound = this.studentRepository.All().Any(s =>
+                 s.StudentUniId == uniId &&
+                 s.FacultyName == faculty);
+
+            return isCourseFound;
+        }
+
+        public async Task<string> CreateAsync(StudentBindingModel student)
+        {
+
+            var newStudent = Mapper.Map<Student>(student);
+
+            await this.studentRepository.AddAsync(newStudent);
+            await this.studentRepository.SaveChangesAsync();
+
+            return newStudent.Id;
         }
 
         public async Task<IList<StudentListViewModel>> GetAllStudents()

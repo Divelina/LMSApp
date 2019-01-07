@@ -40,7 +40,8 @@
 
         </ul>
     }
-    else if (await UserManager.IsInRoleAsync(currentUser, "Student"))
+
+    if (await UserManager.IsInRoleAsync(currentUser, "Student"))
     {
         <ul class="nav navbar-nav">
 

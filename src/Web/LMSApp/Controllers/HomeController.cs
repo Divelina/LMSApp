@@ -40,11 +40,12 @@ namespace LMSApp.Controllers
                 {
                     return RedirectToAction("Index", "Home", new { Area = "Educator" });
                 }
-                else
+                else if (await userManager.IsInRoleAsync(currentUser, "Student"))
                 {
                     return RedirectToAction("Index", "Home", new { Area = "Student" });
                 }
-                
+
+                return View();
             }
 
             return View();
@@ -57,13 +58,13 @@ namespace LMSApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Contact()
-        {
+        //public async Task<IActionResult> Contact()
+        //{
 
-            ViewData["Message"] = "Your contact page.";
+        //    ViewData["Message"] = "Your contact page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
         public IActionResult Privacy()
         {

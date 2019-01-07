@@ -16,12 +16,18 @@ namespace LMSApp.Areas.Admin.Controllers
         private IUserService userService;
         private ICourseService courseService;
         private ILectureciseService lectureciseService;
+        private UserManager<LMSAppUser> userManager;
 
-        public UsersController(IUserService userService, ICourseService courseService, ILectureciseService lectureciseService)
+        public UsersController(
+            IUserService userService, 
+            ICourseService courseService, 
+            ILectureciseService lectureciseService,
+            UserManager<LMSAppUser> userManager)
         {
             this.userService = userService;
             this.courseService = courseService;
             this.lectureciseService = lectureciseService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -29,7 +35,9 @@ namespace LMSApp.Areas.Admin.Controllers
         {
             var users = await this.userService.GetAll();
 
-            users = users.OrderBy(u => u.Email).ToList();
+            users = users
+                .OrderBy(u => u.IsLockedOut)
+                .ThenBy(u => u.Email).ToList();
 
             return View(users);
         }
@@ -45,6 +53,65 @@ namespace LMSApp.Areas.Admin.Controllers
 
             return View(filteredStudents);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Ban(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+
+            var lockoutEndNew = DateTime.Today.AddYears(100);
+
+            await this.userManager.SetLockoutEndDateAsync(user, lockoutEndNew);
+
+            return RedirectToAction("All");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Unlock(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+
+            var lockoutEndNew = DateTime.Today.AddYears(-1);
+
+            await this.userManager.SetLockoutEndDateAsync(user, lockoutEndNew);
+
+            return RedirectToAction("All");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeEducatorStatus(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+
+            if (await this.userManager.IsInRoleAsync(user, "Educator"))
+            {
+                await this.userManager.RemoveFromRoleAsync(user, "Educator");
+            }
+            else
+            {
+                await this.userManager.AddToRoleAsync(user, "Educator");
+            }
+
+            return RedirectToAction("All");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeStudentStatus(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+
+            if (await this.userManager.IsInRoleAsync(user, "Student"))
+            {
+                await this.userManager.RemoveFromRoleAsync(user, "Student");
+            }
+            else
+            {
+                await this.userManager.AddToRoleAsync(user, "Student");
+            }
+
+            return RedirectToAction("All");
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> AddStudentsToCourse(StudentsFilterModel filters = null)

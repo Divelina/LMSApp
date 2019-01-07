@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using LMSApp.Services.Models.Users;
 using LMSApp.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace LMSApp.Services.DataServices
 {
@@ -29,6 +30,17 @@ namespace LMSApp.Services.DataServices
                 .FirstOrDefault();
 
             return educator;             
+        }
+
+        public async Task<string> CreateAsync(EducatorBindingModel educator)
+        {
+
+            var newEducator = Mapper.Map<Educator>(educator);
+
+            await this.educatorRepository.AddAsync(newEducator);
+            await this.educatorRepository.SaveChangesAsync();
+
+            return newEducator.Id;
         }
 
         //public Educator GetById(string educatorId)

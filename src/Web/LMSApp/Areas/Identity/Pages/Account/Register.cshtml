@@ -1,4 +1,7 @@
 ﻿@page
+
+@using LMSApp.Data.Models.Enums
+
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -7,39 +10,82 @@
 <h2>@ViewData["Title"]</h2>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account. / Регистрирайте нов потребител. </h4>
-            <hr />
+            <h4>Create a new account.</h4>
+            <hr class="hr-custom-dark" />
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            <div class="form-row">
+                <div class="form-check form-check-inline m-4 col-2">
+                    <input asp-for="Input.Role" class="form-check-input" type="radio" id="radioStudent" value="Student">
+                    <label asp-for="Input.Role" class="form-check-label" for="radioStudent">Student</label>
+                </div>
+                <div class="form-check form-check-inline m-4 col-2">
+                    <input asp-for="Input.Role" class="form-check-input" type="radio" id="radioEducator" value="Educator">
+                    <label asp-for="Input.Role" class="form-check-label" for="radioEducator">Educator </label>
+                </div>
+                <div class="form-group col-3 mr-2">
+                    <label asp-for="Input.FacultyName"></label>
+                    <select asp-for="Input.FacultyName" asp-items="Html.GetEnumSelectList<FacultyOf>()" class="form-control"></select>
+                    <span asp-validation-for="Input.FacultyName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-3 mr-2">
+                    <label asp-for="Input.Major"></label>
+                    <select asp-for="Input.Major" asp-items="Html.GetEnumSelectList<Major>()" class="form-control"></select>
+                    <span asp-validation-for="Input.Major" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.FirstName">First name / Име</label>
-                <input asp-for="Input.FirstName" class="form-control" />
-                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            <div class="form-group col-4">
+                <label asp-for="Input.Code">Code (for students: UniId) </label>
+                <input asp-for="Input.Code" class="form-control" />
+                <span asp-validation-for="Input.Code" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.FamilyName">Family name / Фамилия </label>
-                <input asp-for="Input.FamilyName" class="form-control" />
-                <span asp-validation-for="Input.FamilyName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password">Password / Парола </label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword">Confirm Password / Потвърдете паролата </label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-default">Register / Регистрация </button>
-        </form>
+    <hr class="hr-custom-dark" />
+
+    <div class="form-row">
+        <div class="form-group col-md-5">
+            <label asp-for="Input.Username"></label>
+            <input asp-for="Input.Username" class="form-control" />
+            <span asp-validation-for="Input.Username" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-5">
+            <label asp-for="Input.Email"></label>
+            <input asp-for="Input.Email" class="form-control" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
     </div>
+    <div class="form-row">
+        <div class="form-group col-md-5">
+            <label asp-for="Input.FirstName">First name</label>
+            <input asp-for="Input.FirstName" class="form-control" />
+            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-5">
+            <label asp-for="Input.FamilyName">Family name </label>
+            <input asp-for="Input.FamilyName" class="form-control" />
+            <span asp-validation-for="Input.FamilyName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-5">
+            <label asp-for="Input.Password">Password</label>
+            <input asp-for="Input.Password" class="form-control" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-5">
+            <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+            <input asp-for="Input.ConfirmPassword" class="form-control" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <button type="submit" class="btn btn-d-custom mr-2">Register</button>
+        <input type="reset" class="btn btn-danger" value="Clear" />
+    </div>
+    </form>
+</div>
 </div>
 
 @section Scripts {

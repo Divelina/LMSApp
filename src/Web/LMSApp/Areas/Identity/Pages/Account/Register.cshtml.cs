@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using LMSApp.Data.Models;
+using LMSApp.Data.Models.Enums;
+using LMSApp.Services.CommonInterfaces;
+using LMSApp.Services.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -16,21 +19,30 @@ namespace LMSApp.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        //Have to store it in Jason
+        private const int EducatorPassword = 001100;
+
         private readonly SignInManager<LMSAppUser> _signInManager;
         private readonly UserManager<LMSAppUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUserService _userService;
+        private readonly IEducatorService _educatorService;
 
         public RegisterModel(
             UserManager<LMSAppUser> userManager,
             SignInManager<LMSAppUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUserService userService,
+            IEducatorService educatorService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _userService = userService;
+            _educatorService = educatorService;
         }
 
         [BindProperty]
@@ -41,16 +53,33 @@ namespace LMSApp.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            public string Role { get; set; }
+
+            [Required]
+            public int Code { get; set; }
+
+            [Required]
+            [Display(Name = "Faculty Name")]
+            public FacultyOf FacultyName { get; set; }
+
+            [Required]
+            public Major Major { get; set; }
+
+            [Required]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
-            [Display(Name = "FirstName")]
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
-            [Display(Name = "FamilyName")]
+            [Display(Name = "Family Name")]
             public string FamilyName { get; set; }
 
             [Required]
@@ -73,16 +102,53 @@ namespace LMSApp.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+
+            if (Input.Role == "Student")
+            {
+                if (_userService.AnyStudent(Input.Code, Input.FacultyName))
+                {
+                    ModelState.AddModelError(string.Empty, "Student with this UniId and Faculty already registered.");
+                    return Page();
+                }
+            }
+            else
+            {
+                if (Input.Code != EducatorPassword)
+                {
+                    ModelState.AddModelError(string.Empty, "Your educator code is wrong.");
+                    return Page();
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 var user = new LMSAppUser {
-                    UserName = Input.Email,
+                    UserName = Input.Username,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     FamilyName = Input.FamilyName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
-                {
+                {                   
+                    if (Input.Role == "Student")
+                    {
+                        await this._userService.CreateAsync(new StudentBindingModel()
+                        {
+                            UserId = user.Id,
+                            StudentUniId = Input.Code,
+                            FacultyName = Input.FacultyName,
+                            Major = Input.Major
+                        });
+                    }
+                    else
+                    {
+                        await this._educatorService.CreateAsync(new EducatorBindingModel()
+                        {
+                            UserId = user.Id,
+                            FacultyName = Input.FacultyName
+                        });
+                    }
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -10,6 +10,8 @@ namespace LMSApp.Services.CommonInterfaces
 {
     public interface IEducatorService
     {
+        Task<string> CreateAsync(EducatorBindingModel educator);
+
         Educator GetByUserId(string userId);
 
         IEnumerable<EducatorIdAndNameViewModel> GetAll();

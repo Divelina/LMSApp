@@ -14,48 +14,60 @@
             <tr>
                 <th scope="col" class="text-center">Name & Username</th>
                 <th scope="col" class="text-center">Email</th>
-                <th scope="col" class="text-center">Lock Out / Unlock</th>
-                <th scope="col" class="text-center">Roles</th>
+                <th scope="col" class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var user in Model)
             {
-            <tr>
-                <td class="align-content-center">
-                    <div class="d-flex flex-column justify-content-center align-items-center">
-                        <div>
-                            @user.FirstName @user.FamilyName (@user.UserName)
+                <tr>
+                    <td class="align-content-center">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <div>
+                                @user.FirstName @user.FamilyName (@user.UserName)
+                            </div>
+                            @*<div><a class="btn btn-primary btn-sm m-sm-1" asp-action="Edit" asp-route-userId="@user.Id">Edit</a></div>*@
                         </div>
-                        <div><a class="btn btn-primary btn-sm m-sm-1" asp-action="Edit" asp-route-userId="@user.Id">Edit</a></div>
-                    </div>
-                </td>
-                <td class="text-center">
-                    @user.Email
-                </td>
-                <td class="text-center">
-                    <div>
-                        @{var btnText = user.IsLockedOut == true ? "Unlock" : "Lock Out";}
-                        <a class="m-sm-1" asp-action="ChangeLockOut" asp-route-userId="@user.Id">
-                            @btnText
-                        </a>
-                    </div>
-                </td>
-                <td class="text-center">
-                    <div class="d-flex flex-column justify-content-center align-items-around">
-                        @{var adminText = user.IsAdmin == true ? "Admin" : "";}
-                        <div class="font-weight-bold" style="color: red">@adminText</div>
-                        @{var educatorBtn = user.IsEducator == true ? "Remove as Educator" : "Make Educator";}
-                        <a class="m-sm-1" asp-action="ChangeEducator" asp-route-userId="@user.Id">
-                            @educatorBtn
-                        </a>
-                        @{var studentBtn = user.IsStudent == true ? "Remove as Student" : "Make Student";}
-                        <a class="m-sm-1" asp-action="ChangeStudent" asp-route-userId="@user.Id">
-                            @studentBtn
-                        </a>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                    <td class="text-center">
+                        @user.Email
+                    </td>
+                    <td class="text-center">
+                        <div class="d-flex flex-row justify-content-around align-items-center">
+                            @{ if (user.IsAdmin)
+                                {
+                                    <div class="font-weight-bold" style="color: red">Admin</div>
+                                }
+                                else
+                                {
+
+                                    if (user.IsLockedOut)
+
+                                    {
+                                        <a class="m-sm-1 font-weight-bold btn btn-danger" asp-action="Unlock" asp-route-userId="@user.Id">
+                                            Unlock
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="m-sm-1 font-weight-bold btn btn-danger" asp-action="Ban" asp-route-userId="@user.Id">
+                                            Ban
+                                        </a>
+                                    }
+
+                                }
+                            }
+                            @{var educatorBtn = user.IsEducator == true ? "Remove as Educator" : "Make Educator";}
+                            <a class="m-sm-1 btn btn-d-custom" asp-action="ChangeEducatorStatus" asp-route-userId="@user.Id">
+                                @educatorBtn
+                            </a>
+                            @{var studentBtn = user.IsStudent == true ? "Remove as Student" : "Make Student";}
+                            <a class="m-sm-1 btn btn-primary" asp-action="ChangeStudentStatus" asp-route-userId="@user.Id">
+                                @studentBtn
+                            </a>
+                        </div>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
