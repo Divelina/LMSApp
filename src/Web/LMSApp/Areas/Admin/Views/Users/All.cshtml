@@ -1,5 +1,10 @@
 ﻿
 @using LMSApp.Services.Models.Users
+@using LMSApp.Services.CommonInterfaces
+@using System.Linq
+
+@inject IEducatorService educatorService
+@inject IUserService userService
 
 @model IEnumerable<UserListViewModel>
 
@@ -33,10 +38,10 @@
                         @user.Email
                     </td>
                     <td class="text-center">
-                        <div class="d-flex flex-row justify-content-around align-items-center">
+                        <div class="d-flex flex-row justify-content-start align-items-center">
                             @{ if (user.IsAdmin)
                                 {
-                                    <div class="font-weight-bold" style="color: red">Admin</div>
+                                    <div class="font-weight-bold m-sm-2" style="color: red">Admin</div>
                                 }
                                 else
                                 {
@@ -44,27 +49,33 @@
                                     if (user.IsLockedOut)
 
                                     {
-                                        <a class="m-sm-1 font-weight-bold btn btn-danger" asp-action="Unlock" asp-route-userId="@user.Id">
+                                        <a class="m-sm-2 font-weight-bold btn btn-danger" asp-action="Unlock" asp-route-userId="@user.Id">
                                             Unlock
                                         </a>
                                     }
                                     else
                                     {
-                                        <a class="m-sm-1 font-weight-bold btn btn-danger" asp-action="Ban" asp-route-userId="@user.Id">
+                                        <a class="m-sm-2 font-weight-bold btn btn-danger" asp-action="Ban" asp-route-userId="@user.Id">
                                             Ban
                                         </a>
                                     }
 
                                 }
                             }
-                            @{var educatorBtn = user.IsEducator == true ? "Remove as Educator" : "Make Educator";}
-                            <a class="m-sm-1 btn btn-d-custom" asp-action="ChangeEducatorStatus" asp-route-userId="@user.Id">
-                                @educatorBtn
-                            </a>
-                            @{var studentBtn = user.IsStudent == true ? "Remove as Student" : "Make Student";}
-                            <a class="m-sm-1 btn btn-primary" asp-action="ChangeStudentStatus" asp-route-userId="@user.Id">
-                                @studentBtn
-                            </a>
+                            @if (this.educatorService.GetByUserId(user.Id) != null)
+                            {
+                                var educatorBtn = user.IsEducator == true ? "Remove as Educator" : "Make Educator";
+                                <a class="m-sm-2 btn btn-d-custom" asp-action="ChangeEducatorStatus" asp-route-userId="@user.Id">
+                                    @educatorBtn
+                                </a>
+                            }
+                            @if (this.userService.GetStudentByUserId(user.Id) != null)
+                            {
+                                var studentBtn = user.IsStudent == true ? "Remove as Student" : "Make Student";
+                                <a class="m-sm-2 btn btn-secondary" asp-action="ChangeStudentStatus" asp-route-userId="@user.Id">
+                                    @studentBtn
+                                </a>
+                            }
                         </div>
                     </td>
                 </tr>

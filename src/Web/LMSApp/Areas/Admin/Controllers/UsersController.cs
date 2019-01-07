@@ -14,17 +14,20 @@ namespace LMSApp.Areas.Admin.Controllers
     public class UsersController : AdminBaseController
     {
         private IUserService userService;
+        private IEducatorService educatorService;
         private ICourseService courseService;
         private ILectureciseService lectureciseService;
         private UserManager<LMSAppUser> userManager;
 
         public UsersController(
-            IUserService userService, 
+            IUserService userService,
+            IEducatorService educatorService,
             ICourseService courseService, 
             ILectureciseService lectureciseService,
             UserManager<LMSAppUser> userManager)
         {
             this.userService = userService;
+            this.educatorService = educatorService;
             this.courseService = courseService;
             this.lectureciseService = lectureciseService;
             this.userManager = userManager;
@@ -86,10 +89,14 @@ namespace LMSApp.Areas.Admin.Controllers
             if (await this.userManager.IsInRoleAsync(user, "Educator"))
             {
                 await this.userManager.RemoveFromRoleAsync(user, "Educator");
+
+                await this.educatorService.DeleteEducatorByUserId(userId);
             }
             else
             {
                 await this.userManager.AddToRoleAsync(user, "Educator");
+
+                await this.educatorService.UnDeleteEducatorByUserId(userId);
             }
 
             return RedirectToAction("All");
@@ -103,10 +110,15 @@ namespace LMSApp.Areas.Admin.Controllers
             if (await this.userManager.IsInRoleAsync(user, "Student"))
             {
                 await this.userManager.RemoveFromRoleAsync(user, "Student");
+
+                await this.userService.DeleteStudentByUserId(userId);
+
             }
             else
             {
                 await this.userManager.AddToRoleAsync(user, "Student");
+
+                await this.userService.UnDeleteStudentByUserId(userId);
             }
 
             return RedirectToAction("All");

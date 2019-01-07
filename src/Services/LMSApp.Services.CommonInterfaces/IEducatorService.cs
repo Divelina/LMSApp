@@ -14,6 +14,10 @@ namespace LMSApp.Services.CommonInterfaces
 
         Educator GetByUserId(string userId);
 
+        Task DeleteEducatorByUserId(string userId);
+
+        Task UnDeleteEducatorByUserId(string userId);
+
         IEnumerable<EducatorIdAndNameViewModel> GetAll();
     }
 }

@@ -1,9 +1,49 @@
 
+/*Header*/
+div.header {
+    background-image: url("../images/phys1.jpg");
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-size: cover;
+    height: 600px;
+    color: aliceblue;
+    text-align: center;
+}
+
+    div.header h1 {
+        font-family: 'Bookman Old Style';
+        font-size: 3em;
+    }
+
+    div.header h4 {
+        font-family: 'Bookman Old Style';
+        font-size: 2em;
+        font-style: italic;
+    }
+
+    div.header a {
+        font-family: 'Bookman Old Style';
+        font-weight: bold;
+    }
+
+div.header-sm {
+    background-image: url("../images/phys1.jpg");
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    /*background-position: center;*/
+    background-position: 40% 40%;
+    background-size: cover;
+    height: 180px;
+    color: aliceblue;
+    text-align: center;
+}
+
+    /*Common*/
 div.container-custom {
     padding: 30px;
 }
 
-/*Line*/
 .hr-custom-dark {
     border-color: #343a40;
     border-top-width: 3px;
@@ -14,37 +54,38 @@ div.container-custom {
 /*Navbar*/
 .navbar-dark .navbar-nav .nav-link {
     color: lightblue
-
 }
 
-.navbar-dark .navbar-nav .nav-link:hover {
-    color: aliceblue;
-}
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: aliceblue;
+    }
 
 .navbar-dark .navbar-brand {
-    color:lightblue;
-    font-size: larger
+    color: lightblue;
+    font-size: larger; 
+    font-family: 'Bookman Old Style';
 }
 
 .navbar-inverse .navbar-brand {
     color: lightblue;
+    font-family: 'Bookman Old Style';
 }
 
 .navbar-inverse .btn-link {
     color: lightblue;
 }
+
 .dropdown-menu.show {
     background-color: #343a40;
 }
 
-.dropdown-menu.show .dropdown-item{
-    color: aliceblue;
-}
-
-    .dropdown-menu.show .dropdown-item:hover {
-        color: #343a40;
-        
+    .dropdown-menu.show .dropdown-item {
+        color: aliceblue;
     }
+
+        .dropdown-menu.show .dropdown-item:hover {
+            color: #343a40;
+        }
 
 /*Sidebar navigation*/
 #acc-manage-nav a, #adm-course-nav a {
@@ -55,7 +96,7 @@ div.container-custom {
     background-color: lightblue;
 }
 
-#acc-manage-nav li.active > a, #adm-course-nav li.active > a{
+    #acc-manage-nav li.active > a, #adm-course-nav li.active > a {
         color: #343a40;
     }
 
@@ -71,12 +112,16 @@ div.container-custom {
     border-color: #343a40;
 }
 
- .table-bordered td {
+.table-bordered td {
     border: 1px solid #343a40;
 }
 
 /*Forms = Locked input field*/
-.form-control:disabled, .form-control[readonly]{
+.form-control:disabled, .form-control[readonly] {
     background: none;
     border: none;
+}
+/*Images*/
+img {
+    width: 100%;
 }

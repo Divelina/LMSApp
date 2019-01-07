@@ -9,6 +9,7 @@ using LMSApp.Services.Mapping;
 using LMSApp.Services.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -57,11 +58,11 @@ namespace LMSApp.Services.DataServices
 
         public bool AnyStudent(int uniId, FacultyOf faculty)
         {
-            var isCourseFound = this.studentRepository.All().Any(s =>
+            var isFound = this.studentRepository.All().Any(s =>
                  s.StudentUniId == uniId &&
                  s.FacultyName == faculty);
 
-            return isCourseFound;
+            return isFound;
         }
 
         public async Task<string> CreateAsync(StudentBindingModel student)
@@ -87,6 +88,47 @@ namespace LMSApp.Services.DataServices
             students.ForEach(st => st.UserInfo = Mapper.Map<UserListViewModel>(studentUsers.FirstOrDefault(su => su.Id == st.UserId)));
 
             return students;
+        }
+
+        public Student GetStudentByUserId(string userId)
+        {
+            var student = this.studentRepository.All()
+                .Include(e => e.User)
+                .Where(e => e.UserId == userId)
+                .FirstOrDefault();
+
+            return student;
+        }
+
+        public async Task DeleteStudentByUserId(string userId)
+        {
+            var student = this.studentRepository.All()
+                .Where(st => st.IsDeleted == false && st.UserId == userId)
+                 .FirstOrDefault();
+
+            if (student != null)
+            {
+                student.IsDeleted = true;
+                student.DeletedOn = DateTime.UtcNow;
+            }
+
+
+            await this.studentRepository.SaveChangesAsync();
+        }
+
+        public async Task UnDeleteStudentByUserId(string userId)
+        {
+            var student = this.studentRepository.All()
+                .Where(st => st.IsDeleted == true && st.UserId == userId)
+                 .FirstOrDefault();
+
+            if (student != null)
+            {
+                student.IsDeleted = false;
+                student.DeletedOn = null;
+            }
+
+            await this.studentRepository.SaveChangesAsync();
         }
 
         public async Task<IList<StudentListViewModel>> GetAllStudentsByCourse(string courseId)

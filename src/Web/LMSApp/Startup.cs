@@ -88,6 +88,7 @@ namespace LMSApp
             services.AddScoped<IEducatorLectureciseService, EducatorLectureciseService>();
             services.AddScoped<IAssignmentService, AssignmentService>();
             services.AddScoped<IStudentAssignmentService, StudentAssignmentService>();
+            services.AddScoped<IGroupService, GroupService>();
 
             //TODO - Register the custom services that work with the entities
         }

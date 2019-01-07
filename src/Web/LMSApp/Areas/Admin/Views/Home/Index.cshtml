@@ -1,18 +1,32 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Admin Home Page";
 }
 
+<div class="header-sm d-flex flex-row align-items-end justify-content-center">
+    @*<div>
+        <h1 class="header">Welcome to FEasy!</h1>
+        <h4> Where physcis is fun and easy</h4>
+        <div class="d-flex flex-row justify-content-center">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-lg btn-light m-4">Register</a>
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-lg btn-light m-4">Login</a>
+        </div>
+    </div>*@
+</div>
 
-<div class="row">
-
+<div class="row my-4">
+    <h2>As an Admin you can</h2>
     <div class="col-md-3">
-        <h2>How to</h2>
         <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
+            <li>
+                <a asp-area="Admin" asp-controller="Users" asp-action="All">Add and Change User Roles and Ban Users</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Admin" asp-controller="Users" asp-action="All">Add and Change User Roles and Ban Users</a>
+            </li>
         </ul>
     </div>
 </div>

@@ -24,68 +24,75 @@
                     <input asp-for="Input.Role" class="form-check-input" type="radio" id="radioEducator" value="Educator">
                     <label asp-for="Input.Role" class="form-check-label" for="radioEducator">Educator </label>
                 </div>
-                <div class="form-group col-3 mr-2">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-3 mx-4">
                     <label asp-for="Input.FacultyName"></label>
                     <select asp-for="Input.FacultyName" asp-items="Html.GetEnumSelectList<FacultyOf>()" class="form-control"></select>
                     <span asp-validation-for="Input.FacultyName" class="text-danger"></span>
                 </div>
-                <div class="form-group col-3 mr-2">
+                <div class="form-group col-3 mx-4">
                     <label asp-for="Input.Major"></label>
                     <select asp-for="Input.Major" asp-items="Html.GetEnumSelectList<Major>()" class="form-control"></select>
                     <span asp-validation-for="Input.Major" class="text-danger"></span>
                 </div>
+                <div class="form-group col-3 mx-4">
+                    <label asp-for="Input.GroupNumber"></label>
+                    <input asp-for="Input.GroupNumber" class="form-control" />
+                    <span asp-validation-for="Input.GroupNumber" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group col-4">
+            <div class="form-group col-4 mx-3">
                 <label asp-for="Input.Code">Code (for students: UniId) </label>
                 <input asp-for="Input.Code" class="form-control" />
                 <span asp-validation-for="Input.Code" class="text-danger"></span>
             </div>
-    <hr class="hr-custom-dark" />
+            <hr class="hr-custom-dark" />
 
-    <div class="form-row">
-        <div class="form-group col-md-5">
-            <label asp-for="Input.Username"></label>
-            <input asp-for="Input.Username" class="form-control" />
-            <span asp-validation-for="Input.Username" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-5">
-            <label asp-for="Input.Email"></label>
-            <input asp-for="Input.Email" class="form-control" />
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-5">
-            <label asp-for="Input.FirstName">First name</label>
-            <input asp-for="Input.FirstName" class="form-control" />
-            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-5">
-            <label asp-for="Input.FamilyName">Family name </label>
-            <input asp-for="Input.FamilyName" class="form-control" />
-            <span asp-validation-for="Input.FamilyName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-5">
-            <label asp-for="Input.Password">Password</label>
-            <input asp-for="Input.Password" class="form-control" />
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
-        </div>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label asp-for="Input.Username"></label>
+                    <input asp-for="Input.Username" class="form-control" />
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label asp-for="Input.FirstName">First name</label>
+                    <input asp-for="Input.FirstName" class="form-control" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label asp-for="Input.FamilyName">Family name </label>
+                    <input asp-for="Input.FamilyName" class="form-control" />
+                    <span asp-validation-for="Input.FamilyName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label asp-for="Input.Password">Password</label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
 
-        <div class="form-group col-md-5">
-            <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-            <input asp-for="Input.ConfirmPassword" class="form-control" />
-            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-        </div>
-    </div>
+                <div class="form-group col-md-5">
+                    <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
 
-    <div class="form-row">
-        <button type="submit" class="btn btn-d-custom mr-2">Register</button>
-        <input type="reset" class="btn btn-danger" value="Clear" />
+            <div class="form-row">
+                <button type="submit" class="btn btn-d-custom mr-2">Register</button>
+                <input type="reset" class="btn btn-danger" value="Clear" />
+            </div>
+        </form>
     </div>
-    </form>
-</div>
 </div>
 
 @section Scripts {

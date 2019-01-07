@@ -1,5 +1,6 @@
 ﻿
 using LMSApp.Data.Models.Enums;
+using LMSApp.Data.Models.UserTypes;
 using LMSApp.Services.Models.Users;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,7 +15,13 @@ namespace LMSApp.Services.CommonInterfaces
 
         Task<IList<StudentListViewModel>> GetAllStudents();
 
+        Student GetStudentByUserId(string userId);
+
         bool AnyStudent(int uniId, FacultyOf faculty);
+
+       Task DeleteStudentByUserId(string userId);
+
+        Task UnDeleteStudentByUserId(string userId);
 
         Task<IList<StudentListViewModel>> GetAllStudentsByCourse(string courseId);
 

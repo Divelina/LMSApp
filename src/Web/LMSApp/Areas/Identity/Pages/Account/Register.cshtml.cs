@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using LMSApp.Data.Models;
@@ -28,6 +29,7 @@ namespace LMSApp.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly IUserService _userService;
         private readonly IEducatorService _educatorService;
+        private readonly IGroupService _groupService;
 
         public RegisterModel(
             UserManager<LMSAppUser> userManager,
@@ -35,7 +37,8 @@ namespace LMSApp.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IUserService userService,
-            IEducatorService educatorService)
+            IEducatorService educatorService,
+            IGroupService groupService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -43,6 +46,7 @@ namespace LMSApp.Areas.Identity.Pages.Account
             _emailSender = emailSender;
             _userService = userService;
             _educatorService = educatorService;
+            _groupService = groupService;
         }
 
         [BindProperty]
@@ -61,6 +65,10 @@ namespace LMSApp.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Faculty Name")]
             public FacultyOf FacultyName { get; set; }
+
+            [Required]
+            [Display(Name = "Group Number")]
+            public int GroupNumber { get; set; }
 
             [Required]
             public Major Major { get; set; }
@@ -132,16 +140,38 @@ namespace LMSApp.Areas.Identity.Pages.Account
                 {                   
                     if (Input.Role == "Student")
                     {
-                        await this._userService.CreateAsync(new StudentBindingModel()
+                       await this._userManager.AddToRoleAsync(user, "Student");
+
+                        string groupId;
+
+                        if (this._groupService.AnyGroup(Input.GroupNumber, Input.Major))
+                        {
+                            groupId = this._groupService.GetAll()
+                                .Where(g => g.Major == Input.Major && g.Number == Input.GroupNumber)
+                                .First().Id;
+                        }
+                        else
+                        {
+                            groupId = await this._groupService.CreateAsync(new GroupViewModel()
+                            {
+                                Major = Input.Major,
+                                Number = Input.GroupNumber
+                            });
+                        }
+
+                            await this._userService.CreateAsync(new StudentBindingModel()
                         {
                             UserId = user.Id,
                             StudentUniId = Input.Code,
                             FacultyName = Input.FacultyName,
-                            Major = Input.Major
+                            Major = Input.Major,
+                            GroupId = groupId
                         });
                     }
                     else
                     {
+                        await this._userManager.AddToRoleAsync(user, "Educator");
+
                         await this._educatorService.CreateAsync(new EducatorBindingModel()
                         {
                             UserId = user.Id,

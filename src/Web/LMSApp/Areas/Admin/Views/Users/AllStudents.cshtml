@@ -28,8 +28,8 @@
                 <th scope="col" class="text-center">Faculty name</th>
                 <th scope="col" class="text-center">Name & Username</th>
                 <th scope="col" class="text-center">Email</th>
-                <th scope="col" class="text-center">Last seen</th>
-                <th scope="col" class="text-center">Roles</th>
+                @*<th scope="col" class="text-center">Last seen</th>*@
+                @*<th scope="col" class="text-center">Roles</th>*@
             </tr>
         </thead>
         <tbody>
@@ -57,24 +57,24 @@
                             <div>
                                 @user.UserInfo.FirstName @user.UserInfo.FamilyName (@user.UserInfo.UserName)
                             </div>
-                            <div><a class="btn btn-primary btn-sm m-sm-1" asp-action="Edit" asp-route-userId="@user.Id">Edit</a></div>
+                            @*<div><a class="btn btn-primary btn-sm m-sm-1" asp-action="Edit" asp-route-userId="@user.Id">Edit</a></div>*@
                         </div>
                     </td>
                     <td class="text-center">
                         @user.UserInfo.Email
                     </td>
-                    <td class="text-center">
+                    @*<td class="text-center">
                         <div>
                             @user.LastSeen
                         </div>
-                    </td>
-                    <td class="text-center">
+                    </td>*@
+                    @*<td class="text-center">
                         <div class="d-flex flex-column justify-content-center align-items-around">
-                            <a class="m-sm-1" asp-action="ChangeStudent" asp-route-userId="@user.UserId">
+                            <a class="m-sm-1" asp-action="ChangeStudentStatus" asp-route-userId="@user.UserId">
                                 Remove as Student
                             </a>
                         </div>
-                    </td>
+                    </td>*@
                 </tr>
             }
         </tbody>
