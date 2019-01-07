@@ -14,10 +14,11 @@ div.container-custom {
 /*Navbar*/
 .navbar-dark .navbar-nav .nav-link {
     color: lightblue
+
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: aliceblue
+    color: aliceblue;
 }
 
 .navbar-dark .navbar-brand {
@@ -30,11 +31,22 @@ div.container-custom {
 }
 
 .navbar-inverse .btn-link {
-    color: lightblue
+    color: lightblue;
+}
+.dropdown-menu.show {
+    background-color: #343a40;
 }
 
-/*Sidebar navigation*/
+.dropdown-menu.show .dropdown-item{
+    color: aliceblue;
+}
 
+    .dropdown-menu.show .dropdown-item:hover {
+        color: #343a40;
+        
+    }
+
+/*Sidebar navigation*/
 #acc-manage-nav a, #adm-course-nav a {
     color: aliceblue;
 }
@@ -44,7 +56,7 @@ div.container-custom {
 }
 
 #acc-manage-nav li.active > a, #adm-course-nav li.active > a{
-        color: #343a40
+        color: #343a40;
     }
 
 .btn-d-custom {
@@ -63,7 +75,7 @@ div.container-custom {
     border: 1px solid #343a40;
 }
 
-/*Locked input field*/
+/*Forms = Locked input field*/
 .form-control:disabled, .form-control[readonly]{
     background: none;
     border: none;
