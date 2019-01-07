@@ -1,20 +1,56 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Educator Home Page";
 }
 
+<div class="header-sm d-flex flex-row align-items-end justify-content-center">
 
-<div class="row">
-    <h2>Overview</h2>
+</div>
+
+<div class="d-flex flex-row align-items-start flex-wrap my-4">
     <div class="col-md-3">
-
+        <h2>As an Educator you can</h2>
+    </div>
+    <div class="col-md-3">
         <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
+            <li>
+                <a asp-area="Educator" asp-controller="Courses" asp-action="All">See all courses in which you have been involved and their lecturecises.</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Educator" asp-controller="Lecturecises" asp-action="CurrentYearLecturecises">
+                    See all lecturecises in the current courses you are involved - edit and add students.
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Educator" asp-controller="Lecturecises" asp-action="AllLecturecises">
+                    See all lecturecises See all lecturecises in the courses you have been involved -
+                    edit and add students.you are involved - edit and add students. student information by various parameters.
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Educator" asp-controller="Assignments" asp-action="Create">
+                Create new assignments in the courses you are involved and select students and lecturecises for the assignment.</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Educator" asp-controller="Assignments" asp-action="AssignmentsInCourses">
+                See the assignments in the courses you are involved in, grade them and see the statics for the student grades.</a>
+            </li>
         </ul>
     </div>
 </div>

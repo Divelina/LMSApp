@@ -3,24 +3,12 @@
 }
 
 <div class="header-sm d-flex flex-row align-items-end justify-content-center">
-    @*<div>
-        <h1 class="header">Welcome to FEasy!</h1>
-        <h4> Where physcis is fun and easy</h4>
-        <div class="d-flex flex-row justify-content-center">
-            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-lg btn-light m-4">Register</a>
-            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-lg btn-light m-4">Login</a>
-        </div>
-    </div>*@
+
 </div>
 
-<div class="row my-4">
-    <h2>As an Admin you can</h2>
+<div class="d-flex flex-row align-items-start flex-wrap my-4">
     <div class="col-md-3">
-        <ul>
-            <li>
-                <a asp-area="Admin" asp-controller="Users" asp-action="All">Add and Change User Roles and Ban Users</a>
-            </li>
-        </ul>
+        <h2>As an Admin you can</h2>
     </div>
     <div class="col-md-3">
         <ul>
@@ -29,4 +17,40 @@
             </li>
         </ul>
     </div>
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Admin" asp-controller="Users" asp-action="AllStudents">Find student information by various parameters.</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Admin" asp-controller="Courses" asp-action="Create">Create courses.</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Admin" asp-controller="Users" asp-action="AddStudentsToCourse">Add students to already created courses.</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Admin" asp-controller="Courses" asp-action="All">Edit and delete courses, edit their lecturecises and add new ones.</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <ul>
+            <li>
+                <a asp-area="Admin" asp-controller="Lecturecises" asp-action="AllLecturecises">Edit lecturecises and add students from the current course in them.</a>
+            </li>
+        </ul>
+    </div>
+
 </div>
