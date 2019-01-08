@@ -26,24 +26,13 @@ namespace LMSApp.Areas.Student.Controllers
         }
 
 
-          [HttpGet]
+        [HttpGet]
+        [Route("Student/Home/Index")]
         public async Task<IActionResult> Index()
         {
-            var userId = (string)TempData["userId"];
-            var currentUser = await this.userManager.GetUserAsync(this.User);
-
-            if (currentUser.Id != userId)
-            {
-                return RedirectToAction("/Home/Index");
-            }
-            else
-            {
-                //TODO make it ot return with some UserViewModel containg the courses, etc.
-                //But maybe it's not necessary for the Admin
-                return View();
-            }
-            
-        }
+            return View();
 
         }
+
+    }
 }

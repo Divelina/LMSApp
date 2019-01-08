@@ -107,6 +107,17 @@ namespace LMSApp.Services.DataServices
            await this.lectureciseRepository.SaveChangesAsync();
         }
 
+        //Student service 
+        public IEnumerable<LectureciseShortViewModel> GetAllByStudent(string studentId)
+        {
+            var lecturecises = this.lectureciseRepository.All()
+                .Where(l => l.LectureciseStudents.Any(ls => ls.StudentId == studentId
+                        && l.IsDeleted == false))
+                .To<LectureciseShortViewModel>();
+
+            return lecturecises;
+        }
+
         //Educator service 
         public IEnumerable<LectureciseShortViewModel> GetAllByEducator(string educatorId)
         {
