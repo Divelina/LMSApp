@@ -16,7 +16,7 @@ namespace LMSApp.Services.DataServices
     public class LectureciseService : ILectureciseService
     {
         private readonly IRepository<Lecturecise> lectureciseRepository;
-
+ 
         public LectureciseService(IRepository<Lecturecise> lectureciseRepository)
         {
             this.lectureciseRepository = lectureciseRepository;
