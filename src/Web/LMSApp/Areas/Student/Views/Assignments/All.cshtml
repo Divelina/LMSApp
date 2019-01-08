@@ -1,0 +1,73 @@
+﻿@using LMSApp.Services.Models.Assignments
+
+@model IList<StudentAssignmentStudentViewModel>
+
+
+@{
+    ViewData["Title"] = "All Assignment";
+}
+
+<h4>@ViewData["Title"]</h4>
+
+@if (Model.Count() != 0)
+{
+    <table class="table table-responsive col-12" id="lecturecise-list">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center th-hide">Course Name</th>
+                <th scope="col" class="text-center">Assignment</th>
+                <th scope="col" class="text-center th-hide">From</th>
+                <th scope="col" class="text-center">Due Date & Status</th>
+                <th scope="col" class="text-center">Grade</th>
+                <th scope="col" class="text-center th-hide">Top % of class</th>
+                <th scope="col" class="text-center">Grade Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var asgn in Model)
+            {
+            <tr>
+                <td class="text-center td-hide">
+                    @asgn.CourseInfo
+                </td>
+                <td class="text-center">
+
+                    @asgn.AssignmentName
+
+                </td>
+                <td class="text-center td-hide">
+                    @asgn.DateCreated
+                </td>
+                <td class="text-center">
+                    <div class="d-flex flex-column">
+                        <div>
+                            @asgn.DueDate
+                        </div>
+                        <div>
+                            @asgn.AssignmentStatus
+                        </div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <div style="color:red">
+                        @asgn.Grade
+                    </div>
+                    <div>
+                        (Max: @asgn.MaxGrade)
+                    </div>
+                </td>
+                <td class="text-center td-hide">
+                    <div>
+                        @asgn.PercentOfClass.ToString("0")
+                    </div>
+                </td>
+                <td class="text-center">
+                    <div>
+                        @asgn.GradeComment
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

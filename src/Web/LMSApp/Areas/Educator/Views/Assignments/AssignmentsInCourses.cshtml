@@ -1,0 +1,13 @@
+﻿@using LMSApp.Services.Models.Assignments
+
+@model IList<AssignmentListViewModel>
+
+
+@{
+    ViewData["Title"] = "All Assignment in Courses Taught";
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<partial name="_AssignmentList" for="@Model" />
+

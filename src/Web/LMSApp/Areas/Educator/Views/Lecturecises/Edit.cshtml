@@ -1,0 +1,123 @@
+﻿@using LMSApp.Services.Models.Courses
+@using LMSApp.Data.Models.Enums
+@using LMSApp.Services.CommonInterfaces
+
+@model LectureciseEditModel
+
+@{
+    ViewData["Title"] = "Edit Lecturecise";
+    ViewData["lectureciseId"] = Model.Id;
+}
+
+<div class="d-flex flex-column justify-content-center">
+    <div class="mx-md-2"><h4>Type: @Model.Type</h4></div>
+    <div class="d-flex flex-row justify-content-md-start align-items-center my-2">
+        Times: <div class="font-weight-bold"> @String.Join(", ", Model.WeekTimes.Select(wk => wk.ToString()))</div>
+        @if (Model.WeekTimes.Count() > 0)
+        {
+        <a asp-action="ClearWeektimes" asp-route-lectureciseId="@Model.Id" class="btn btn-sm btn-danger mx-2" onclick="return confirm('Are you sure you wish to clear weektimes?');">Clear</a>
+        }
+    </div>
+    <div class="d-flex flex-row justify-content-md-start align-items-center my-2">
+        Educators:<div class="font-weight-bold"> @Model.EducatorNames</div>
+    @if (Model.EducatorNames.Count() > 0)
+    {
+        <a asp-action="ClearEducators" asp-route-lectureciseId="@Model.Id" class="btn btn-sm btn-danger mx-2" onclick="return confirm('Are you sure you wish to clear educators?');">Clear</a>
+    }
+</div>
+</div>
+@inject IEducatorService educatorService
+
+@{ var educators = educatorService.GetAll().Select(e => new SelectListItem() { Text = e.FullName, Value = e.Id }).ToList();}
+
+<hr class="hr-custom-dark" />
+
+<h5>@ViewData["Title"]</h5>
+<div class="row">
+    <form asp-action="Edit" method="post" id="edit-lecturecise">
+
+        @{
+            if (TempData.ContainsKey("Error"))
+            {
+                <div class="text-danger">
+                    @TempData["Error"];
+                </div>
+            }
+        }
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <input asp-for="Id" class="form-control mx-md-2" id="readolny-courseId" value="@TempData["lectureciseId"]" readonly hidden />
+            <span asp-validation-for="Id" class="text-danger"></span>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3 ml-2">
+                @*<label  class="mx-md-2" asp-for="CourseId"></label>*@
+                <input asp-for="CourseId" class="form-control mx-md-2" id="readolny-courseId" value="@TempData["courseId"]" readonly hidden />
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+                <label class="mx-md-2 font-weight-bold" asp-for="Type">Change Type</label>
+                <select class="form-control mx-md-2" asp-for="Type" asp-items="Html.GetEnumSelectList<LectureciseType>()">
+                    <option disabled selected>--- SELECT ---</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-3 ml-2">
+                <label class="mx-md-2 font-weight-bold" asp-for="EducatorIdsForForm">Add Educators</label>
+                <select class="form-control mx-md-2" asp-for="EducatorIdsForForm" asp-items="@educators"></select>
+                <span asp-validation-for="EducatorIdsForForm" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-5 ml-2">
+                <h6>Add Times - day/start/end</h6>
+                <div class="form-row my-md-1">
+                    <div class="col-md-4">
+                        <select class="form-control mx-md-2" asp-for="Day1" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
+                        <span asp-validation-for="Day1" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="StartTime1" class="form-control mx-md-2" type="time" />
+                        <span asp-validation-for="StartTime1" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="EndTime1" class="form-control mx-md-2" type="time" />
+                        <span asp-validation-for="EndTime1" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-row my-md-1">
+                    <div class="col-md-4">
+                        <select class="form-control mx-md-2" asp-for="Day2" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
+                        <span asp-validation-for="Day2" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="StartTime2" class="form-control mx-md-2" type="time" />
+                        <span asp-validation-for="StartTime2" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <input asp-for="EndTime2" class="form-control mx-md-2" type="time" />
+                        <span asp-validation-for="EndTime2" class="text-danger"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-dark btn-d-custom" value="Edit Lecturecise" />
+        <input type="reset" class="btn btn-danger" value="Cancel" />
+    </form>
+</div>
+
+<hr class="hr-custom-dark" />
+
+<div class="d-flex flex-row justify-content-between pb-lg-2">
+    <h4 id="Lecturecises">Students in Lecturecise</h4>
+    <a class="btn btn-d-custom"
+       asp-controller="Lecturecises" asp-action="AddStudentsToLecturecise" asp-route-lectureciseId="@Model.Id">
+        Add Students
+    </a>
+</div>
+
+@inject IUserService userService
+
+@{ var students = await userService.GetAllStudentsByLecturecise(Model.Id);}
+
+<partial name="../Users/_StudentList" for="@students" />
+

@@ -1,0 +1,115 @@
+﻿@using LMSApp.Services.CommonInterfaces
+@using LMSApp.Services.Models.Users
+@using LMSApp.Data.Models.Enums
+
+@model StudentsAddToCourseModel
+
+
+@{
+    ViewData["Title"] = "Add Students from Course to Lecturecise";
+}
+
+
+<h4>@ViewData["Title"]</h4>
+<h6 class="text-danger">@TempData["AddedMessage"]</h6>
+<hr class="hr-custom-dark" />
+
+<h5>Filter Students</h5>
+@{var filters = new StudentsFilterModel();
+    filters.ForAction = "AddStudentsToLecturecise";
+    filters.ForController = "Lecturecise";
+    filters.ForArea = "Educator";
+    filters.ParamId = Model.LectureciseId;
+}
+
+<partial name="../../../Admin/Views/Users/_StudentFilter" for="@filters" />
+
+<hr class="hr-custom-dark" />
+<div class="row">
+
+    <div class="col-md-8">
+        <form asp-action="AddStudentsToLecturecise" method="post" id="add-to-lecturecise">
+
+            @{
+                if (TempData.ContainsKey("Error"))
+                {
+                    <div class="text-danger">
+                        @TempData["Error"];
+                    </div>
+                }
+            }
+
+            <div class="form-group col-md-6 ml-2">
+                @*<label  class="mx-md-2" asp-for="CourseId"></label>*@
+                <input asp-for="@Model.LectureciseId" class="form-control mx-md-2" id="readolny-courseId"
+                       value="@Model.LectureciseId" readonly hidden />
+                <span asp-validation-for="@Model.LectureciseId" class="text-danger"></span>
+            </div>
+
+            <input type="submit" class="btn btn-dark btn-d-custom my-md-2" value="Add to course" />
+
+            <div class="table-responsive-sm">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="text-center">Uni Id</th>
+                            <th scope="col" class="text-center">Major</th>
+                            <th scope="col" class="text-center">Group</th>
+                            <th scope="col" class="text-center">Faculty name</th>
+                            <th scope="col" class="text-center">Name & Username</th>
+                            <th scope="col" class="text-center">Email</th>
+                            @*<th scope="col" class="text-center">Last seen</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.StudentsInfo.Count(); i++)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @Model.StudentsInfo[i].StudentUniId
+                                    <div class="form-group col-md-6 ml-2">
+                                        @*<label  class="mx-md-2" asp-for="CourseId"></label>*@
+                                        <input asp-for="@Model.StudentsInfo[i].Id" class="form-control mx-md-2" id="readolny-courseId"
+                                               value="@Model.StudentsInfo[i].Id" readonly hidden />
+                                        <span asp-validation-for="@Model.StudentsInfo[i].Id" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    @Model.StudentsInfo[i].Major
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        @Model.StudentsInfo[i].GroupNumber (id: @Model.StudentsInfo[i].GroupId)
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div>
+                                        @Model.StudentsInfo[i].FacultyName
+                                    </div>
+                                </td>
+                                <td class="align-content-center">
+                                    <div>
+                                        @Model.StudentsInfo[i].UserInfo.FirstName @Model.StudentsInfo[i].UserInfo.FamilyName (@Model.StudentsInfo[i].UserInfo.UserName)
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    @Model.StudentsInfo[i].UserInfo.Email
+                                </td>
+                                @*<td class="text-center">
+                                    <div>
+                                        @Model.StudentsInfo[i].LastSeen
+                                    </div>
+                                </td>*@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+
+

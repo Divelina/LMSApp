@@ -1,0 +1,13 @@
+﻿@using LMSApp.Services.Models.Courses
+
+@model IList<LectureciseShortViewModel>
+
+
+@{
+    ViewData["Title"] = "All Lecturecises Taught";
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<partial name="../../../Admin/Views/Courses/_LectureciseList" for="@Model" />
+

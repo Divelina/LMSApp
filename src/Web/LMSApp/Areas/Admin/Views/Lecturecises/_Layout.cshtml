@@ -1,0 +1,21 @@
+﻿@{ 
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manage Courses</h2>
+
+<div>
+    <hr class="hr-custom-dark"/>
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="../Courses/_CourseNav" />
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

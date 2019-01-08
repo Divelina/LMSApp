@@ -1,0 +1,76 @@
+﻿
+@using LMSApp.Services.Models.Users
+
+@model IList<StudentListViewModel>
+
+
+@if(Model.Count() != 0)
+{
+<table class="table table-responsive col-12" id="student-list">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center">Uni Id</th>
+            <th scope="col" class="text-center">Group</th>
+            <th scope="col" class="text-center">Major, Faculty</th>
+            <th scope="col" class="text-center">Name, Email</th>
+            @*<th scope="col" class="text-center">Last login</th>*@
+            @*<th scope="col" class="text-center">Actions</th>*@
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+        <tr>
+            <td class="text-center">
+                @user.StudentUniId
+            </td>
+
+            <td class="text-center">
+                <div>
+                    @user.GroupNumber (id: @user.GroupId)
+                </div>
+            </td>
+
+            <td class="text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <div>
+                        @user.Major
+                    </div>
+                    <div>
+                        @user.FacultyName
+                    </div>
+                </div>
+            </td>
+            <td class="text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <div>
+                        @user.UserInfo.FirstName @user.UserInfo.FamilyName
+                    </div>
+                    <div>
+                        @user.UserInfo.Email
+                    </div>
+                </div>
+            </td>
+            
+            @*<td class="text-center">
+                @user.LastSeen
+            </td>*@
+           
+            @*<td class="text-center">
+                <div class="d-flex flex-row  justify-content-center align-items-center">
+
+                    <div class="p-md-2">
+                        <a class="btn btn-d-custom btn-sm"
+                           asp-area="Educator" asp-controller="Users" asp-action="StudentWork" 
+                                    asp-route-studentId="@user.Id" asp-route-lectureciseId="@ViewData["lectureciseId"]">
+                            CourseWork
+                        </a>
+                    </div>
+                </div>
+            </td>*@
+        </tr>
+    }
+        </tbody>
+    </table>
+}

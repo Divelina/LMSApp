@@ -1,0 +1,113 @@
+﻿@using LMSApp.Services.CommonInterfaces
+@using LMSApp.Services.Models.Assignments
+@using LMSApp.Data.Models.Enums
+
+@model IList<StudentAssignmentEditViewModel>
+
+@inject IEducatorService educatorService
+
+@{
+    ViewData["Title"] = "Manage Assignment";
+}
+
+<h4>@ViewData["Title"]: @ViewData["assignmentName"]</h4>
+<div class="d-flex flex-row col-md-10 justify-content-around">
+    <h6>Course: @ViewData["assignmentCourseHeld"]</h6>
+    <h6>Date given: @ViewData["assignmentDateCreated"]</h6>
+    <h6>Maximum grade: @ViewData["assignmentMaxGrade"]</h6>
+</div>
+<hr class="hr-custom-dark" />
+
+<div class="row">
+    <div>
+        <form asp-action="StudentAssignmentsManage" asp-route-asgnId="@Model[0].AssignmentId" method="post" id="edit-student-asgn">
+
+            @{
+                if (TempData.ContainsKey("Error"))
+                {
+                    <div class="text-danger">
+                        @TempData["Error"];
+                    </div>
+                }
+            }
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="text-center">Student</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Due</th>
+                            <th scope="col" class="text-center">Grade</th>
+                            <th scope="col" class="text-center">Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count(); i++)
+                        {
+
+                            <tr>
+                                <td class="text-center font-weight-bold">
+                                    @Model[i].StudentInfoView
+                                    <div class="form-group ml-2">
+                                        @*<label  class="mx-md-2" asp-for="CourseId"></label>*@
+                                        <input asp-for="@Model[i].StudentId" class="form-control mx-md-2" id="readolny-courseId"
+                                               value="@Model[i].StudentId" readonly hidden />
+                                        <span asp-validation-for="@Model[i].StudentId" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="form-group">
+                                        @*<label asp-for="@Model[i].AssignmentStatus"></label>*@
+                                        <select asp-for="@Model[i].AssignmentStatus" asp-items="Html.GetEnumSelectList<AssignmentStatus>()"
+                                                class="form-control font-weight-bold" value="@Model[i].AssignmentStatus"></select>
+                                        <span asp-validation-for="@Model[i].AssignmentStatus" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="font-weight-bold">
+                                        @Model[i].DueDate
+                                        Change: <div class="form-group">
+                                            @*<label asp-for="@Model[i].DueDate"></label>*@
+                                            <input asp-for="@Model[i].DueDate" class="form-control" type="date" />
+                                            <span asp-validation-for="@Model[i].DueDate" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="form-group">
+                                        @*<label asp-for="@Model[i].Grade"></label>*@
+                                        <input asp-for="@Model[i].Grade" class="form-control font-weight-bold text-right" value="@Model[i].Grade" />
+                                        <span asp-validation-for="@Model[i].Grade" class="text-danger"></span>
+                                    </div>
+                                </td>
+                                <td class="align-content-center">
+                                    <div>
+                                        <div class="form-group">
+                                            @*<label asp-for="@Model[i].GradeComment"></label>*@
+                                            <textarea asp-for="@Model[i].GradeComment" class="form-control font-weight-bold" value="@Model[i].GradeComment" rows="2"></textarea>
+                                            <span asp-validation-for="@Model[i].GradeComment" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-dark btn-d-custom my-md-2" value="Apply Changes" />
+                <a class="btn btn-danger mx-sm-1"
+                   asp-area="Educator" asp-controller="Assignments" asp-action="ViewStats" asp-route-asgnId="@Model[0].AssignmentId">
+                    Show Grade Stats
+                </a>
+
+            </div>
+        </form>
+
+
+        @*@await Component.InvokeAsync("GradeChart", new { asgnId = Model[0].AssignmentId });*@
+    </div>
+</div>

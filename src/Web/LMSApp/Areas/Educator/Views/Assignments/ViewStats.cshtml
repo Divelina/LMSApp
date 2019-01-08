@@ -1,0 +1,160 @@
+﻿@using LMSApp.Services.Models.Chart
+
+@model List<SimpleReportViewModel>
+
+@{
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DimensionOne).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Quantity).ToList());
+    ViewData["Title"] = "Grade stats for:";
+    var label = $"{ViewData["studentsWithAssignment"]} out of {ViewData["gradedStudents"]} students graded.";
+}
+
+<h4>@ViewData["Title"]<span class="visible" style="color:#DC3545"> @ViewData["assignmentName"] </span></h4>
+<div class="d-flex flex-row col-md-10 justify-content-around">
+    <h6>Course: @ViewData["assignmentCourseHeld"]</h6>
+    <h6>Date given: @ViewData["assignmentDateCreated"]</h6>
+    <h6>Maximum grade: @ViewData["assignmentMaxGrade"]</h6>
+</div>
+
+<hr class="hr-custom-dark" />
+
+
+@{var asgnId = ViewData["assignmentId"];
+    var binNumberStr = ViewData["binNumber"];}
+
+<form asp-action="ViewStats" method="get" id="edit-bins" class="form-inline pb-4">
+
+    @{
+        if (TempData.ContainsKey("Error"))
+        {
+            <div class="text-danger">
+                @TempData["Error"]
+            </div>
+        }
+    }
+    <div class="d-flex flex-row align-items-center">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group ml-2">
+            @*<label  class="mx-md-2" asp-for="CourseId"></label>*@
+            <input asp-for="@asgnId" class="form-control mx-md-2" id="readolny-courseId" value="@ViewData["assignmentId"]" readonly hidden />
+            <span asp-validation-for="@asgnId" class="text-danger"></span>
+            <label class="mx-md-2 font-weight-bold" asp-for="@binNumberStr">Histogram Bins</label>
+            <input asp-for="@binNumberStr" class="form-control mx-md-2" value="@binNumberStr" />
+            <span asp-validation-for="@binNumberStr" class="text-danger"></span>
+        </div>
+
+        <input type="submit" class="btn btn-dark btn-d-custom" value="Change" />
+    </div>
+</form>
+
+<div class="d-flex flex-row col-md-10 justify-content-around">
+    <h6>Students with assignment: <span style="color: #DC3545"> @ViewData["studentsWithAssignment"]</span></h6>
+    <h6>Students finished:  <span style="color:#DC3545"> @ViewData["gradedStudents"]</span></h6>
+</div>
+
+<div class="d-flex flex-row col-md-10 justify-content-around">
+    <h6>Average grade: <span style="color: #DC3545"> @ViewData["assignmentAverageGrade"] </span></h6>
+    <h6>Standard deviation: <span style="color: #DC3545"> @ViewData["assignmentStDevGrade"] </span></h6>
+</div>
+
+
+<div class="box-body p-4">
+
+    <div class="chart-container col-10">
+        <canvas id="chart" style="width:100%; height:300px"></canvas>
+    </div>
+</div>
+
+<a class="btn btn-d-custom btn-sm mx-sm-1"
+   asp-area="Educator" asp-controller="Assignments" asp-action="StudentAssignmentsManage" asp-route-asgnId="@ViewData["assignmentId"]">
+    Back to Assignment
+</a>
+
+@section scripts {
+    <script type="text/javascript">
+
+        $(function () {
+    var chartName = "chart";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabels),
+                datasets: [{
+                    label: "Number of students",
+                    //backgroundColor: 'rgba(220,53,69,0.5)',
+                    //backgroundColor: 'rgb(173,216,230)',
+                    backgroundColor: 'rgb(52,58,64)',
+                    borderColor: 'rgb(52,58,64)',
+                    //    [
+                    //    'rgba(255, 99, 132, 0.2)',
+                    //    'rgba(54, 162, 235, 0.2)',
+                    //    'rgba(255, 206, 86, 0.2)',
+                    //    'rgba(75, 192, 192, 0.2)',
+                    //    'rgba(153, 102, 255, 0.2)',
+                    //    'rgba(255, 159, 64, 0.2)',
+                    //    'rgba(255, 0, 0)',
+                    //    'rgba(0, 255, 0)',
+                    //    'rgba(0, 0, 255)',
+                    //    'rgba(192, 192, 192)',
+                    //    'rgba(255, 255, 0)',
+                    //    'rgba(255, 0, 255)'
+                    //],
+                    //borderColor: [
+                    //    'rgba(255,99,132,1)',
+                    //    'rgba(54, 162, 235, 1)',
+                    //    'rgba(255, 206, 86, 1)',
+                    //    'rgba(75, 192, 192, 1)',
+                    //    'rgba(153, 102, 255, 1)',
+                    //    'rgba(255, 159, 64, 1)',
+                    //    'rgba(255, 0, 0)',
+                    //    'rgba(0, 255, 0)',
+                    //    'rgba(0, 0, 255)',
+                    //    'rgba(192, 192, 192)',
+                    //    'rgba(255, 255, 0)',
+                    //    'rgba(255, 0, 255)'
+                    //],
+                    scaleFontColor: 'rgba(220,53,69)',
+                    borderWidth: 1,
+                    data: @Html.Raw(YValues)
+    }]
+            };
+
+var options = {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            fontColor: 'rgba(220, 53, 69)',
+                            fontSize: 18,
+                            stepSize: 1,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+}],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            fontColor: 'rgba(220, 53, 69)',
+                            fontSize: 18,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+
+       var myChart = new  Chart(ctx, {
+                options: options,
+                data: data,
+                type:'bar'
+
+            });
+        });
+    </script>
+}

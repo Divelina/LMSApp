@@ -1,0 +1,21 @@
+﻿@using LMSApp.Data.Models
+@using LMSApp.Areas.Student.Views.Lecturecises
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<LMSAppUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+@*<ul class="nav nav-pills nav-stacked">*@
+<ul class="nav nav-pills flex-column bg-dark mb-lg-2" id="adm-course-nav">
+    <li class="nav-item @LectureciseNavPages.CurrentYearLecturecisesNavClass(ViewContext)">
+        <a class="nav-link" id="current-lecturecise" asp-controller="Lecturecises" asp-action="CurrentYearLecturecises">Current Lecturecises</a>
+    </li>
+    <li class="nav-item @LectureciseNavPages.AllNavClass(ViewContext)">
+        <a class="nav-link" id="current-assignments" asp-controller="Assignments" asp-action="All">Assignments</a>
+    </li>
+
+    <li class="nav-item @LectureciseNavPages.AllLecturecisesNavClass(ViewContext)">
+        <a class="nav-link act" asp-controller="Lecturecises" asp-action="AllLecturecises">All Lecturecises</a>
+    </li>
+</ul>
