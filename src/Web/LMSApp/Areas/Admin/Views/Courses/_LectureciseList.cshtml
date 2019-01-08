@@ -13,7 +13,7 @@
         <thead>
             <tr>
                 <th scope="col" class="text-center">Type</th>
-                <th scope="col" class="text-center">Students</th>
+                <th scope="col" class="text-center th-hide">Students</th>
                 <th scope="col" class="text-center">Time</th>
                 <th scope="col" class="text-center">Educators</th>
                 @if (await UserManager.IsInRoleAsync(currentUser, "Admin") || await UserManager.IsInRoleAsync(currentUser, "Educator"))
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="text-center">
+                    <td class="text-center td-hide">
                         @lecturecise.StudentNumber
                     </td>
                     <td class="text-center">

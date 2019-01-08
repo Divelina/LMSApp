@@ -39,8 +39,30 @@ div.header-sm {
     text-align: center;
 }
 
-    /*Common*/
-div.container-custom {
+.btn-spectra-left{
+    background-image: linear-gradient(to right, red, yellow);
+    border:none;
+    color: blue;
+}
+
+.btn-spectra-mid{
+    background-color:limegreen;
+    border: none;
+}
+
+.btn-spectra-mid:hover {
+    background-color: limegreen;
+    border: none;
+}
+
+.btn-spectra-right {
+    background-image: linear-gradient(to right, blue, purple);
+    border:none;
+    color: yellow;
+}
+    
+ /*Common*/
+    div .container-custom {
     padding: 30px;
 }
 
@@ -124,4 +146,18 @@ div.container-custom {
 /*Images*/
 img {
     width: 100%;
+}
+
+/*Phone sceen responsive*/
+
+@media only screen and (max-width: 480px) 
+and (orientation: portrait) {
+
+    td.td-hide {
+        display: none;
+    }
+
+    th.th-hide {
+        display: none;
+    }
 }

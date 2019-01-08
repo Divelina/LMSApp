@@ -21,13 +21,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSApp.Data.Common", "Data\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A044A925-C614-4451-A974-AE8C0266BAF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSApp.Services.DataServices", "Services\LMSApp.Services.DataServices\LMSApp.Services.DataServices.csproj", "{CEDD705E-E31B-416A-B3DA-C57E1DE2A8A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSApp.Services.DataServices", "Services\LMSApp.Services.DataServices\LMSApp.Services.DataServices.csproj", "{CEDD705E-E31B-416A-B3DA-C57E1DE2A8A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSApp.Services.Models", "Services\LMSApp.Services.Models\LMSApp.Services.Models.csproj", "{0C6F9D7B-6F4F-401B-8B6F-FF0D33672A4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSApp.Services.Models", "Services\LMSApp.Services.Models\LMSApp.Services.Models.csproj", "{0C6F9D7B-6F4F-401B-8B6F-FF0D33672A4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSApp.Services.Mapping", "Services\ClassLibrary1\LMSApp.Services.Mapping.csproj", "{BB2CDF5B-375D-4CDC-8134-2454420DD509}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSApp.Services.Mapping", "Services\ClassLibrary1\LMSApp.Services.Mapping.csproj", "{BB2CDF5B-375D-4CDC-8134-2454420DD509}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSApp.Services.CommonInterfaces", "Services\LMSApp.Services.CommonInterfaces\LMSApp.Services.CommonInterfaces.csproj", "{E4E2B6F6-5A6C-41E4-A270-8244002D2158}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSApp.Services.CommonInterfaces", "Services\LMSApp.Services.CommonInterfaces\LMSApp.Services.CommonInterfaces.csproj", "{E4E2B6F6-5A6C-41E4-A270-8244002D2158}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSApp.Services.DataServices.Tests", "Tests\LMSApp.Services.DataServices.Tests\LMSApp.Services.DataServices.Tests.csproj", "{0BFD1BFD-9087-44AB-8EE7-663D6FDF0D2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{E4E2B6F6-5A6C-41E4-A270-8244002D2158}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4E2B6F6-5A6C-41E4-A270-8244002D2158}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4E2B6F6-5A6C-41E4-A270-8244002D2158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BFD1BFD-9087-44AB-8EE7-663D6FDF0D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BFD1BFD-9087-44AB-8EE7-663D6FDF0D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BFD1BFD-9087-44AB-8EE7-663D6FDF0D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BFD1BFD-9087-44AB-8EE7-663D6FDF0D2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{0C6F9D7B-6F4F-401B-8B6F-FF0D33672A4E} = {A044A925-C614-4451-A974-AE8C0266BAF1}
 		{BB2CDF5B-375D-4CDC-8134-2454420DD509} = {A044A925-C614-4451-A974-AE8C0266BAF1}
 		{E4E2B6F6-5A6C-41E4-A270-8244002D2158} = {A044A925-C614-4451-A974-AE8C0266BAF1}
+		{0BFD1BFD-9087-44AB-8EE7-663D6FDF0D2E} = {1E2A777B-98A0-4767-A187-AD5693DD3C37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9F689E2-AC5A-4EFD-ACB7-7178941F8808}
