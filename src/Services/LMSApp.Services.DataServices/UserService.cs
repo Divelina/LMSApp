@@ -27,35 +27,7 @@ namespace LMSApp.Services.DataServices
             this.studentRepository = studentRepository;
         }
 
-        public async Task<IList<UserListViewModel>> GetAll()
-        {
-            var users = this.userManager.Users
-                .Select(u => new UserListViewModel()
-                {
-                    Id = u.Id,
-                    Email = u.Email,
-                    FirstName = u.FirstName,
-                    FamilyName = u.FamilyName,
-                    UserName = u.UserName
-                })
-                .ToList();
-
-            foreach (var user in users)
-            {
-                var userDb = await this.userManager.FindByIdAsync(user.Id);
-
-                user.IsLockedOut = await this.userManager.IsLockedOutAsync(userDb);
-
-                user.IsAdmin = await this.userManager.IsInRoleAsync(userDb, "Admin");
-
-                user.IsEducator = await this.userManager.IsInRoleAsync(userDb, "Educator");
-
-                user.IsStudent = await this.userManager.IsInRoleAsync(userDb, "Student");
-            }
-
-            return users;
-        }
-
+        
         public bool AnyStudent(int uniId, FacultyOf faculty)
         {
             var isFound = this.studentRepository.All().Any(s =>
@@ -131,6 +103,36 @@ namespace LMSApp.Services.DataServices
 
             await this.studentRepository.SaveChangesAsync();
         }
+
+        public async Task<IList<UserListViewModel>> GetAll()
+        {
+            var users = this.userManager.Users
+                .Select(u => new UserListViewModel()
+                {
+                    Id = u.Id,
+                    Email = u.Email,
+                    FirstName = u.FirstName,
+                    FamilyName = u.FamilyName,
+                    UserName = u.UserName
+                })
+                .ToList();
+
+            foreach (var user in users)
+            {
+                var userDb = await this.userManager.FindByIdAsync(user.Id);
+
+                user.IsLockedOut = await this.userManager.IsLockedOutAsync(userDb);
+
+                user.IsAdmin = await this.userManager.IsInRoleAsync(userDb, "Admin");
+
+                user.IsEducator = await this.userManager.IsInRoleAsync(userDb, "Educator");
+
+                user.IsStudent = await this.userManager.IsInRoleAsync(userDb, "Student");
+            }
+
+            return users;
+        }
+
 
         public async Task<IList<StudentListViewModel>> GetAllStudentsByCourse(string courseId)
         {

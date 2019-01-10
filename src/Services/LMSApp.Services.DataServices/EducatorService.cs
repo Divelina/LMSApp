@@ -1,18 +1,17 @@
 ﻿
+using AutoMapper;
 using LMSApp.Data.Common;
+using LMSApp.Data.Models;
 using LMSApp.Data.Models.UserTypes;
 using LMSApp.Services.CommonInterfaces;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using System.Linq;
-using System.Collections.Generic;
 using LMSApp.Services.Models.Users;
 using LMSApp.Services.Mapping;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using LMSApp.Data.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LMSApp.Services.DataServices
 {
@@ -91,10 +90,10 @@ namespace LMSApp.Services.DataServices
 
         public IEnumerable<EducatorIdAndNameViewModel> GetAll()
         {
-            var courses = this.educatorRepository.All()
+            var educators = this.educatorRepository.All()
                 .To<EducatorIdAndNameViewModel>();
 
-            return courses;
+            return educators;
         }
 
     }

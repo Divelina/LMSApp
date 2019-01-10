@@ -8,7 +8,6 @@ using LMSApp.Data.Models.Enums;
 using LMSApp.Data.Models.UserTypes;
 using LMSApp.Services.Models.Courses;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ using Xunit;
 
 namespace LMSApp.Services.DataServices.Tests
 {
-    [Collection("LMSApp_Service_Test")]
+    [Collection("LMSApp_Service_Tests")]
     public class LectureciseServiceTests : IClassFixture<DatabaseLectureciseFixture>
     {
         DatabaseLectureciseFixture dbFixture;
@@ -69,8 +68,6 @@ namespace LMSApp.Services.DataServices.Tests
         public async Task GetByIdGetsTheEntityWithTheGivenId()
         {
             BaseServiceTests.Initialize();
-
-            //var firstEntityId = this.dbFixture.dbContext.Lecturecises.First().Id;
 
             var ids = this.dbFixture.dbContext.Lecturecises
                 .Where(l => l.IsDeleted == false).Select(l => l.Id).ToList();
@@ -246,64 +243,8 @@ namespace LMSApp.Services.DataServices.Tests
         {
             BaseServiceTests.Initialize();
 
-            var lectureRepository = new Mock<IRepository<Lecturecise>>();
-            lectureRepository.Setup(r => r.All())
-                .Returns(
-                new List<Lecturecise>()
-                {
-                    new Lecturecise()
-                    {
-                        Id = "rand1",
-                        CourseId = "rand",
-                        Course = new Course(){Name ="N", Year ="2017/2018", Semester = Semester.Summer, Major = Major.Biotechnologies},
-                        Type = LectureciseType.Excercise,
-                        IsDeleted = false,
-                        WeekTimes = new List<WeekTime>()
-                        {
-                            new WeekTime() { DayOfWeek = DayOfWeek.Friday, StartHour = "12"}
-                        },
-                        LectureciseStudents = new List<StudentLecturecise>()
-                        {
-                            new StudentLecturecise(){ LectureciseId = "rand1", StudentId = "student1"}
-                        },
-                        LectureciseEducators = new List<EducatorLecturecise>()
-                        {
-                            new EducatorLecturecise()
-                            { LectureciseId = "rand1",
-                                EducatorId = "edu1",
-                                Educator = new Educator(){UserId = "some1", FacultyName = FacultyOf.Biology
-                                , User = new LMSAppUser(){FamilyName = "V", FirstName = "V"} }
-                            }
-                        }
-                    },
-                    new Lecturecise()
-                    {
-                        Id = "rand2",
-                        CourseId = "rand",
-                        Course = new Course(){Name ="N", Year ="2017/2018", Semester = Semester.Summer, Major = Major.Biotechnologies},
-                        Type = LectureciseType.Excercise,
-                        IsDeleted = false,
-                        WeekTimes = new List<WeekTime>()
-                        {
-                        new WeekTime() { DayOfWeek = DayOfWeek.Friday, StartHour = "12"}
-                        },
-                        LectureciseStudents = new List<StudentLecturecise>()
-                        {
-                            new StudentLecturecise(){ LectureciseId = "rand2", StudentId = "student2"}
-                        },
-                        LectureciseEducators = new List<EducatorLecturecise>()
-                        {
-                            new EducatorLecturecise()
-                            { LectureciseId = "rand2",
-                                EducatorId = "edu2",
-                                Educator = new Educator(){UserId = "some2", FacultyName = FacultyOf.Biology
-                                , User = new LMSAppUser(){FamilyName = "U", FirstName = "U"} }
-                            }
-                        }
-                    }}
-                .AsQueryable());
-
-            var service = new LectureciseService(lectureRepository.Object);
+            var repository = new DbRepository<Lecturecise>(this.dbFixture.dbContext);
+            var service = new LectureciseService(repository);
 
             Assert.Single(service.GetAllByStudent("student1"));
         }
@@ -418,6 +359,36 @@ namespace LMSApp.Services.DataServices.Tests
                 Assert.Equal("1", dbContext.Lecturecises.FirstOrDefault().CourseId);
                 Assert.Equal(LectureciseType.Excercise, dbContext.Lecturecises.FirstOrDefault().Type);
             }
+        }
+
+        [Fact]
+        public void GetByIdOriginalGetsTheLectureciseWithTheGivenId()
+        {
+            BaseServiceTests.Initialize();
+
+            var id = "rand1";
+
+            var repository = new DbRepository<Lecturecise>(this.dbFixture.dbContext);
+            var service = new LectureciseService(repository);
+
+            var result = service.GetByOriginal(id);
+
+            Assert.Equal(id, result.Id);
+        }
+
+        [Fact]
+        public void GetByIdOriginalReturnsNullIfIdNotFound()
+        {
+            BaseServiceTests.Initialize();
+
+            var id = "NoSuchLecturecise";
+
+            var repository = new DbRepository<Lecturecise>(this.dbFixture.dbContext);
+            var service = new LectureciseService(repository);
+
+            var result = service.GetByOriginal(id);
+
+            Assert.Null(result);
         }
     }
 }
