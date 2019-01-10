@@ -19,6 +19,8 @@ using LMSApp.Services.DataServices;
 using LMSApp.Services.Models.Courses;
 using LMSApp.Services.Models.Users;
 using LMSApp.Services.Models.Assignments;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using LMSApp.Areas.Identity.Services;
 
 namespace LMSApp
 {
@@ -47,37 +49,43 @@ namespace LMSApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-                services.AddDbContext<LMSAppContext>(options =>
-                    options.UseSqlServer(
-                        this.Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<LMSAppContext>(options =>
+                options.UseSqlServer(
+                    this.Configuration.GetConnectionString("DefaultConnection")));
 
-                services.AddIdentity<LMSAppUser, IdentityRole>(
-                    options =>
-                    {
-                        options.Password.RequiredLength = 6;
-                        options.Password.RequireDigit = false;
-                        options.Password.RequireNonAlphanumeric = false;
-                        options.Password.RequireUppercase = false;
-                        options.Password.RequireLowercase = false;
-                        options.User.RequireUniqueEmail = true;
-                    }
-                    )
-                    .AddEntityFrameworkStores<LMSAppContext>()
-                    .AddDefaultUI()
-                    .AddDefaultTokenProviders();
+            services.AddIdentity<LMSAppUser, IdentityRole>(
+                options =>
+                {
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
+                    options.User.RequireUniqueEmail = true;
+                    options.SignIn.RequireConfirmedEmail = true;
+                }
+                )
+                .AddEntityFrameworkStores<LMSAppContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
 
             services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
 
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+
             services.AddSession();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //TODO - to test if the automapper works without this. It should.
-            //This requires AutoMapper.Extensions.Microsoft.DependencyInjection which I am not going to use?
-            //services.AddAutomapper();
-
-            //Application services
-
-            //TODO - Make and register a logger service
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<ICourseService, CourseService>();

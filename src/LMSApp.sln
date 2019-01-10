@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSApp.Services.Mapping", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSApp.Services.CommonInterfaces", "Services\LMSApp.Services.CommonInterfaces\LMSApp.Services.CommonInterfaces.csproj", "{E4E2B6F6-5A6C-41E4-A270-8244002D2158}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSApp.Services.DataServices.Tests", "Tests\LMSApp.Services.DataServices.Tests\LMSApp.Services.DataServices.Tests.csproj", "{0BFD1BFD-9087-44AB-8EE7-663D6FDF0D2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LMSApp.Services.DataServices.Tests", "Tests\LMSApp.Services.DataServices.Tests\LMSApp.Services.DataServices.Tests.csproj", "{0BFD1BFD-9087-44AB-8EE7-663D6FDF0D2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
